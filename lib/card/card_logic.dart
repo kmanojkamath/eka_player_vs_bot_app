@@ -9,7 +9,7 @@ class EkaCard {
   EkaCard(this._ci);
 
   CardColor get color {
-    switch (_ci / 25) {
+    switch (_ci ~/ 25) {
       case 0:
         return CardColor.red;
       case 1:
