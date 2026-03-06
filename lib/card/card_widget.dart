@@ -18,7 +18,7 @@ class EkaCardWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.black, width: 0.5)
+            border: Border.all(color: Colors.black, width: 0.5),
           ),
         ),
         Container(
@@ -28,18 +28,71 @@ class EkaCardWidget extends StatelessWidget {
             color: color(EkaCard(_ci).color),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: FittedBox(
-            child: SizedBox(
-              width: 178,
-              height: 210,
-              child: CustomPaint(
-                painter: CenterOval(
-                  color(EkaCard(_ci).color),
-                  width: 178,
-                  height: 216,
-                  angle: 0.6,
+          child: SizedBox(
+            width: 178,
+            height: 210,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: AlignmentGeometry.center,
+                  child: CustomPaint(
+                    painter: CenterOval(
+                      color(EkaCard(_ci).color),
+                      width: 177,
+                      height: 216,
+                      angle: 0.6,
+                    ),
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: AlignmentGeometry.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                    child: Text(
+                      EkaCard(_ci).value.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 42,
+                        fontFamily: 'Montserrat'
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentGeometry.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                    child: Transform.flip(
+                      flipY: true,
+                      child: Text(
+                        EkaCard(_ci).value.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 42,
+                          fontFamily: 'Montserrat'
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentGeometry.center,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text(
+                      EkaCard(_ci).value.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 75,
+                        fontFamily: 'Montserrat'
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
