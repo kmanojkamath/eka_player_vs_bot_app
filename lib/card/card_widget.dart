@@ -22,7 +22,8 @@ Color color(CardColor cardcolor) {
 
 class EkaCardWidget extends StatelessWidget {
   final int _ci;
-  const EkaCardWidget(this._ci, {super.key});
+  final double cardHeight;
+  EkaCardWidget(this._ci, {super.key, this.cardHeight = 281});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,8 @@ class EkaCardWidget extends StatelessWidget {
       alignment: AlignmentGeometry.center,
       children: [
         Container(
-          width: 188,
-          height: 281,
+          width: cardHeight * 188 / 281,
+          height: cardHeight,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -39,8 +40,8 @@ class EkaCardWidget extends StatelessWidget {
           ),
         ),
         Container(
-          width: 168,
-          height: 261,
+          width: cardHeight * 168 / 281,
+          height: cardHeight * 261 / 281,
           decoration: BoxDecoration(
             gradient: RadialGradient(
               colors: [Colors.black, color(EkaCard(_ci).color)],
@@ -49,8 +50,8 @@ class EkaCardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: SizedBox(
-            width: 178,
-            height: 210,
+            width: cardHeight * 178 / 281,
+            height: cardHeight * 210 / 281,
             child: Stack(
               children: [
                 Align(
@@ -58,8 +59,8 @@ class EkaCardWidget extends StatelessWidget {
                   child: CustomPaint(
                     painter: CenterOval(
                       color(EkaCard(_ci).color),
-                      width: 177,
-                      height: 216,
+                      width: cardHeight * 177 / 281,
+                      height: cardHeight * 216 / 281,
                       angle: 0.6,
                     ),
                   ),
@@ -69,13 +70,13 @@ class EkaCardWidget extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
                       EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
-                          ? 8
-                          : 16,
+                          ? 8 * cardHeight / 281
+                          : 16 * cardHeight / 281,
                       EkaCard(_ci).value == 10 ? 16 : 0,
                       0,
                       0,
                     ),
-                    child: Symbol(_ci),
+                    child: Symbol(_ci, cardHeight: cardHeight),
                   ),
                 ),
                 Align(
@@ -85,14 +86,14 @@ class EkaCardWidget extends StatelessWidget {
                       0,
                       0,
                       EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
-                          ? 8
-                          : 16,
+                          ? 8 * cardHeight / 281
+                          : 16 * cardHeight / 281,
                       EkaCard(_ci).value == 10 ? 16 : 0,
                     ),
                     child: Transform.flip(
                       flipY: true,
                       flipX: true,
-                      child: Symbol(_ci),
+                      child: Symbol(_ci, cardHeight: cardHeight),
                     ),
                   ),
                 ),
@@ -100,7 +101,11 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.center,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Symbol(_ci, isMiddleSymbol: true),
+                    child: Symbol(
+                      _ci,
+                      isMiddleSymbol: true,
+                      cardHeight: cardHeight,
+                    ),
                   ),
                 ),
               ],
