@@ -1,40 +1,9 @@
-import 'dart:math';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'card_logic.dart';
-
-class SkipSymbol extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height / 2),
-      size.width / 2,
-      Paint()
-        ..color = Colors.white
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = size.width / 7,
-    );
-    canvas.drawLine(
-      Offset(
-        0.5 * size.width * (1 + 1 / sqrt2),
-        0.5 * size.height * (1 - 1 / sqrt2),
-      ),
-      Offset(
-        0.5 * size.width * (1 - 1 / sqrt2),
-        0.5 * size.height * (1 + 1 / sqrt2),
-      ),
-      Paint()
-        ..color = Colors.white
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = size.width / 7,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
+import 'symbols/skip_symbol.dart';
+import 'symbols/reverse_symbol.dart';
 
 class Symbol extends StatelessWidget {
   final int _ci;
@@ -94,7 +63,15 @@ class Symbol extends StatelessWidget {
         width: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
         child: CustomPaint(painter: SkipSymbol()),
       );
+    } else if (EkaCard(_ci).value == 11) {
+      return SizedBox(
+        height: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
+        width: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
+        child: CustomPaint(painter: ReverseSymbol()),
+      );
     }
+
+    if (kDebugMode) debugPrint("Card Symbol Error for Card Index $_ci");
     return const Placeholder();
   }
 }
