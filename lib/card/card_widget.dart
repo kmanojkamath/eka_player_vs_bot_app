@@ -72,7 +72,7 @@ class EkaCardWidget extends StatelessWidget {
                       EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).value == 10 ? 16 : 0,
+                      EkaCard(_ci).value == 10 || EkaCard(_ci).value == 11 ? 16 : 0,
                       0,
                       0,
                     ),
@@ -88,7 +88,7 @@ class EkaCardWidget extends StatelessWidget {
                       EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).value == 10 ? 16 : 0,
+                      EkaCard(_ci).value == 10 || EkaCard(_ci).value == 11 ? 16 : 0,
                     ),
                     child: Transform.flip(
                       flipY: true,
