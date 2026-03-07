@@ -42,6 +42,9 @@ class EkaCardWidget extends StatelessWidget {
           width: 168,
           height: 261,
           decoration: BoxDecoration(
+            gradient: RadialGradient(
+              colors: [Colors.black, color(EkaCard(_ci).color)],
+            ),
             color: color(EkaCard(_ci).color),
             borderRadius: BorderRadius.circular(12),
           ),
