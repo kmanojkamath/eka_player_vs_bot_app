@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'card_logic.dart';
+
 import 'symbols/skip_symbol.dart';
 import 'symbols/reverse_symbol.dart';
+import 'symbols/wild_symbol.dart';
 
 class Symbol extends StatelessWidget {
   final int _ci;
@@ -68,6 +70,12 @@ class Symbol extends StatelessWidget {
         height: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
         width: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
         child: CustomPaint(painter: ReverseSymbol()),
+      );
+    } else if (EkaCard(_ci).value == 13) {
+      return SizedBox(
+        height: isMiddleSymbol ? 251 * cardHeight / 281 : 42 * cardHeight / 281,
+        width: isMiddleSymbol ? 188 * cardHeight / 281 : 42*0.81 * cardHeight / 281,
+        child: CustomPaint(painter: WildSymbol()),
       );
     }
 
