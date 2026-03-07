@@ -72,7 +72,11 @@ class EkaCardWidget extends StatelessWidget {
                       EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).value == 10 || EkaCard(_ci).value == 11 || EkaCard(_ci).value == 13 ? 16 : 0,
+                      EkaCard(_ci).value == 10 ||
+                              EkaCard(_ci).value == 11 ||
+                              EkaCard(_ci).value == 13
+                          ? 16
+                          : 0,
                       0,
                       0,
                     ),
@@ -88,7 +92,11 @@ class EkaCardWidget extends StatelessWidget {
                       EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).value == 10 || EkaCard(_ci).value == 11 || EkaCard(_ci).value == 13 ? 16 : 0,
+                      EkaCard(_ci).value == 10 ||
+                              EkaCard(_ci).value == 11 ||
+                              EkaCard(_ci).value == 13
+                          ? 16
+                          : 0,
                     ),
                     child: Transform.flip(
                       flipY: true,
@@ -101,11 +109,17 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.center,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Symbol(
-                      _ci,
-                      isMiddleSymbol: true,
-                      cardHeight: cardHeight,
-                    ),
+                    child: EkaCard(_ci).value != 14
+                        ? Symbol(
+                            _ci,
+                            isMiddleSymbol: true,
+                            cardHeight: cardHeight,
+                          )
+                        : Symbol(
+                            100,
+                            cardHeight: cardHeight,
+                            isMiddleSymbol: true,
+                          ),
                   ),
                 ),
               ],
