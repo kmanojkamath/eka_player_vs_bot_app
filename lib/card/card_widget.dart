@@ -1,10 +1,12 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card_logic.dart';
+import 'card_logic.dart';
+import 'card_symbols.dart';
+
 import 'package:flutter/material.dart';
 
-Color color(CardColor cardcolor){
-  switch(cardcolor){
+Color color(CardColor cardcolor) {
+  switch (cardcolor) {
     case CardColor.red:
       return Colors.redAccent;
     case CardColor.green:
@@ -62,33 +64,32 @@ class EkaCardWidget extends StatelessWidget {
                 Align(
                   alignment: AlignmentGeometry.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                    child: Text(
-                      EkaCard(_ci).value.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 42,
-                        fontFamily: 'Montserrat'
-                      ),
+                    padding: EdgeInsets.fromLTRB(
+                      EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
+                          ? 8
+                          : 16,
+                      EkaCard(_ci).value == 10 ? 16 : 0,
+                      0,
+                      0,
                     ),
+                    child: Symbol(_ci),
                   ),
                 ),
                 Align(
                   alignment: AlignmentGeometry.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                    padding: EdgeInsets.fromLTRB(
+                      0,
+                      0,
+                      EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
+                          ? 8
+                          : 16,
+                      EkaCard(_ci).value == 10 ? 16 : 0,
+                    ),
                     child: Transform.flip(
                       flipY: true,
-                      child: Text(
-                        EkaCard(_ci).value.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 42,
-                          fontFamily: 'Montserrat'
-                        ),
-                      ),
+                      flipX: true,
+                      child: Symbol(_ci),
                     ),
                   ),
                 ),
@@ -96,16 +97,7 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.center,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text(
-                      EkaCard(_ci).value.toString(),
-                        style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 81,
-                        fontFamily: 'Montserrat',
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
+                    child: Symbol(_ci, isMiddleSymbol: true),
                   ),
                 ),
               ],
@@ -159,9 +151,7 @@ class CenterOval extends CustomPainter {
         width: a,
         height: b,
       ),
-      Paint()
-        ..color = color
-        ..strokeWidth = 1,
+      Paint()..color = color,
     );
   }
 
