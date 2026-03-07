@@ -6,7 +6,6 @@ import 'card_logic.dart';
 class SkipSymbol extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    debugPrint(size.width.toString());
     canvas.drawCircle(
       Offset(size.width / 2, size.height / 2),
       size.width / 2,
@@ -40,7 +39,13 @@ class SkipSymbol extends CustomPainter {
 class Symbol extends StatelessWidget {
   final int _ci;
   final bool isMiddleSymbol;
-  const Symbol(this._ci, {super.key, this.isMiddleSymbol = false});
+  final double cardHeight;
+  const Symbol(
+    this._ci, {
+    super.key,
+    this.isMiddleSymbol = false,
+    required this.cardHeight,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +55,9 @@ class Symbol extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w900,
-          fontSize: isMiddleSymbol ? 81 : 42,
+          fontSize: isMiddleSymbol
+              ? 81 * cardHeight / 281
+              : 42 * cardHeight / 281,
           fontFamily: 'Montserrat',
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
@@ -61,7 +68,9 @@ class Symbol extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w900,
-          fontSize: isMiddleSymbol ? 81 : 40,
+          fontSize: isMiddleSymbol
+              ? 81 * cardHeight / 281
+              : 40 * cardHeight / 281,
           fontFamily: 'Montserrat',
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
@@ -72,15 +81,17 @@ class Symbol extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w900,
-          fontSize: isMiddleSymbol ? 81 : 40,
+          fontSize: isMiddleSymbol
+              ? 81 * cardHeight / 281
+              : 40 * cardHeight / 281,
           fontFamily: 'Montserrat',
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
       );
     } else if (EkaCard(_ci).value == 10) {
       return SizedBox(
-        height: isMiddleSymbol ? 72 : 32,
-        width: isMiddleSymbol ? 72 : 32,
+        height: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
+        width: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
         child: CustomPaint(painter: SkipSymbol()),
       );
     }
