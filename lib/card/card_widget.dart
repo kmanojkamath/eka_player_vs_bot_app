@@ -3,6 +3,21 @@ import 'dart:math';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
 
+Color color(CardColor cardcolor){
+  switch(cardcolor){
+    case CardColor.red:
+      return Colors.redAccent;
+    case CardColor.green:
+      return Colors.green;
+    case CardColor.blue:
+      return Colors.blue;
+    case CardColor.yellow:
+      return Colors.amber;
+    case CardColor.wild:
+      return Colors.black;
+  }
+}
+
 class EkaCardWidget extends StatelessWidget {
   final int _ci;
   const EkaCardWidget(this._ci, {super.key});
@@ -83,11 +98,12 @@ class EkaCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Text(
                       EkaCard(_ci).value.toString(),
-                      style: TextStyle(
+                        style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,
-                        fontSize: 75,
-                        fontFamily: 'Montserrat'
+                        fontSize: 81,
+                        fontFamily: 'Montserrat',
+                        fontStyle: FontStyle.italic,
                       ),
                     ),
                   ),

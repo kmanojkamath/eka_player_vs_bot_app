@@ -88,6 +88,7 @@ flutter:
   fonts:
     - family: Montserrat
       fonts:
+        - asset: fonts/static/Montserrat-ExtraBoldItalic.ttf
         - asset: fonts/static/Montserrat-ExtraBold.ttf
 
   # For details regarding fonts from package dependencies,
