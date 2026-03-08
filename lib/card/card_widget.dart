@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 Color color(CardColor cardcolor) {
   switch (cardcolor) {
     case CardColor.red:
-      return Colors.redAccent;
+      return Colors.red;
     case CardColor.green:
       return Colors.green;
     case CardColor.blue:
       return Colors.blue;
     case CardColor.yellow:
-      return Colors.amber;
+      return Colors.amberAccent;
     case CardColor.wild:
       return Colors.black;
   }
@@ -69,12 +69,12 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.topLeft,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
-                      EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
+                      EkaCard(_ci).isDrawTwo || EkaCard(_ci).isWildDrawFour
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).value == 10 ||
-                              EkaCard(_ci).value == 11 ||
-                              EkaCard(_ci).value == 13
+                      EkaCard(_ci).isSkip ||
+                              EkaCard(_ci).isReverse ||
+                              EkaCard(_ci).isWildCard
                           ? 16
                           : 0,
                       0,
@@ -89,12 +89,12 @@ class EkaCardWidget extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(
                       0,
                       0,
-                      EkaCard(_ci).value == 12 || EkaCard(_ci).value == 14
+                      EkaCard(_ci).isDrawTwo || EkaCard(_ci).isWildDrawFour
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).value == 10 ||
-                              EkaCard(_ci).value == 11 ||
-                              EkaCard(_ci).value == 13
+                      EkaCard(_ci).isSkip ||
+                              EkaCard(_ci).isReverse ||
+                              EkaCard(_ci).isWildCard
                           ? 16
                           : 0,
                     ),
@@ -109,16 +109,16 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.center,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: EkaCard(_ci).value != 14
+                    child: EkaCard(_ci).isWildDrawFour
                         ? Symbol(
-                            _ci,
-                            isMiddleSymbol: true,
-                            cardHeight: cardHeight,
-                          )
-                        : Symbol(
                             100,
                             cardHeight: cardHeight,
                             isMiddleSymbol: true,
+                          )
+                        : Symbol(
+                            _ci,
+                            isMiddleSymbol: true,
+                            cardHeight: cardHeight,
                           ),
                   ),
                 ),

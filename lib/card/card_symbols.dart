@@ -20,7 +20,7 @@ class Symbol extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (EkaCard(_ci).value < 10) {
+    if (EkaCard(_ci).isNumber) {
       return Text(
         EkaCard(_ci).value.toString(),
         style: TextStyle(
@@ -33,7 +33,7 @@ class Symbol extends StatelessWidget {
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
       );
-    } else if (EkaCard(_ci).value == 12) {
+    } else if (EkaCard(_ci).isDrawTwo) {
       return Text(
         "+2",
         style: TextStyle(
@@ -46,7 +46,7 @@ class Symbol extends StatelessWidget {
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
       );
-    } else if (EkaCard(_ci).value == 14) {
+    } else if (EkaCard(_ci).isWildDrawFour) {
       return Text(
         "+4",
         style: TextStyle(
@@ -59,19 +59,19 @@ class Symbol extends StatelessWidget {
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
       );
-    } else if (EkaCard(_ci).value == 10) {
+    } else if (EkaCard(_ci).isSkip) {
       return SizedBox(
         height: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
         width: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
         child: CustomPaint(painter: SkipSymbol()),
       );
-    } else if (EkaCard(_ci).value == 11) {
+    } else if (EkaCard(_ci).isReverse) {
       return SizedBox(
         height: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
         width: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
         child: CustomPaint(painter: ReverseSymbol()),
       );
-    } else if (EkaCard(_ci).value == 13) {
+    } else if (EkaCard(_ci).isWildCard) {
       return SizedBox(
         height: isMiddleSymbol ? 251 * cardHeight / 281 : 42 * cardHeight / 281,
         width: isMiddleSymbol ? 188 * cardHeight / 281 : 42*0.81 * cardHeight / 281,
