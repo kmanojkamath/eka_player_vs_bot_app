@@ -23,7 +23,7 @@ Color color(CardColor cardcolor) {
 class EkaCardWidget extends StatelessWidget {
   final int _ci;
   final double cardHeight;
-  EkaCardWidget(this._ci, {super.key, this.cardHeight = 281});
+  const EkaCardWidget(this._ci, {super.key, this.cardHeight = 281});
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +75,8 @@ class EkaCardWidget extends StatelessWidget {
                       EkaCard(_ci).isSkip ||
                               EkaCard(_ci).isReverse ||
                               EkaCard(_ci).isWildCard
-                          ? 16
-                          : 0,
+                          ? 16 * cardHeight / 281
+                          : 0 * cardHeight / 281,
                       0,
                       0,
                     ),
@@ -95,8 +95,8 @@ class EkaCardWidget extends StatelessWidget {
                       EkaCard(_ci).isSkip ||
                               EkaCard(_ci).isReverse ||
                               EkaCard(_ci).isWildCard
-                          ? 16
-                          : 0,
+                          ? 16 * cardHeight / 281
+                          : 0 * cardHeight / 281,
                     ),
                     child: Transform.flip(
                       flipY: true,
