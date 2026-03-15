@@ -41,4 +41,11 @@ class EkaCard {
       return 14;
     }
   }
+
+  bool get isNumber => value < 10;
+  bool get isSkip => value == 10;
+  bool get isReverse => value == 11;
+  bool get isDrawTwo => value == 12;
+  bool get isWildCard => value == 13;
+  bool get isWildDrawFour => value == 14;
 }

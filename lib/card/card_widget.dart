@@ -1,11 +1,29 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card_logic.dart';
+import 'card_logic.dart';
+import 'card_symbols.dart';
+
 import 'package:flutter/material.dart';
+
+Color color(CardColor cardcolor) {
+  switch (cardcolor) {
+    case CardColor.red:
+      return Colors.red;
+    case CardColor.green:
+      return Colors.green;
+    case CardColor.blue:
+      return Colors.blue;
+    case CardColor.yellow:
+      return Colors.amberAccent;
+    case CardColor.wild:
+      return Colors.black;
+  }
+}
 
 class EkaCardWidget extends StatelessWidget {
   final int _ci;
-  const EkaCardWidget(this._ci, {super.key});
+  final double cardHeight;
+  EkaCardWidget(this._ci, {super.key, this.cardHeight = 281});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +31,8 @@ class EkaCardWidget extends StatelessWidget {
       alignment: AlignmentGeometry.center,
       children: [
         Container(
-          width: 188,
-          height: 281,
+          width: cardHeight * 188 / 281,
+          height: cardHeight,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -22,15 +40,18 @@ class EkaCardWidget extends StatelessWidget {
           ),
         ),
         Container(
-          width: 168,
-          height: 261,
+          width: cardHeight * 168 / 281,
+          height: cardHeight * 261 / 281,
           decoration: BoxDecoration(
+            gradient: RadialGradient(
+              colors: [Colors.black, color(EkaCard(_ci).color)],
+            ),
             color: color(EkaCard(_ci).color),
             borderRadius: BorderRadius.circular(12),
           ),
           child: SizedBox(
-            width: 178,
-            height: 210,
+            width: cardHeight * 178 / 281,
+            height: cardHeight * 210 / 281,
             child: Stack(
               children: [
                 Align(
@@ -38,8 +59,8 @@ class EkaCardWidget extends StatelessWidget {
                   child: CustomPaint(
                     painter: CenterOval(
                       color(EkaCard(_ci).color),
-                      width: 177,
-                      height: 216,
+                      width: cardHeight * 177 / 281,
+                      height: cardHeight * 216 / 281,
                       angle: 0.6,
                     ),
                   ),
@@ -47,33 +68,40 @@ class EkaCardWidget extends StatelessWidget {
                 Align(
                   alignment: AlignmentGeometry.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                    child: Text(
-                      EkaCard(_ci).value.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 42,
-                        fontFamily: 'Montserrat'
-                      ),
+                    padding: EdgeInsets.fromLTRB(
+                      EkaCard(_ci).isDrawTwo || EkaCard(_ci).isWildDrawFour
+                          ? 8 * cardHeight / 281
+                          : 16 * cardHeight / 281,
+                      EkaCard(_ci).isSkip ||
+                              EkaCard(_ci).isReverse ||
+                              EkaCard(_ci).isWildCard
+                          ? 16
+                          : 0,
+                      0,
+                      0,
                     ),
+                    child: Symbol(_ci, cardHeight: cardHeight),
                   ),
                 ),
                 Align(
                   alignment: AlignmentGeometry.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                    padding: EdgeInsets.fromLTRB(
+                      0,
+                      0,
+                      EkaCard(_ci).isDrawTwo || EkaCard(_ci).isWildDrawFour
+                          ? 8 * cardHeight / 281
+                          : 16 * cardHeight / 281,
+                      EkaCard(_ci).isSkip ||
+                              EkaCard(_ci).isReverse ||
+                              EkaCard(_ci).isWildCard
+                          ? 16
+                          : 0,
+                    ),
                     child: Transform.flip(
                       flipY: true,
-                      child: Text(
-                        EkaCard(_ci).value.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 42,
-                          fontFamily: 'Montserrat'
-                        ),
-                      ),
+                      flipX: true,
+                      child: Symbol(_ci, cardHeight: cardHeight),
                     ),
                   ),
                 ),
@@ -81,15 +109,17 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.center,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text(
-                      EkaCard(_ci).value.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 75,
-                        fontFamily: 'Montserrat'
-                      ),
-                    ),
+                    child: EkaCard(_ci).isWildDrawFour
+                        ? Symbol(
+                            100,
+                            cardHeight: cardHeight,
+                            isMiddleSymbol: true,
+                          )
+                        : Symbol(
+                            _ci,
+                            isMiddleSymbol: true,
+                            cardHeight: cardHeight,
+                          ),
                   ),
                 ),
               ],
@@ -143,9 +173,7 @@ class CenterOval extends CustomPainter {
         width: a,
         height: b,
       ),
-      Paint()
-        ..color = color
-        ..strokeWidth = 1,
+      Paint()..color = color,
     );
   }
 
