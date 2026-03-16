@@ -1,21 +1,20 @@
-import 'package:eka_player_vs_bot/card-ui/card_logic.dart';
 import 'card_storage.dart';
 
-Set<EkaCard> playableBotCards() {
+Set<int> playableBotCards() {
   // Function to determine which cards in the bot's pile are playable based on the top card of the discard pile
-  Set<EkaCard> S = {};
-  for (EkaCard card in botPile) {
-    if (card.isWildCard ||
-        card.isWildDrawFour ||
-        card.color == topCard.color ||
-        card.value == topCard.value) {
-      S.add(card);
+  Set<int> S = {};
+  for (int ci in botPile) {
+    if (card[ci].isWildCard ||
+        card[ci].isWildDrawFour ||
+        card[ci].color == card[topCard].color ||
+        card[ci].value == card[topCard].value) {
+      S.add(ci);
     }
   }
   return S;
 }
 
-Future<EkaCard> mediumBot() async {
+Future<int> mediumBot() async {
   // Function to determine the Medium bot's move
   return playableBotCards().first;
 }
