@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class SkipSymbol extends CustomPainter {
+  //CustomPainter to draw the skip symbol on skip cards
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawCircle(
+      //Draw the outer circle of the skip symbol
       Offset(size.width / 2, size.height / 2),
       size.width / 2,
       Paint()
@@ -14,6 +16,7 @@ class SkipSymbol extends CustomPainter {
         ..strokeWidth = size.width / 7,
     );
     canvas.drawLine(
+      //Draw the diagonal line of the skip symbol
       Offset(
         0.5 * size.width * (1 + 1 / sqrt2),
         0.5 * size.height * (1 - 1 / sqrt2),
