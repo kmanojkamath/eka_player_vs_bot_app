@@ -6,6 +6,7 @@ import 'card_symbols.dart';
 import 'package:flutter/material.dart';
 
 Color color(CardColor cardcolor) {
+  //Function to get the color of a card based on its color enum
   switch (cardcolor) {
     case CardColor.red:
       return Colors.red;
@@ -21,16 +22,23 @@ Color color(CardColor cardcolor) {
 }
 
 class EkaCardWidget extends StatelessWidget {
+  //Widget to display a card based on its index and height
   final int _ci;
   final double cardHeight;
-  const EkaCardWidget(this._ci, {super.key, this.cardHeight = 281});
+  const EkaCardWidget(
+    this._ci, {
+    super.key,
+    this.cardHeight = 281,
+  }); //Default card height is 281
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      //Stack to layer the card background and symbols
       alignment: AlignmentGeometry.center,
       children: [
         Container(
+          //White background of the card
           width: cardHeight * 188 / 281,
           height: cardHeight,
           decoration: BoxDecoration(
@@ -40,6 +48,7 @@ class EkaCardWidget extends StatelessWidget {
           ),
         ),
         Container(
+          //Colored background of the card based on its color
           width: cardHeight * 168 / 281,
           height: cardHeight * 261 / 281,
           decoration: BoxDecoration(
@@ -50,14 +59,17 @@ class EkaCardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: SizedBox(
+            //SizedBox to set the size of the card symbols
             width: cardHeight * 178 / 281,
             height: cardHeight * 210 / 281,
             child: Stack(
               children: [
                 Align(
+                  //Center ovel background
                   alignment: AlignmentGeometry.center,
                   child: CustomPaint(
                     painter: CenterOval(
+                      //CustomPainter to draw the center oval background of the card
                       color(EkaCard(_ci).color),
                       width: cardHeight * 177 / 281,
                       height: cardHeight * 216 / 281,
@@ -66,6 +78,7 @@ class EkaCardWidget extends StatelessWidget {
                   ),
                 ),
                 Align(
+                  //Top left symbol of the card
                   alignment: AlignmentGeometry.topLeft,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
@@ -84,6 +97,7 @@ class EkaCardWidget extends StatelessWidget {
                   ),
                 ),
                 Align(
+                  //Bottom right symbol of the card, flipped and rotated to match the top left symbol
                   alignment: AlignmentGeometry.bottomRight,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
@@ -104,6 +118,7 @@ class EkaCardWidget extends StatelessWidget {
                   ),
                 ),
                 Align(
+                  //Middle symbol of the card, larger and italicized for number cards, and larger for action cards
                   alignment: AlignmentGeometry.center,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -130,6 +145,7 @@ class EkaCardWidget extends StatelessWidget {
 }
 
 class CenterOval extends CustomPainter {
+  //CustomPainter to draw the center oval background of the card
   final Color color;
   final double width;
   final double height;
@@ -146,30 +162,35 @@ class CenterOval extends CustomPainter {
       (width * width * cos(angle) * cos(angle) -
               height * height * sin(angle) * sin(angle)) /
           (cos(angle) * cos(angle) - sin(angle) * sin(angle)),
-    );
+    ); //Calculate the semi-major axis of the oval based on the width, height, and rotation angle of the card
     double b = sqrt(
       (height * height * cos(angle) * cos(angle) -
               width * width * sin(angle) * sin(angle)) /
           (cos(angle) * cos(angle) - sin(angle) * sin(angle)),
-    );
+    ); //Calculate the semi-minor axis of the oval based on the width, height, and rotation angle of the card
+
+    //Rotate the canvas to draw the oval at the correct angle, and then draw the oval with a white border and the card color as the fill
     canvas.translate(size.width / 2, size.height / 2);
     canvas.rotate(angle);
     canvas.translate(-size.width / 2, -size.height / 2);
+
     canvas.drawOval(
+      //Draw the white border of the oval
       Rect.fromCenter(
         center: Offset(size.width / 2, size.height / 2),
-        width: a + 10,
-        height: b + 10,
+        width: a,
+        height: b,
       ),
       Paint()
         ..color = Colors.white
         ..strokeWidth = 1,
     );
     canvas.drawOval(
+      //Draw the colored fill of the oval
       Rect.fromCenter(
         center: Offset(size.width / 2, size.height / 2),
-        width: a,
-        height: b,
+        width: a - 10,
+        height: b - 10,
       ),
       Paint()..color = color,
     );
