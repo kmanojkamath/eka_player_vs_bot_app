@@ -9,11 +9,11 @@ import 'symbols/wild_symbol.dart';
 
 class Symbol extends StatelessWidget {
   //Widget to display the symbol of a card based on its index
-  final int _ci;
+  final EkaCard _card;
   final bool isMiddleSymbol;
   final double cardHeight;
   const Symbol(
-    this._ci, {
+    this._card, {
     super.key,
     this.isMiddleSymbol = false,
     required this.cardHeight,
@@ -21,10 +21,10 @@ class Symbol extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (EkaCard(_ci).isNumber) {
+    if (_card.isNumber) {
       //If the card is a number card, display its value as text
       return Text(
-        EkaCard(_ci).value.toString(),
+        _card.value.toString(),
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w900,
@@ -35,7 +35,7 @@ class Symbol extends StatelessWidget {
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
       );
-    } else if (EkaCard(_ci).isDrawTwo) {
+    } else if (_card.isDrawTwo) {
       //If the card is a draw two card, display "+2" as text
       return Text(
         "+2",
@@ -49,7 +49,7 @@ class Symbol extends StatelessWidget {
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
       );
-    } else if (EkaCard(_ci).isWildDrawFour) {
+    } else if (_card.isWildDrawFour) {
       //If the card is a wild draw four card, display "+4" as text
       return Text(
         "+4",
@@ -63,21 +63,21 @@ class Symbol extends StatelessWidget {
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
       );
-    } else if (EkaCard(_ci).isSkip) {
+    } else if (_card.isSkip) {
       //If the card is a skip card, display the skip symbol
       return SizedBox(
         height: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
         width: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
         child: CustomPaint(painter: SkipSymbol()),
       );
-    } else if (EkaCard(_ci).isReverse) {
+    } else if (_card.isReverse) {
       //If the card is a reverse card, display the reverse symbol
       return SizedBox(
         height: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
         width: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
         child: CustomPaint(painter: ReverseSymbol()),
       );
-    } else if (EkaCard(_ci).isWildCard) {
+    } else if (_card.isWildCard) {
       //If the card is a wild card, display the wild symbol
       return SizedBox(
         height: isMiddleSymbol ? 251 * cardHeight / 281 : 42 * cardHeight / 281,
@@ -88,7 +88,7 @@ class Symbol extends StatelessWidget {
       );
     }
 
-    if (kDebugMode) debugPrint("Card Symbol Error for Card Index $_ci");
+    if (kDebugMode) debugPrint("Card Symbol Error for Card $_card");
     return const Placeholder();
   }
 }

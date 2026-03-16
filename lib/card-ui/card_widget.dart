@@ -23,10 +23,10 @@ Color color(CardColor cardcolor) {
 
 class EkaCardWidget extends StatelessWidget {
   //Widget to display a card based on its index and height
-  final int _ci;
+  final EkaCard _card;
   final double cardHeight;
   const EkaCardWidget(
-    this._ci, {
+    this._card, {
     super.key,
     this.cardHeight = 281,
   }); //Default card height is 281
@@ -53,9 +53,9 @@ class EkaCardWidget extends StatelessWidget {
           height: cardHeight * 261 / 281,
           decoration: BoxDecoration(
             gradient: RadialGradient(
-              colors: [Colors.black, color(EkaCard(_ci).color)],
+              colors: [Colors.black, color(_card.color)],
             ),
-            color: color(EkaCard(_ci).color),
+            color: color(_card.color),
             borderRadius: BorderRadius.circular(12),
           ),
           child: SizedBox(
@@ -70,7 +70,7 @@ class EkaCardWidget extends StatelessWidget {
                   child: CustomPaint(
                     painter: CenterOval(
                       //CustomPainter to draw the center oval background of the card
-                      color(EkaCard(_ci).color),
+                      color(_card.color),
                       width: cardHeight * 177 / 281,
                       height: cardHeight * 216 / 281,
                       angle: 0.6,
@@ -82,18 +82,18 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.topLeft,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
-                      EkaCard(_ci).isDrawTwo || EkaCard(_ci).isWildDrawFour
+                      _card.isDrawTwo || _card.isWildDrawFour
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).isSkip || EkaCard(_ci).isWildCard
+                      _card.isSkip || _card.isWildCard
                           ? 16 * cardHeight / 281
-                          : EkaCard(_ci).isReverse
+                          : _card.isReverse
                           ? 12 * cardHeight / 281
                           : 0,
                       0,
                       0,
                     ),
-                    child: Symbol(_ci, cardHeight: cardHeight),
+                    child: Symbol(_card, cardHeight: cardHeight),
                   ),
                 ),
                 Align(
@@ -103,17 +103,17 @@ class EkaCardWidget extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(
                       0,
                       0,
-                      EkaCard(_ci).isDrawTwo || EkaCard(_ci).isWildDrawFour
+                      _card.isDrawTwo || _card.isWildDrawFour
                           ? 8 * cardHeight / 281
                           : 16 * cardHeight / 281,
-                      EkaCard(_ci).isSkip || EkaCard(_ci).isWildCard
+                      _card.isSkip || _card.isWildCard
                           ? 16 * cardHeight / 281
                           : 0,
                     ),
                     child: Transform.flip(
                       flipY: true,
                       flipX: true,
-                      child: Symbol(_ci, cardHeight: cardHeight),
+                      child: Symbol(_card, cardHeight: cardHeight),
                     ),
                   ),
                 ),
@@ -122,14 +122,14 @@ class EkaCardWidget extends StatelessWidget {
                   alignment: AlignmentGeometry.center,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: EkaCard(_ci).isWildDrawFour
+                    child: _card.isWildDrawFour
                         ? Symbol(
-                            100,
+                            EkaCard(CardColor.wild, 13),
                             cardHeight: cardHeight,
                             isMiddleSymbol: true,
                           )
                         : Symbol(
-                            _ci,
+                            _card,
                             isMiddleSymbol: true,
                             cardHeight: cardHeight,
                           ),
