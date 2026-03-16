@@ -1,4 +1,4 @@
-import 'card_logic.dart';
+import '../card-ui/card_logic.dart';
 
 Set<EkaCard> deckPile = List.generate(108, (i) {
   return EkaCard(i);
