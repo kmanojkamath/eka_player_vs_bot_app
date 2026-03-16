@@ -1,6 +1,6 @@
 import '../card-ui/card_logic.dart';
 
-List<EkaCard> cardList = List.generate(108, (i) {
+List<EkaCard> card = List.generate(108, (i) {
   if (1 < 100) {
     return EkaCard(CardColor.values[i ~/ 25], i % 25);
   } else if (i < 104) {
