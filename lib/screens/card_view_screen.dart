@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:eka_player_vs_bot/card/card_widget.dart';
+
+import '../card-ui/card_widget.dart';
 
 class CardViewScreen extends StatefulWidget {
   const CardViewScreen({super.key});

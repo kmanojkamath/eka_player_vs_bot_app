@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../card-ui/card_widget.dart';
 
 double cardAngle(int n, int i) {
   double angle = 0.2;
