@@ -1,21 +1,35 @@
+import 'dart:async';
+
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
 
 import '../card-ui/card_widget.dart';
 
 class CardController {
-  void Function(double newScale)? changeScale;
+  Future<void> Function(double, Duration, Curve)? changeScale;
+  Future<void> Function(Offset, Duration, Curve)? changePosition;
+  Future<void> Function(double, Duration, Curve)? changeAngle;
+  Future<void> Function(double, Duration, Curve)? changeWidthScale;
 }
 
 class AnimatedCard extends StatefulWidget {
   final EkaCard _card;
+
   final CardController cardController;
+
   final double cardScale;
+  final Offset cardPosition;
+  final double cardAngle;
+  final double cardWidthScale;
+
   const AnimatedCard(
     this._card,
     this.cardController, {
     super.key,
     this.cardScale = 1,
+    this.cardPosition = Offset.zero,
+    this.cardAngle = 0,
+    this.cardWidthScale = 1,
   });
 
   @override
@@ -23,46 +37,138 @@ class AnimatedCard extends StatefulWidget {
 }
 
 class _AnimatedCardState extends State<AnimatedCard>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+    with TickerProviderStateMixin {
+  late AnimationController _scaleController;
+  late AnimationController _posController;
+  late AnimationController _angleController;
+  late AnimationController _widthScaleController;
+
+  late final Listenable _merged;
+
   late Animation<double> scaleAnim;
+  late Animation<Offset> posAnim;
+  late Animation<double> angleAnim;
+  late Animation<double> widthScaleAnim;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
+    _scaleController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: Duration.zero,
     );
 
-    scaleAnim = AlwaysStoppedAnimation(widget.cardScale);
+    _posController = AnimationController(vsync: this, duration: Duration.zero);
 
-    widget.cardController.changeScale = (newScale) {
+    _angleController = AnimationController(
+      vsync: this,
+      duration: Duration.zero,
+    );
+
+    _widthScaleController = AnimationController(
+      vsync: this,
+      duration: Duration.zero,
+    );
+
+    _merged = Listenable.merge([
+      _scaleController,
+      _posController,
+      _angleController,
+      _widthScaleController,
+    ]);
+
+    scaleAnim = AlwaysStoppedAnimation(widget.cardScale);
+    posAnim = AlwaysStoppedAnimation(widget.cardPosition);
+    angleAnim = AlwaysStoppedAnimation(widget.cardAngle);
+    widthScaleAnim = AlwaysStoppedAnimation(widget.cardWidthScale);
+
+    widget.cardController.changeScale = (newScale, duration, curve) async {
       setState(() {
+        _scaleController.duration = duration;
+
         scaleAnim = Tween<double>(
           begin: scaleAnim.value,
           end: newScale,
-        ).animate(_controller);
+        ).animate(CurvedAnimation(parent: _scaleController, curve: curve));
       });
 
-      _controller.forward(from: 0);
+      await _scaleController.forward(from: 0);
+    };
+
+    widget.cardController.changePosition =
+        (newPosition, duration, curve) async {
+          setState(() {
+            _posController.duration = duration;
+
+            posAnim = Tween<Offset>(
+              begin: posAnim.value,
+              end: newPosition,
+            ).animate(CurvedAnimation(parent: _posController, curve: curve));
+          });
+
+          await _posController.forward(from: 0);
+        };
+
+    widget.cardController.changeAngle = (newAngle, duration, curve) async {
+      setState(() {
+        _angleController.duration = duration;
+
+        angleAnim = Tween<double>(
+          begin: angleAnim.value,
+          end: newAngle,
+        ).animate(CurvedAnimation(parent: _angleController, curve: curve));
+      });
+
+      await _angleController.forward(from: 0);
+    };
+
+    widget
+        .cardController
+        .changeWidthScale = (newWidthScale, duration, curve) async {
+      setState(() {
+        _widthScaleController.duration = duration;
+
+        widthScaleAnim = Tween<double>(
+          begin: widthScaleAnim.value,
+          end: newWidthScale,
+        ).animate(CurvedAnimation(parent: _widthScaleController, curve: curve));
+      });
+
+      await _widthScaleController.forward(from: 0);
     };
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _angleController.dispose();
+    _posController.dispose();
+    _scaleController.dispose();
+    _widthScaleController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _controller,
+      animation: _merged,
+
       builder: (context, child) {
-        return EkaCardWidget(widget._card, cardScale: scaleAnim.value);
+        return Positioned(
+          left: posAnim.value.dx,
+          top: posAnim.value.dy,
+          child: Transform.rotate(
+            angle: angleAnim.value,
+            child: Transform.scale(
+              scale: scaleAnim.value,
+              scaleX: widthScaleAnim.value,
+              child: child,
+            ),
+          ),
+        );
       },
+
+      child: EkaCardWidget(widget._card),
     );
   }
 }
