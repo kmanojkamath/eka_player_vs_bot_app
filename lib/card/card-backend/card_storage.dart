@@ -1,4 +1,4 @@
-import '../card-ui/card_logic.dart';
+import '../card_logic.dart';
 
 List<EkaCard> card = List.generate(108, (i) {
   if (1 < 100) {

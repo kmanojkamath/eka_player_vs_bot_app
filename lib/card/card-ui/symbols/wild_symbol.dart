@@ -1,9 +1,9 @@
-import 'package:eka_player_vs_bot/card-ui/card_widget.dart';
+import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card-ui/card_logic.dart';
+import 'package:eka_player_vs_bot/card/card_logic.dart';
 
 class WildSymbol extends CustomPainter {
   //CustomPainter to draw the wild symbol on wild cards
