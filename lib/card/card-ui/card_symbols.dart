@@ -11,12 +11,12 @@ class Symbol extends StatelessWidget {
   //Widget to display the symbol of a card based on its index
   final EkaCard _card;
   final bool isMiddleSymbol;
-  final double cardHeight;
+  final double cardScale;
   const Symbol(
     this._card, {
     super.key,
     this.isMiddleSymbol = false,
-    required this.cardHeight,
+    required this.cardScale,
   });
 
   @override
@@ -28,9 +28,7 @@ class Symbol extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w900,
-          fontSize: isMiddleSymbol
-              ? 81 * cardHeight / 281
-              : 42 * cardHeight / 281,
+          fontSize: isMiddleSymbol ? 81 * cardScale : 42 * cardScale,
           fontFamily: 'Montserrat',
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
@@ -42,9 +40,7 @@ class Symbol extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w900,
-          fontSize: isMiddleSymbol
-              ? 81 * cardHeight / 281
-              : 40 * cardHeight / 281,
+          fontSize: isMiddleSymbol ? 81 * cardScale : 40 * cardScale,
           fontFamily: 'Montserrat',
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
@@ -56,9 +52,7 @@ class Symbol extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w900,
-          fontSize: isMiddleSymbol
-              ? 81 * cardHeight / 281
-              : 40 * cardHeight / 281,
+          fontSize: isMiddleSymbol ? 81 * cardScale : 40 * cardScale,
           fontFamily: 'Montserrat',
           fontStyle: isMiddleSymbol ? FontStyle.italic : null,
         ),
@@ -66,24 +60,22 @@ class Symbol extends StatelessWidget {
     } else if (_card.isSkip) {
       //If the card is a skip card, display the skip symbol
       return SizedBox(
-        height: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
-        width: isMiddleSymbol ? 72 * cardHeight / 281 : 32 * cardHeight / 281,
+        height: isMiddleSymbol ? 72 * cardScale : 32 * cardScale,
+        width: isMiddleSymbol ? 72 * cardScale : 32 * cardScale,
         child: CustomPaint(painter: SkipSymbol()),
       );
     } else if (_card.isReverse) {
       //If the card is a reverse card, display the reverse symbol
       return SizedBox(
-        height: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
-        width: isMiddleSymbol ? 81 * cardHeight / 281 : 42 * cardHeight / 281,
+        height: isMiddleSymbol ? 81 * cardScale : 42 * cardScale,
+        width: isMiddleSymbol ? 81 * cardScale : 42 * cardScale,
         child: CustomPaint(painter: ReverseSymbol()),
       );
     } else if (_card.isWildCard) {
       //If the card is a wild card, display the wild symbol
       return SizedBox(
-        height: isMiddleSymbol ? 251 * cardHeight / 281 : 42 * cardHeight / 281,
-        width: isMiddleSymbol
-            ? 188 * cardHeight / 281
-            : 42 * 0.81 * cardHeight / 281,
+        height: isMiddleSymbol ? 251 * cardScale : 42 * cardScale,
+        width: isMiddleSymbol ? 188 * cardScale : 42 * 0.81 * cardScale,
         child: CustomPaint(painter: WildSymbol()),
       );
     }
