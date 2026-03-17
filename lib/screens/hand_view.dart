@@ -35,7 +35,10 @@ class HandView extends StatelessWidget {
           child: Transform.rotate(
             alignment: Alignment.bottomCenter,
             angle: cardAngle(n, i),
-            child: EkaCardWidget(EkaCard(CardColor.values[i ~/ 25], i % 25), cardHeight: 150),
+            child: EkaCardWidget(
+              EkaCard(CardColor.values[i ~/ 25], i % 25),
+              cardScale: 0.55,
+            ),
           ),
         );
       }),
