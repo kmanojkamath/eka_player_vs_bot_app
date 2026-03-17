@@ -43,8 +43,8 @@ class EkaCardWidget extends StatelessWidget {
           height: cardScale * 281,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.black, width: 0.5),
+            borderRadius: BorderRadius.circular(12 * cardScale),
+            border: Border.all(color: Colors.black, width: 0.5 * cardScale),
           ),
         ),
         Container(
@@ -56,7 +56,7 @@ class EkaCardWidget extends StatelessWidget {
               colors: [Colors.black, color(_card.color)],
             ),
             color: color(_card.color),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12 * cardScale),
           ),
           child: SizedBox(
             //SizedBox to set the size of the card symbols
@@ -181,14 +181,14 @@ class CenterOval extends CustomPainter {
       ),
       Paint()
         ..color = Colors.white
-        ..strokeWidth = 1,
+        ..strokeWidth = 1 * height / 216,
     );
     canvas.drawOval(
       //Draw the colored fill of the oval
       Rect.fromCenter(
         center: Offset(size.width / 2, size.height / 2),
-        width: a - 10,
-        height: b - 10,
+        width: a - 10 * height / 216,
+        height: b - 10 * height / 216,
       ),
       Paint()..color = color,
     );
