@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'card_logic.dart';
+import '../card_logic.dart';
 import 'card_symbols.dart';
 
 import 'package:flutter/material.dart';
