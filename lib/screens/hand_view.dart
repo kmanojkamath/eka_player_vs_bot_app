@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../card-ui/card_logic.dart';
 import '../card-ui/card_widget.dart';
 
 double cardAngle(int n, int i) {
@@ -34,7 +35,7 @@ class HandView extends StatelessWidget {
           child: Transform.rotate(
             alignment: Alignment.bottomCenter,
             angle: cardAngle(n, i),
-            child: EkaCardWidget(i*2, cardHeight: 150),
+            child: EkaCardWidget(EkaCard(CardColor.values[i ~/ 25], i % 25), cardHeight: 150),
           ),
         );
       }),

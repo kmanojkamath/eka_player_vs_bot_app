@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../card-ui/card_logic.dart';
 import '../card-ui/card_widget.dart';
 
 class CardViewScreen extends StatefulWidget {
@@ -10,7 +11,8 @@ class CardViewScreen extends StatefulWidget {
 }
 
 class _CardViewScreenState extends State<CardViewScreen> {
-  int _ci = 0;
+  int value = 0;
+  CardColor color = CardColor.red;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class _CardViewScreenState extends State<CardViewScreen> {
                 }),
                 onChanged: (v) {
                   setState(() {
-                    _ci = (_ci ~/ 25) * 25 + (v ?? 0)*2;
+                    value = v ?? 0;
                   });
                 },
               ),
@@ -36,7 +38,7 @@ class _CardViewScreenState extends State<CardViewScreen> {
                 hint: Text("Color"),
                 items: List.generate(5, (i) {
                   return DropdownMenuItem(
-                    value: i,
+                    value: CardColor.values[i],
                     child: Text(switch (i) {
                       0 => "Red",
                       1 => "Green",
@@ -49,13 +51,13 @@ class _CardViewScreenState extends State<CardViewScreen> {
                 }),
                 onChanged: (v) {
                   setState(() {
-                    _ci = _ci % 25 + (v ?? 0) * 25;
+                    color = v ?? CardColor.red;
                   });
                 },
               ),
             ],
           ),
-          EkaCardWidget(_ci, cardHeight: 420,),
+          EkaCardWidget(EkaCard(color, value), cardHeight: 420,),
         ],
       ),
     );
