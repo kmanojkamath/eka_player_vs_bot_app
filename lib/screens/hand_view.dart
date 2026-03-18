@@ -1,64 +1,16 @@
-import 'dart:math';
-
-import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
 import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
+import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
 
-double cardAngle(int n, int i) {
-  double angle = 0.2 * (1 - (n - 1) / 27);
-  return (i - (n - 1) / 2) * angle;
-}
+import '../card/animated-cards/animated_card.dart';
+import '../card/animated-cards/hand_holder.dart';
 
-Offset cardPosition(int n, int i, BuildContext context, double cardScale) {
-  double widthDifference = 18;
-  Size size = MediaQuery.sizeOf(context);
+List<CardController> handCardController = List.generate(
+  25,
+  (i) => CardController(),
+);
 
-  double lowest = size.height * 0.5;
-  double highest = size.height * 0.4;
-
-  double x = i - (n - 1) / 2;
-
-  double cardWidth = 188 * cardScale;
-
-  return Offset(
-    x * widthDifference +
-        size.width / 2 -
-        cardWidth * cos(cardAngle(n, i)) * 0.5,
-    (lowest - highest) / ((n / 2) * (n / 2)) * x * x +
-        highest,
-  );
-}
-
-class HandView extends StatefulWidget {
-  List<CardController> cardController = List.generate(
-    25,
-    (i) => CardController(),
-  );
-  HandView({super.key});
-
-  @override
-  State<HandView> createState() => _HandViewState();
-}
-
-class _HandViewState extends State<HandView> {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: List.generate(25, (i) {
-        return AnimatedCard(
-          card[i*2],
-          widget.cardController[i],
-          cardScale: MediaQuery.sizeOf(context).height * 0.1 / 281,
-          cardWidthScale: 0,
-          cardPosition: Offset(
-            MediaQuery.sizeOf(context).width * 0.75,
-            MediaQuery.sizeOf(context).height * 0.1,
-          ),
-        );
-      }),
-    );
-  }
-}
+List<EkaCard> ekaCardList = List.generate(25, (i) => card[2 * i]);
 
 class HandViewScreen extends StatefulWidget {
   const HandViewScreen({super.key});
@@ -70,7 +22,7 @@ class HandViewScreen extends StatefulWidget {
 class _HandViewScreenState extends State<HandViewScreen> {
   int i = 0;
   bool front = true;
-  final hv = HandView();
+  final hv = HandHolder(ekaCardList);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,13 +40,13 @@ class _HandViewScreenState extends State<HandViewScreen> {
           });
 
           await Future.wait([
-            hv.cardController[i].changeWidthScale!.call(
+            hv.cardList[i].controller.changeWidthScale!.call(
               1,
               Duration(milliseconds: 500),
               Curves.linear,
             ),
-            hv.cardController[i].changeScale!.call(
-              MediaQuery.sizeOf(context).height * 0.25 / 281,
+            hv.cardList[i].controller.changeScale!.call(
+              1,
               Duration(milliseconds: 500),
               Curves.easeInOut,
             ),
@@ -103,7 +55,7 @@ class _HandViewScreenState extends State<HandViewScreen> {
           List<Future> L = [];
           L.addAll(
             List.generate(i + 1, (j) {
-              return hv.cardController[j].changeAngle!.call(
+              return hv.cardList[j].controller.changeAngle!.call(
                 cardAngle(i + 2, j),
                 Duration(milliseconds: j == i ? 750 : 400),
                 Curves.linear,
@@ -112,7 +64,7 @@ class _HandViewScreenState extends State<HandViewScreen> {
           );
           L.addAll(
             List.generate(i + 1, (j) {
-              return hv.cardController[j].changePosition!.call(
+              return hv.cardList[j].controller.changePosition!.call(
                 cardPosition(i + 2, j, context, 0.5),
                 Duration(milliseconds: j == i ? 750 : 400),
                 Curves.linear,

@@ -11,14 +11,14 @@ class CardAnimationScreen extends StatefulWidget {
 }
 
 class _CardAnimationScreenState extends State<CardAnimationScreen> {
-  final CardController cardController = CardController();
+  final EkaCard card = EkaCard(CardColor.red, 11, CardController());
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await cardController.changePosition!.call(
+      await card.controller.changePosition!.call(
         Offset(
           MediaQuery.sizeOf(context).width / 2 - 188,
           MediaQuery.sizeOf(context).height / 2 - 281,
@@ -26,28 +26,28 @@ class _CardAnimationScreenState extends State<CardAnimationScreen> {
         Duration(milliseconds: 500),
         Curves.linear,
       );
-      await cardController.changeAngle!.call(
+      await card.controller.changeAngle!.call(
         1.57,
         Duration(milliseconds: 500),
         Curves.linear,
       );
-      await cardController.changeScale!.call(
+      await card.controller.changeScale!.call(
         0.8,
         Duration(milliseconds: 500),
         Curves.linear,
       );
       await Future.wait(<Future<void>>[
-        cardController.changePosition!.call(
+        card.controller.changePosition!.call(
           Offset.zero,
           Duration(milliseconds: 500),
           Curves.linear,
         ),
-        cardController.changeAngle!.call(
+        card.controller.changeAngle!.call(
           0,
           Duration(milliseconds: 500),
           Curves.linear,
         ),
-        cardController.changeScale!.call(
+        card.controller.changeScale!.call(
           1,
           Duration(milliseconds: 500),
           Curves.linear,
@@ -60,7 +60,7 @@ class _CardAnimationScreenState extends State<CardAnimationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [AnimatedCard(EkaCard(CardColor.red, 11), cardController)],
+        children: [AnimatedCard(card)],
       ),
     );
   }

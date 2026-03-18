@@ -15,18 +15,15 @@ class CardScaleAnimationScreen extends StatefulWidget {
 class _CardScaleAnimationScreenState extends State<CardScaleAnimationScreen> {
   @override
   Widget build(BuildContext context) {
-    CardController cardController = CardController();
-    AnimatedCard card = AnimatedCard(
-      EkaCard(CardColor.red, 11),
-      cardController,
-    );
+    EkaCard ekaCard = EkaCard(CardColor.red, 11, CardController());
+    AnimatedCard card = AnimatedCard(ekaCard);
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
             ElevatedButton(
-              onPressed: () {
-                cardController.changeScale?.call(
+              onPressed: () async {
+                await ekaCard.controller.changeScale?.call(
                   Random().nextDouble() * 1,
                   Duration(milliseconds: Random().nextInt(10000)),
                   Curves.linear,
@@ -35,8 +32,8 @@ class _CardScaleAnimationScreenState extends State<CardScaleAnimationScreen> {
               child: Text("Scale"),
             ),
             ElevatedButton(
-              onPressed: () {
-                cardController.changePosition?.call(
+              onPressed: () async {
+                await ekaCard.controller.changePosition?.call(
                   Offset(
                     Random().nextDouble() * 150 + 50,
                     Random().nextDouble() * 300 + 100,
@@ -48,8 +45,8 @@ class _CardScaleAnimationScreenState extends State<CardScaleAnimationScreen> {
               child: Text("Position"),
             ),
             ElevatedButton(
-              onPressed: () {
-                cardController.changeAngle?.call(
+              onPressed: () async {
+                await ekaCard.controller.changeAngle?.call(
                   Random().nextDouble() * pi - pi / 2,
                   Duration(milliseconds: Random().nextInt(10000)),
                   Curves.linear,

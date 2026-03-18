@@ -1,3 +1,4 @@
+import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eka_player_vs_bot/card/card_logic.dart';
@@ -57,7 +58,7 @@ class _CardViewScreenState extends State<CardViewScreen> {
               ),
             ],
           ),
-          EkaCardWidget(EkaCard(color, value), cardScale: 1.5),
+          EkaCardWidget(EkaCard(color, value, CardController()), cardScale: 1.5),
         ],
       ),
     );
