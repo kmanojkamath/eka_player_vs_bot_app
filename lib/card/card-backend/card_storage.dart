@@ -1,12 +1,14 @@
+import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
+
 import '../card_logic.dart';
 
 List<EkaCard> card = List.generate(108, (i) {
   if (1 < 100) {
-    return EkaCard(CardColor.values[i ~/ 25], (i % 25 + 1) ~/ 2);
+    return EkaCard(CardColor.values[i ~/ 25], (i % 25 + 1) ~/ 2, CardController());
   } else if (i < 104) {
-    return EkaCard(CardColor.wild, 13);
+    return EkaCard(CardColor.wild, 13, CardController());
   } else {
-    return EkaCard(CardColor.wild, 14);
+    return EkaCard(CardColor.wild, 14, CardController());
   }
 }); // Generate a standard deck of 108 cards
 

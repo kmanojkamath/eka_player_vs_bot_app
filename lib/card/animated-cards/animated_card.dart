@@ -15,16 +15,13 @@ class CardController {
 class AnimatedCard extends StatefulWidget {
   final EkaCard _card;
 
-  final CardController cardController;
-
   final double cardScale;
   final Offset cardPosition;
   final double cardAngle;
   final double cardWidthScale;
 
   const AnimatedCard(
-    this._card,
-    this.cardController, {
+    this._card, {
     super.key,
     this.cardScale = 1,
     this.cardPosition = Offset.zero,
@@ -83,7 +80,7 @@ class _AnimatedCardState extends State<AnimatedCard>
     angleAnim = AlwaysStoppedAnimation(widget.cardAngle);
     widthScaleAnim = AlwaysStoppedAnimation(widget.cardWidthScale);
 
-    widget.cardController.changeScale = (newScale, duration, curve) async {
+    widget._card.controller.changeScale = (newScale, duration, curve) async {
       setState(() {
         _scaleController.duration = duration;
 
@@ -96,7 +93,7 @@ class _AnimatedCardState extends State<AnimatedCard>
       await _scaleController.forward(from: 0);
     };
 
-    widget.cardController.changePosition =
+    widget._card.controller.changePosition =
         (newPosition, duration, curve) async {
           setState(() {
             _posController.duration = duration;
@@ -110,7 +107,7 @@ class _AnimatedCardState extends State<AnimatedCard>
           await _posController.forward(from: 0);
         };
 
-    widget.cardController.changeAngle = (newAngle, duration, curve) async {
+    widget._card.controller.changeAngle = (newAngle, duration, curve) async {
       setState(() {
         _angleController.duration = duration;
 
@@ -124,7 +121,8 @@ class _AnimatedCardState extends State<AnimatedCard>
     };
 
     widget
-        .cardController
+        ._card
+        .controller
         .changeWidthScale = (newWidthScale, duration, curve) async {
       setState(() {
         _widthScaleController.duration = duration;
@@ -160,7 +158,7 @@ class _AnimatedCardState extends State<AnimatedCard>
           child: Transform.rotate(
             angle: angleAnim.value,
             child: Transform.scale(
-              scaleX: widthScaleAnim.value*scaleAnim.value,
+              scaleX: widthScaleAnim.value * scaleAnim.value,
               scaleY: scaleAnim.value,
               child: child,
             ),
