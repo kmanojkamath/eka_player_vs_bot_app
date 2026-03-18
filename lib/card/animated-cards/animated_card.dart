@@ -160,8 +160,8 @@ class _AnimatedCardState extends State<AnimatedCard>
           child: Transform.rotate(
             angle: angleAnim.value,
             child: Transform.scale(
-              scale: scaleAnim.value,
-              scaleX: widthScaleAnim.value,
+              scaleX: widthScaleAnim.value*scaleAnim.value,
+              scaleY: scaleAnim.value,
               child: child,
             ),
           ),
