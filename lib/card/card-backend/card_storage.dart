@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../card_logic.dart';
 
 List<EkaCard> card = List.generate(108, (i) {
