@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
-
 import '../card_logic.dart';
 import 'card_symbols.dart';
 
@@ -124,7 +122,7 @@ class EkaCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: _card.isWildDrawFour
                         ? Symbol(
-                            EkaCard(CardColor.wild, 13, CardController()),
+                            EkaCard(CardColor.wild, 13),
                             cardScale: cardScale / 2.5,
                             isMiddleSymbol: true,
                           )
