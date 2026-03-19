@@ -1,6 +1,7 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card_logic.dart';
+import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
+import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'animated_card.dart';
@@ -10,12 +11,16 @@ double cardAngle(int n, int i) {
   return (i - (n - 1) / 2) * angle;
 }
 
-Offset cardPosition(int n, int i, BuildContext context, double cardScale) {
+Offset cardPosition(
+  int n,
+  int i,
+  BoxConstraints constraints,
+  double cardScale,
+) {
   double widthDifference = 24;
-  Size size = MediaQuery.sizeOf(context);
 
-  double lowest = size.height * 0.8;
-  double highest = size.height * 0.7;
+  double lowest = constraints.maxHeight * 0.8;
+  double highest = constraints.maxHeight * 0.7;
 
   double x = i - (n - 1) / 2;
 
@@ -23,15 +28,14 @@ Offset cardPosition(int n, int i, BuildContext context, double cardScale) {
 
   return Offset(
     x * widthDifference +
-        size.width / 2 -
+        constraints.maxWidth / 2 -
         cardWidth * cos(cardAngle(n, i)) * 0.5,
     (lowest - highest) / ((n / 2) * (n / 2)) * x * x + highest,
   );
 }
 
 class HandHolder extends StatefulWidget {
-  final List<EkaCard> cardList;
-  const HandHolder(this.cardList, {super.key});
+  const HandHolder({super.key});
 
   @override
   State<HandHolder> createState() => _HandHolderState();
@@ -40,18 +44,40 @@ class HandHolder extends StatefulWidget {
 class _HandHolderState extends State<HandHolder> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: List.generate(25, (i) {
-        return AnimatedCard(
-          widget.cardList[i],
-          cardScale: 0.5,
-          cardWidthScale: 0,
-          cardPosition: Offset(
-            MediaQuery.sizeOf(context).width * 0.75,
-            MediaQuery.sizeOf(context).height * 0.1,
-          ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            AnimatedBackCard(
+              BackCardController(),
+              cardScale: 0.5,
+              cardPosition: Offset(
+                constraints.maxWidth * 0.75,
+                constraints.maxHeight * 0.25,
+              ),
+            ),
+            AnimatedBackCard(
+              backOfDrawingCard,
+              cardScale: 0.5,
+              cardPosition: Offset(
+                constraints.maxWidth * 0.75,
+                constraints.maxHeight * 0.25,
+              ),
+            ),
+            ...List.generate(108, (i) {
+              return AnimatedCard(
+                card[i],
+                cardScale: 0.75,
+                cardWidthScale: 0,
+                cardPosition: Offset(
+                  constraints.maxWidth * 0.75,
+                  constraints.maxHeight * 0.25,
+                ),
+              );
+            }),
+          ],
         );
-      }),
+      },
     );
   }
 }
