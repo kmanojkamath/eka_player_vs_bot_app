@@ -26,12 +26,7 @@ Color color(CardColor cardcolor) {
 class EkaCardWidget extends StatelessWidget {
   //Widget to display a card based on its index and height
   final EkaCard _card;
-  final double cardScale;
-  const EkaCardWidget(
-    this._card, {
-    super.key,
-    this.cardScale = 1,
-  }); //Default card height is 281
+  const EkaCardWidget(this._card, {super.key}); //Default card height is 281
 
   @override
   Widget build(BuildContext context) {
@@ -41,29 +36,29 @@ class EkaCardWidget extends StatelessWidget {
       children: [
         Container(
           //White background of the card
-          width: cardScale / 2.5 * 188,
-          height: cardScale / 2.5 * 281,
+          width: 0.4 * 188,
+          height: 0.4 * 281,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12 * cardScale / 2.5),
-            border: Border.all(color: Colors.black, width: 0.5 * cardScale / 2.5),
+            borderRadius: BorderRadius.circular(12 * 0.4),
+            border: Border.all(color: Colors.black, width: 0.5 * 0.4),
           ),
         ),
         Container(
           //Colored background of the card based on its color
-          width: 168 * cardScale / 2.5,
-          height: 261 * cardScale / 2.5,
+          width: 168 * 0.4,
+          height: 261 * 0.4,
           decoration: BoxDecoration(
             gradient: RadialGradient(
               colors: [Colors.black, color(_card.color)],
             ),
             color: color(_card.color),
-            borderRadius: BorderRadius.circular(12 * cardScale / 2.5),
+            borderRadius: BorderRadius.circular(12 * 0.4),
           ),
           child: SizedBox(
             //SizedBox to set the size of the card symbols
-            width: 178 * cardScale / 2.5,
-            height: 210 * cardScale / 2.5,
+            width: 178 * 0.4,
+            height: 210 * 0.4,
             child: Stack(
               children: [
                 Align(
@@ -73,8 +68,8 @@ class EkaCardWidget extends StatelessWidget {
                     painter: CenterOval(
                       //CustomPainter to draw the center oval background of the card
                       color(_card.color),
-                      width: 177 * cardScale / 2.5,
-                      height: 216 * cardScale / 2.5,
+                      width: 177 * 0.4,
+                      height: 216 * 0.4,
                       angle: 0.6,
                     ),
                   ),
@@ -85,17 +80,17 @@ class EkaCardWidget extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
                       _card.isDrawTwo || _card.isWildDrawFour
-                          ? 8 * cardScale / 2.5
-                          : 16 * cardScale / 2.5,
+                          ? 8 * 0.4
+                          : 16 * 0.4,
                       _card.isSkip || _card.isWildCard
-                          ? 16 * cardScale / 2.5
+                          ? 16 * 0.4
                           : _card.isReverse
-                          ? 12 * cardScale / 2.5
+                          ? 12 * 0.4
                           : 0,
                       0,
                       0,
                     ),
-                    child: Symbol(_card, cardScale: cardScale / 2.5),
+                    child: Symbol(_card),
                   ),
                 ),
                 Align(
@@ -106,14 +101,14 @@ class EkaCardWidget extends StatelessWidget {
                       0,
                       0,
                       _card.isDrawTwo || _card.isWildDrawFour
-                          ? 8 * cardScale / 2.5
-                          : 16 * cardScale / 2.5,
-                      _card.isSkip || _card.isWildCard ? 16 * cardScale / 2.5 : 0,
+                          ? 8 * 0.4
+                          : 16 * 0.4,
+                      _card.isSkip || _card.isWildCard ? 16 * 0.4 : 0,
                     ),
                     child: Transform.flip(
                       flipY: true,
                       flipX: true,
-                      child: Symbol(_card, cardScale: cardScale / 2.5),
+                      child: Symbol(_card),
                     ),
                   ),
                 ),
@@ -125,14 +120,9 @@ class EkaCardWidget extends StatelessWidget {
                     child: _card.isWildDrawFour
                         ? Symbol(
                             EkaCard(CardColor.wild, 13, CardController()),
-                            cardScale: cardScale / 2.5,
                             isMiddleSymbol: true,
                           )
-                        : Symbol(
-                            _card,
-                            isMiddleSymbol: true,
-                            cardScale: cardScale / 2.5,
-                          ),
+                        : Symbol(_card, isMiddleSymbol: true),
                   ),
                 ),
               ],
