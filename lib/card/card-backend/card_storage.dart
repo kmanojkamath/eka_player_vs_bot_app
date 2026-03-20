@@ -6,14 +6,15 @@ import '../card_logic.dart';
 List<EkaCard> card = List.generate(108, (i) {
   if (i < 100) {
     return EkaCard(
+      i,
       CardColor.values[i ~/ 25],
       (i % 25 + 1) ~/ 2,
       CardController(),
     );
   } else if (i < 104) {
-    return EkaCard(CardColor.wild, 13, CardController());
+    return EkaCard(i, CardColor.wild, 13, CardController());
   } else {
-    return EkaCard(CardColor.wild, 14, CardController());
+    return EkaCard(i, CardColor.wild, 14, CardController());
   }
 }); // Generate a standard deck of 108 cards
 
@@ -41,3 +42,8 @@ List<int> botPile =
 
 late int
 topCard; // Variable to hold the index of the top card of the discard pile
+
+late int
+selectedCard; // Variable to hold the index of the card selected by the player to play
+
+bool selectionLocked = true; // Varaible to lock player from selecting a card

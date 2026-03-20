@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
 
@@ -148,25 +149,33 @@ class _AnimatedCardState extends State<AnimatedCard>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _merged,
-
-      builder: (context, child) {
-        return Positioned(
-          left: posAnim.value.dx,
-          top: posAnim.value.dy,
-          child: Transform.rotate(
-            angle: angleAnim.value,
-            child: Transform.scale(
-              scaleX: widthScaleAnim.value * scaleAnim.value,
-              scaleY: scaleAnim.value,
-              child: child,
-            ),
-          ),
-        );
+    return GestureDetector(
+      onTap: () {
+        if (!selectionLocked) {
+          selectionLocked = true;
+          selectedCard = widget._card.ci;
+        }
       },
+      child: AnimatedBuilder(
+        animation: _merged,
 
-      child: EkaCardWidget(widget._card),
+        builder: (context, child) {
+          return Positioned(
+            left: posAnim.value.dx,
+            top: posAnim.value.dy,
+            child: Transform.rotate(
+              angle: angleAnim.value,
+              child: Transform.scale(
+                scaleX: widthScaleAnim.value * scaleAnim.value,
+                scaleY: scaleAnim.value,
+                child: child,
+              ),
+            ),
+          );
+        },
+
+        child: EkaCardWidget(widget._card),
+      ),
     );
   }
 }
