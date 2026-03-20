@@ -29,24 +29,19 @@ class TossPointerCircle extends CustomPainter {
   }
 }
 
-class Tosser extends StatefulWidget {
+class Tosser extends StatelessWidget {
   final double length;
   final double numberOfTurns;
   const Tosser({super.key, required this.length, required this.numberOfTurns});
 
   @override
-  State<Tosser> createState() => _TosserState();
-}
-
-class _TosserState extends State<Tosser> {
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.length,
-      height: widget.length,
+      width: length,
+      height: length,
       child: Stack(
         children: [
-          RotatingTossCircle(widget.numberOfTurns),
+          RotatingTossCircle(numberOfTurns),
           CustomPaint(painter: TossPointerCircle()),
         ],
       ),
