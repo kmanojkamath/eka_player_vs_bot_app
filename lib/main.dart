@@ -21,6 +21,6 @@ class MyApp extends StatelessWidget {
     - CardScaleAnimationScreen(): A screen to test scaling, positioning, and rotation animations on a card.
     - CardAnimationScreen(): A screen to test a sequence of animations on a card, including moving, rotating, and scaling.
     */
-    return MaterialApp(home:CardAnimationScreen());
+    return MaterialApp(home:HandViewScreen());
   }
 }

@@ -1,19 +1,25 @@
-import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
+import 'package:eka_player_vs_bot/card/animated-cards/bot_cards_holder.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
+import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
 
 import '../card/animated-cards/player_cards_holder.dart';
 
-List<EkaCard> ekaCardList = List.generate(25, (i) => card[2 * i]);
-
-class HandViewScreen extends StatefulWidget {
-  const HandViewScreen({super.key});
-
-  @override
-  State<HandViewScreen> createState() => _HandViewScreenState();
+class GamePlayController {
+  Future<void> Function(EkaCard)? playerDrawCard;
+  Future<void> Function(EkaCard)? playerPlaysCard;
+  Future<void> Function()? botDrawCard;
+  Future<void> Function(EkaCard)? botPlayCard;
 }
 
-class _HandViewScreenState extends State<HandViewScreen> {
+class GameScreen extends StatefulWidget {
+  const GameScreen({super.key});
+
+  @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
   int i = -1;
   bool front = true;
   bool firstTime = true;
@@ -22,7 +28,7 @@ class _HandViewScreenState extends State<HandViewScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          body: PlayerCardsHolder(),
+          body: Stack(children:[BotCardsHolder(botCard),PlayerCardsHolder()]),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
               setState(() {
