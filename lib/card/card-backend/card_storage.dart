@@ -19,6 +19,10 @@ List<EkaCard> card = List.generate(108, (i) {
 
 BackCardController backOfDrawingCard = BackCardController();
 
+BackCardController stationary = BackCardController();
+
+List<BackCardController> botCard = List.filled(27, BackCardController());
+
 List<int> deckPile = List.generate(
   108,
   (i) {
