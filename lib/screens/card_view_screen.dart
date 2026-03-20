@@ -58,7 +58,7 @@ class _CardViewScreenState extends State<CardViewScreen> {
               ),
             ],
           ),
-          EkaCardWidget(EkaCard(color, value, CardController())),
+          EkaCardWidget(EkaCard(0, color, value, CardController())),
         ],
       ),
     );

@@ -6,12 +6,11 @@ class CardAnimationScreen extends StatefulWidget {
   const CardAnimationScreen({super.key});
 
   @override
-  State<CardAnimationScreen> createState() =>
-      _CardAnimationScreenState();
+  State<CardAnimationScreen> createState() => _CardAnimationScreenState();
 }
 
 class _CardAnimationScreenState extends State<CardAnimationScreen> {
-  final EkaCard card = EkaCard(CardColor.red, 11, CardController());
+  final EkaCard card = EkaCard(0, CardColor.red, 11, CardController());
 
   @override
   void initState() {
@@ -58,10 +57,6 @@ class _CardAnimationScreenState extends State<CardAnimationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [AnimatedCard(card)],
-      ),
-    );
+    return Scaffold(body: Stack(children: [AnimatedCard(card)]));
   }
 }

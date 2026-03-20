@@ -15,7 +15,7 @@ class CardScaleAnimationScreen extends StatefulWidget {
 class _CardScaleAnimationScreenState extends State<CardScaleAnimationScreen> {
   @override
   Widget build(BuildContext context) {
-    EkaCard ekaCard = EkaCard(CardColor.red, 11, CardController());
+    EkaCard ekaCard = EkaCard(0, CardColor.red, 11, CardController());
     AnimatedCard card = AnimatedCard(ekaCard);
     return Scaffold(
       appBar: AppBar(
