@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
+import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/screens/game_screen_test.dart';
 import 'package:eka_player_vs_bot/toss/tosser.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class _GameInitialiserState extends State<GameInitialiser> {
       Timer(Duration(milliseconds: (numberOfTurns * 325).toInt()), () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Placeholder()),
+          MaterialPageRoute(builder: (context) => GameScreen()),
         );
       });
     });

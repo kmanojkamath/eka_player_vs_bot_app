@@ -4,7 +4,7 @@ import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
 import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
 import 'package:flutter/material.dart';
 
-import '../card_logic.dart';
+import 'card/card_logic.dart';
 
 List<EkaCard> card = List.generate(108, (i) {
   if (i < 100) {
@@ -37,8 +37,11 @@ SplayTreeSet<int> playerPile =
 SplayTreeSet<int> botPile =
     SplayTreeSet<int>(); // List to hold the indices of the cards in the bot's pile
 
-late int
-topCard; // Variable to hold the index of the top card of the discard pile
+EkaCard get topCard => card[discardPile.last]; // Getter to get the the top card of the discard pile
+
+set topCard(int ci){
+  discardPile.add(ci);
+} // Setter to set the index of the top card of the discard pile, adds the card index to the discard pile list
 
 BackCardController backOfDrawingCard = BackCardController();
 
@@ -50,4 +53,6 @@ ValueNotifier<int> selectedCard = ValueNotifier(-1); // Variable to hold the ind
 
 bool selectionLocked = true; // Varaible to lock player from selecting a card
  
-late bool botStarts; //  Variable to determine if the bot starts the game
+late bool botStarts; // Variable to determine if the bot starts the game
+
+late CardColor selectedColor; // Variable to hold the color selected by player/bot when playing a wild card/ a wild draw four
