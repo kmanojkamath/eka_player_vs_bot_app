@@ -28,30 +28,35 @@ class TossCircle extends CustomPainter {
 }
 
 class TossCircleWidget extends StatelessWidget {
-  const TossCircleWidget({super.key});
+  final double size;
+  const TossCircleWidget({super.key, required this.size});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Stack(
-        children: [
-          CustomPaint(painter: TossCircle()),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text("Bot"),
-              Transform.rotate(angle: pi, child: Text("You")),
-            ],
-          ),
-        ],
-      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SizedBox(
+          width: size,
+          height: size,
+          child: CustomPaint(painter: TossCircle()),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text("Bot"),
+            Transform.rotate(angle: pi, child: Text("You")),
+          ],
+        ),
+      ],
     );
   }
 }
 
 class RotatingTossCircle extends StatefulWidget {
-  final double numberOfTurns;
-  const RotatingTossCircle(this.numberOfTurns, {super.key});
+  final double size;
+  double numberOfTurns = 0;
+  RotatingTossCircle(this.numberOfTurns, {super.key, required this.size});
 
   @override
   State<RotatingTossCircle> createState() => _RotatingTossCircleState();
@@ -62,7 +67,8 @@ class _RotatingTossCircleState extends State<RotatingTossCircle> {
   Widget build(BuildContext context) {
     return AnimatedRotation(
       turns: widget.numberOfTurns,
-      duration: Duration(milliseconds: (widget.numberOfTurns * 2 * pi).toInt()),
+      duration: Duration(milliseconds: (widget.numberOfTurns * 300).toInt()),
+      child: TossCircleWidget(size: widget.size),
     );
   }
 }

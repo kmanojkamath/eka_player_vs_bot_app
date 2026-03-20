@@ -149,31 +149,29 @@ class _AnimatedCardState extends State<AnimatedCard>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (!selectionLocked) {
-          selectionLocked = true;
-          selectedCard.value = widget._card.ci;
-        }
-      },
-      child: AnimatedBuilder(
-        animation: _merged,
-
-        builder: (context, child) {
-          return Positioned(
-            left: posAnim.value.dx,
-            top: posAnim.value.dy,
-            child: Transform.rotate(
-              angle: angleAnim.value,
-              child: Transform.scale(
-                scaleX: widthScaleAnim.value * scaleAnim.value,
-                scaleY: scaleAnim.value,
-                child: child,
-              ),
+    return AnimatedBuilder(
+      animation: _merged,
+      builder: (context, child) {
+        return Positioned(
+          left: posAnim.value.dx,
+          top: posAnim.value.dy,
+          child: Transform.rotate(
+            angle: angleAnim.value,
+            child: Transform.scale(
+              scaleX: widthScaleAnim.value * scaleAnim.value,
+              scaleY: scaleAnim.value,
+              child: child,
             ),
-          );
+          ),
+        );
+      },
+      child: GestureDetector(
+        onTap: () {
+          if (!selectionLocked) {
+            selectionLocked = true;
+            selectedCard.value = widget._card.ci;
+          }
         },
-
         child: EkaCardWidget(widget._card),
       ),
     );

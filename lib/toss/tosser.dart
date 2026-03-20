@@ -10,13 +10,13 @@ class TossPointerCircle extends CustomPainter {
       Paint()
         ..color = Colors.black
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 10,
+        ..strokeWidth = 5,
     );
 
     final pointerPath = Path();
 
-    pointerPath.moveTo(size.width / 2 - 5, 10);
-    pointerPath.lineTo(size.width / 2 + 5, 10);
+    pointerPath.moveTo(size.width / 2 - 3, 0);
+    pointerPath.lineTo(size.width / 2 + 3, 0);
     pointerPath.lineTo(size.width / 2, 20);
     pointerPath.close();
 
@@ -29,27 +29,23 @@ class TossPointerCircle extends CustomPainter {
   }
 }
 
-class Tosser extends StatefulWidget {
-  final double length;
+class Tosser extends StatelessWidget {
   final double numberOfTurns;
-  const Tosser({super.key, required this.length, required this.numberOfTurns});
+  const Tosser({super.key, required this.numberOfTurns});
 
-  @override
-  State<Tosser> createState() => _TosserState();
-}
-
-class _TosserState extends State<Tosser> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.length,
-      height: widget.length,
-      child: Stack(
-        children: [
-          RotatingTossCircle(widget.numberOfTurns),
-          CustomPaint(painter: TossPointerCircle()),
-        ],
-      ),
+    final size = MediaQuery.sizeOf(context).height / 2;
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        RotatingTossCircle(numberOfTurns, size: size),
+        SizedBox(
+          width: size,
+          height: size,
+          child: CustomPaint(painter: TossPointerCircle()),
+        ),
+      ],
     );
   }
 }
