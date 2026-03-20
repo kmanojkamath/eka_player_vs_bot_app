@@ -53,22 +53,17 @@ class TossCircleWidget extends StatelessWidget {
   }
 }
 
-class RotatingTossCircle extends StatefulWidget {
+class RotatingTossCircle extends StatelessWidget {
   final double size;
-  double numberOfTurns = 0;
-  RotatingTossCircle(this.numberOfTurns, {super.key, required this.size});
+  final double numberOfTurns;
+  const RotatingTossCircle(this.numberOfTurns, {super.key, required this.size});
 
-  @override
-  State<RotatingTossCircle> createState() => _RotatingTossCircleState();
-}
-
-class _RotatingTossCircleState extends State<RotatingTossCircle> {
   @override
   Widget build(BuildContext context) {
     return AnimatedRotation(
-      turns: widget.numberOfTurns,
-      duration: Duration(milliseconds: (widget.numberOfTurns * 300).toInt()),
-      child: TossCircleWidget(size: widget.size),
+      turns: numberOfTurns,
+      duration: Duration(milliseconds: (numberOfTurns * 300).toInt()),
+      child: TossCircleWidget(size: size),
     );
   }
 }
