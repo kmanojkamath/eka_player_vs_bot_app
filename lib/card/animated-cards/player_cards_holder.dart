@@ -34,14 +34,14 @@ Offset cardPosition(
   );
 }
 
-class HandHolder extends StatefulWidget {
-  const HandHolder({super.key});
+class PlayerCardsHolder extends StatefulWidget {
+  const PlayerCardsHolder({super.key});
 
   @override
-  State<HandHolder> createState() => _HandHolderState();
+  State<PlayerCardsHolder> createState() => _PlayerCardsHolderState();
 }
 
-class _HandHolderState extends State<HandHolder> {
+class _PlayerCardsHolderState extends State<PlayerCardsHolder> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -49,7 +49,7 @@ class _HandHolderState extends State<HandHolder> {
         return Stack(
           children: [
             AnimatedBackCard(
-              BackCardController(),
+              stationary,
               cardScale: 0.5,
               cardPosition: Offset(
                 constraints.maxWidth * 0.75,
