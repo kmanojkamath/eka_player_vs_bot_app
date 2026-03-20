@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
 import 'package:flutter/material.dart';
 
 class TossCircle extends CustomPainter {
@@ -39,7 +38,10 @@ class TossCircleWidget extends StatelessWidget {
           CustomPaint(painter: TossCircle()),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [Text("Bot"), Text("You")],
+            children: [
+              Text("Bot"),
+              Transform.rotate(angle: pi, child: Text("You")),
+            ],
           ),
         ],
       ),
