@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
     /*
     Choose from the following screens to test the card animations:
     - CardViewScreen(): A screen to view a single card with customizable value and color.
-    - HandViewScreen(): A screen to view a hand of cards.
     - CardScaleAnimationScreen(): A screen to test scaling, positioning, and rotation animations on a card.
     - CardAnimationScreen(): A screen to test a sequence of animations on a card, including moving, rotating, and scaling.
+    - HandViewScreen(): A screen to view a hand of cards.
+    - GameInitialiser(): A screen which shows the tossing mechanism
     */
     return MaterialApp(home:GameInitialiser());
   }

@@ -1,4 +1,4 @@
-import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
+import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
 
