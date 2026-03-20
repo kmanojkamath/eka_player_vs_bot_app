@@ -1,5 +1,8 @@
+import 'dart:collection';
+
 import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
 import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
+import 'package:flutter/material.dart';
 
 import '../card_logic.dart';
 
@@ -18,12 +21,6 @@ List<EkaCard> card = List.generate(108, (i) {
   }
 }); // Generate a standard deck of 108 cards
 
-BackCardController backOfDrawingCard = BackCardController();
-
-BackCardController stationary = BackCardController();
-
-List<BackCardController> botCard = List.filled(27, BackCardController());
-
 List<int> deckPile = List.generate(
   108,
   (i) {
@@ -34,16 +31,23 @@ List<int> deckPile = List.generate(
 List<int> discardPile =
     []; // List to hold the indices of the cards in the discard pile, top card will be the last card added to this List
 
-List<int> playerPile =
-    []; // List to hold the indices of the cards in the player's pile
+SplayTreeSet<int> playerPile =
+    SplayTreeSet<int>(); // List to hold the indices of the cards in the player's pile
 
-List<int> botPile =
-    []; // List to hold the indices of the cards in the bot's pile
+SplayTreeSet<int> botPile =
+    SplayTreeSet<int>(); // List to hold the indices of the cards in the bot's pile
 
 late int
 topCard; // Variable to hold the index of the top card of the discard pile
 
-late int
-selectedCard; // Variable to hold the index of the card selected by the player to play
+BackCardController backOfDrawingCard = BackCardController();
+
+BackCardController stationary = BackCardController();
+
+List<BackCardController> botCard = List.filled(27, BackCardController());
+
+ValueNotifier<int> selectedCard = ValueNotifier(-1); // Variable to hold the index of the card selected by the player to play
 
 bool selectionLocked = true; // Varaible to lock player from selecting a card
+ 
+late bool botStarts; //  Variable to determine if the bot starts the game
