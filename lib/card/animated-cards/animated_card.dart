@@ -153,7 +153,7 @@ class _AnimatedCardState extends State<AnimatedCard>
       onTap: () {
         if (!selectionLocked) {
           selectionLocked = true;
-          selectedCard = widget._card.ci;
+          selectedCard.value = widget._card.ci;
         }
       },
       child: AnimatedBuilder(
