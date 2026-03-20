@@ -33,8 +33,8 @@ Offset botCardPosition(
 }
 
 class BotCardsHolder extends StatefulWidget {
-  List<BackCardController> backCardControllerList;
-  BotCardsHolder(this.backCardControllerList,{super.key});
+  final List<BackCardController> backCardControllerList;
+  const BotCardsHolder(this.backCardControllerList,{super.key});
 
   @override
   State<BotCardsHolder> createState() => _BotCardsHolderState();

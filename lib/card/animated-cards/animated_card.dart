@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:eka_player_vs_bot/card/card-backend/card_storage.dart';
+import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
 
@@ -168,8 +168,8 @@ class _AnimatedCardState extends State<AnimatedCard>
       child: GestureDetector(
         onTap: () {
           if (!selectionLocked) {
-            selectionLocked = true;
             selectedCard.value = widget._card.ci;
+            selectionLocked = true;
           }
         },
         child: EkaCardWidget(widget._card),
