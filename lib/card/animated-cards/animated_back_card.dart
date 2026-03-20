@@ -133,6 +133,12 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
 
       await _widthScaleController.forward(from: 0);
     };
+
+    widget._backCardController.changePosition?.call(
+      widget.cardPosition,
+      Duration(),
+      Curves.linear,
+    );
   }
 
   @override
