@@ -20,8 +20,12 @@ class _TopCardState extends State<TopCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      child: discardPile.isEmpty ? SizedBox.shrink() : EkaCardWidget(topCard),
+    return Positioned(
+      left: screenSize.width / 2,
+      top: screenSize.height * 0.4,
+      child: discardPile.isEmpty
+          ? SizedBox.shrink()
+          : Transform.scale(scale: 0.5,child: EkaCardWidget(topCard)),
     );
   }
 }
