@@ -1,35 +1,6 @@
-import 'dart:math';
-
 import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/positions.dart';
 import 'package:flutter/material.dart';
-
-double cardAngle(int ci) {
-  int n = playerPile.length;
-  int i = playerPile.toList().indexOf(ci);
-  double angle = 0.2 * (1 - (n - 1) / 27);
-  return (i - (n - 1) / 2) * angle;
-}
-
-Offset cardPosition(int ci) {
-  int n = playerPile.length;
-  int i = playerPile.toList().indexOf(ci);
-
-  double widthDifference = 24;
-
-  double lowest = screenSize.height * 0.8;
-  double highest = screenSize.height * 0.7;
-
-  double x = i - (n - 1) / 2;
-
-  double cardWidth = 188;
-
-  return Offset(
-    x * widthDifference +
-        screenSize.width / 2 -
-        cardWidth * cos(cardAngle(ci)) * 0.5,
-    (lowest - highest) / ((n / 2) * (n / 2)) * x * x + highest,
-  );
-}
 
 Future<void> playerDrawCard(int ci) async {
   await Future.wait([
@@ -66,14 +37,14 @@ Future<void> playerDrawCard(int ci) async {
   await Future.wait([
     ...playerPile.map((i) {
       return card[i].controller.changeAngle!.call(
-        cardAngle(i),
+        playerCardAngle(i),
         Duration(milliseconds: i == ci ? 600 : 300),
         Curves.linear,
       );
     }),
     ...playerPile.map((i) {
       return card[i].controller.changePosition!.call(
-        cardPosition(i),
+        playerCardPosition(i),
         Duration(milliseconds: i == ci ? 600 : 300),
         Curves.linear,
       );

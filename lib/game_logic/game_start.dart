@@ -1,3 +1,4 @@
+import 'package:eka_player_vs_bot/animations/put_top_card.dart';
 import 'package:eka_player_vs_bot/global.dart';
 
 import '../animations/bot_draw_card.dart';
@@ -43,6 +44,8 @@ Future<void> gameStart() async {
   }
 
   topCard = deckPile.removeLast();
+
+  await putTopCard();
 
   _postGameStart();
 }
