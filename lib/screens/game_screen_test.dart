@@ -1,4 +1,5 @@
 import 'package:eka_player_vs_bot/card/animated-cards/bot_cards_holder.dart';
+import 'package:eka_player_vs_bot/card/animated-cards/top_card.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:eka_player_vs_bot/game_logic/game_start.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     screenSize = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Stack(children: [BotCardsHolder(), PlayerCardsHolder()]),
+      body: Stack(children: [TopCard(),BotCardsHolder(), PlayerCardsHolder()]),
     );
   }
 }
