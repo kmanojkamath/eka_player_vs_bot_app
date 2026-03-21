@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
+import 'package:eka_player_vs_bot/global.dart';
 
 import 'package:flutter/material.dart';
 
@@ -33,9 +34,7 @@ Offset botCardPosition(
 }
 
 class BotCardsHolder extends StatefulWidget {
-  final List<BackCardController> backCardControllerList;
-  const BotCardsHolder(this.backCardControllerList,{super.key});
-
+  const BotCardsHolder({super.key});
   @override
   State<BotCardsHolder> createState() => _BotCardsHolderState();
 }
@@ -46,14 +45,14 @@ class _BotCardsHolderState extends State<BotCardsHolder> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
-          children: List.generate(widget.backCardControllerList.length, (i) {
+          children: List.generate(botCard.length, (i) {
             return AnimatedBackCard(
-              widget.backCardControllerList[i],
+              botCard[i],
               cardScale: 0.5,
               cardWidthScale: 0,
               cardPosition: Offset(
                 constraints.maxWidth * 0.75,
-                constraints.maxHeight * 0.25,
+                constraints.maxHeight * 0.33,
               ),
             );
           }),

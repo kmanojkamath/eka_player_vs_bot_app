@@ -1,21 +1,10 @@
 import 'package:eka_player_vs_bot/global.dart';
 
+import '../animations/bot_draw_card.dart';
+import '../animations/player_draw_card.dart';
 import 'bot_turn.dart';
 import 'draw_two.dart';
 import 'player_turn.dart';
-
-void _preGameStart() {
-  for (int i = 0; i < 7; i++) {
-    playerPile.add(deckPile.removeLast());
-    botPile.add(deckPile.removeLast());
-  }
-
-  while (card[deckPile.last].isWild) {
-    deckPile.insert(0, deckPile.removeLast());
-  }
-
-  topCard = deckPile.removeLast();
-}
 
 void _postGameStart() {
   if (topCard.isSkip || topCard.isReverse) {
@@ -40,7 +29,20 @@ void _postGameStart() {
 }
 
 Future<void> gameStart() async {
-  _preGameStart();
+  for (int i = 0; i < 7; i++) {
+    int ci = deckPile.removeLast();
+    playerPile.add(ci);
+    await playerDrawCard(ci);
+
+    botPile.add(deckPile.removeLast());
+    await botDrawCard();
+  }
+
+  while (card[deckPile.last].isWild) {
+    deckPile.insert(0, deckPile.removeLast());
+  }
+
+  topCard = deckPile.removeLast();
 
   _postGameStart();
 }
