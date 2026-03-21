@@ -47,7 +47,7 @@ BackCardController backOfDrawingCard = BackCardController();
 
 BackCardController stationary = BackCardController();
 
-List<BackCardController> botCard = List.filled(27, BackCardController());
+List<BackCardController> botCard = List.generate(27, (i){return BackCardController();});
 
 ValueNotifier<int> selectedCard = ValueNotifier(-1); // Variable to hold the index of the card selected by the player to play
 
@@ -56,3 +56,5 @@ bool selectionLocked = true; // Varaible to lock player from selecting a card
 late bool botStarts; // Variable to determine if the bot starts the game
 
 late CardColor selectedColor; // Variable to hold the color selected by player/bot when playing a wild card/ a wild draw four
+
+late Size screenSize;
