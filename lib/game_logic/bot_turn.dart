@@ -1,4 +1,4 @@
-import 'package:eka_player_vs_bot/card/card-backend/bot_logic.dart';
+import 'package:eka_player_vs_bot/logics/medium_bot.dart';
 import 'package:eka_player_vs_bot/global.dart';
 
 import 'player_turn.dart';

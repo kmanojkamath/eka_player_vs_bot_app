@@ -11,6 +11,7 @@ class CardController {
   Future<void> Function(Offset, Duration, Curve)? changePosition;
   Future<void> Function(double, Duration, Curve)? changeAngle;
   Future<void> Function(double, Duration, Curve)? changeWidthScale;
+  bool locked = true;
 }
 
 class AnimatedCard extends StatefulWidget {
@@ -167,9 +168,8 @@ class _AnimatedCardState extends State<AnimatedCard>
       },
       child: GestureDetector(
         onTap: () {
-          if (!selectionLocked) {
+          if(!widget._card.controller.locked){
             selectedCard.value = widget._card.ci;
-            selectionLocked = true;
           }
         },
         child: EkaCardWidget(widget._card),
