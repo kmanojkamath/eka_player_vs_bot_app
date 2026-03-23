@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/screens/game_screen_test.dart';
-import 'package:eka_player_vs_bot/screens/hand_view.dart';
 import 'package:eka_player_vs_bot/toss/tosser.dart';
 import 'package:flutter/material.dart';
 
