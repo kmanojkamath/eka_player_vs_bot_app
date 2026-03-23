@@ -11,14 +11,22 @@ Future<void> botDrawCard() async {
     ...List.generate(n, (i) {
       return botCard[i].changeAngle!.call(
         botCardAngle(i),
-        Duration(milliseconds: i == n - 1 ? 600 : 300),
+        Duration(
+          milliseconds: discardPile.isEmpty
+              ? (i == n - 1 ? 200 : 100)
+              : (i == n - 1 ? 600 : 300),
+        ),
         Curves.linear,
       );
     }),
     ...List.generate(n, (i) {
       return botCard[i].changePosition!.call(
         botCardPosition(i),
-        Duration(milliseconds: i == n - 1 ? 600 :300),
+        Duration(
+          milliseconds: discardPile.isEmpty
+              ? (i == n - 1 ? 200 : 100)
+              : (i == n - 1 ? 600 : 300),
+        ),
         Curves.linear,
       );
     }),
