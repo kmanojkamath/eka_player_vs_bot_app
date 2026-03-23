@@ -6,12 +6,12 @@ Future<void> playerDrawCard(int ci) async {
   await Future.wait([
     backOfDrawingCard.changeWidthScale!.call(
       0,
-      Duration(milliseconds: 250),
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
       Curves.linear,
     ),
     backOfDrawingCard.changeScale!.call(
       0.75,
-      Duration(milliseconds: 250),
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
       Curves.easeInOut,
     ),
   ]);
@@ -19,12 +19,12 @@ Future<void> playerDrawCard(int ci) async {
   await Future.wait([
     card[ci].controller.changeWidthScale!.call(
       1,
-      Duration(milliseconds: 250),
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
       Curves.linear,
     ),
     card[ci].controller.changeScale!.call(
-      1,
-      Duration(milliseconds: 250),
+      playerCardScale,
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
       Curves.easeInOut,
     ),
   ]);
@@ -38,14 +38,22 @@ Future<void> playerDrawCard(int ci) async {
     ...playerPile.map((i) {
       return card[i].controller.changeAngle!.call(
         playerCardAngle(i),
-        Duration(milliseconds: i == ci ? 600 : 300),
+        Duration(
+          milliseconds: discardPile.isEmpty
+              ? (i == ci ? 200 : 100)
+              : (i == ci ? 600 : 300),
+        ),
         Curves.linear,
       );
     }),
     ...playerPile.map((i) {
       return card[i].controller.changePosition!.call(
         playerCardPosition(i),
-        Duration(milliseconds: i == ci ? 600 : 300),
+        Duration(
+          milliseconds: discardPile.isEmpty
+              ? (i == ci ? 200 : 100)
+              : (i == ci ? 600 : 300),
+        ),
         Curves.linear,
       );
     }),

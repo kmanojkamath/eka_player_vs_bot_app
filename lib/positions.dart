@@ -74,18 +74,13 @@ Offset playableCardPosition(int ci) {
 
   double widthDifference = 24;
 
-  double lowest = screenSize.height * 0.8;
-  double highest = screenSize.height * 0.7;
-
   double x = i - (n - 1) / 2;
 
   double cardWidth = 188;
 
   return Offset(
-    x * widthDifference +
-        screenSize.width / 2 -
-        cardWidth * cos(playableCardAngle(ci)) * 0.5,
-    (lowest - highest) / ((n / 2) * (n / 2)) * x * x + highest,
+    x * widthDifference + screenSize.width / 2 - cardWidth * 0.5,
+    screenSize.height * 0.6,
   );
 }
 

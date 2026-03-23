@@ -42,22 +42,19 @@ Future<void> playerTurn() async {
   playablePlayerCards().forEach((element) {
     card[element].controller.locked = false;
   });
-  print("1");
   await showPlayableCards();
-  print("2");
 
   await waitForPlayer();
-  print("3");
+
   await playerPlayCard();
-  print("4");
 
   topCard = selectedCard.value;
 
-  playerPile.removeWhere((element) => element == selectedCard.value);
+  playerPile.remove(selectedCard.value);
 
-  updateTopCardWidget.call();
+  updateTopCardWidget.call(topCard.ci);
 
-  print("5");
+  await unshowPlayableCards();
 
   _postPlayerTurn();
 }
