@@ -20,14 +20,14 @@ Future<void> playerPlayCard() async {
     ...playablePlayerCards().map(
       (element) => card[element].controller.changePosition!.call(
         element == selectedCard.value
-            ? Offset(screenSize.width / 2, screenSize.height * 0.4)
+            ? topCardPosition
             : playableCardPosition(element),
         Duration(milliseconds: element == selectedCard.value ? 300 : 180),
         Curves.linear,
       ),
     ),
     card[selectedCard.value].controller.changeScale!.call(
-      0.5,
+      topCardScale,
       Duration(milliseconds: 300),
       Curves.linear,
     ),

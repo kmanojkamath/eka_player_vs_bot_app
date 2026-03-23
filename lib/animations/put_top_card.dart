@@ -1,3 +1,4 @@
+import 'package:eka_player_vs_bot/positions.dart';
 import 'package:flutter/animation.dart';
 
 import '../global.dart';
@@ -36,19 +37,34 @@ Future<void> putTopCard() async {
 
   await Future.wait([
     topCard.controller.changePosition!.call(
-      Offset(screenSize.width / 2, screenSize.height * 0.4),
+      topCardPosition,
       Duration(milliseconds: 300),
       Curves.linear,
     ),
     topCard.controller.changeScale!.call(
-      0.5,
+      topCardScale,
       Duration(milliseconds: 300),
       Curves.easeOut,
     ),
   ]);
 
-  updateTopCardWidget.call;
+  updateTopCardWidget.call(topCard.ci);
 
-  await Future.wait([]);
-  
+  await Future.wait([
+    topCard.controller.changePosition!.call(
+      drawPosition,
+      Duration.zero,
+      Curves.linear,
+    ),
+    topCard.controller.changeScale!.call(
+      drawScale,
+      Duration.zero,
+      Curves.linear,
+    ),
+    topCard.controller.changeWidthScale!.call(
+      0,
+      Duration.zero,
+      Curves.linear,
+    ),
+  ]);
 }
