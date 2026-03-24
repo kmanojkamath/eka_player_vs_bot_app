@@ -60,6 +60,8 @@ Future<void> playerTurn() async {
 
   updateTopCardWidget.call(topCard.ci);
 
+  if(playerPile.isEmpty) showResultScreen.call(true);
+
   await unshowPlayableCards();
 
   await _postPlayerTurn();
