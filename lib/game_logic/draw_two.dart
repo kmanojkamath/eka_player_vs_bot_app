@@ -25,6 +25,7 @@ Future<void> botDrawTwo() async {
   if (deckPile.length < 2) {
     deckPile = [...discardPile];
     deckPile.remove(topCard.ci);
+    deckPile.shuffle();
     discardPile.clear();
     discardPile.add(topCard.ci);
   }

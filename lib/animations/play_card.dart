@@ -39,17 +39,17 @@ Future<void> playerPlayCard() async {
 Future<void> botPlayCard() async {
   int n = botPile.length;
   await Future.wait([
-    botCard[n - 1].changeScale!.call(
+    botCard[n].changeScale!.call(
       drawScale,
       Duration(milliseconds: 100),
       Curves.linear,
     ),
-    botCard[n - 1].changeWidthScale!.call(
+    botCard[n].changeWidthScale!.call(
       0,
       Duration(milliseconds: 100),
       Curves.linear,
     ),
-    botCard[n - 1].changeAngle!.call(
+    botCard[n].changeAngle!.call(
       0,
       Duration(milliseconds: 100),
       Curves.linear,
@@ -80,6 +80,12 @@ Future<void> botPlayCard() async {
     ),
   ]);
 
+  await botCard[n].changePosition!.call(
+    drawPosition,
+    Duration(milliseconds: 100),
+    Curves.linear,
+  );
+
   updateTopCardWidget.call(topCard.ci);
 
   await Future.wait([
@@ -93,11 +99,24 @@ Future<void> botPlayCard() async {
       Duration.zero,
       Curves.linear,
     ),
-    topCard.controller.changeWidthScale!.call(
-      0,
-      Duration.zero,
-      Curves.linear,
-    ),
+    topCard.controller.changeWidthScale!.call(0, Duration.zero, Curves.linear),
+  ]);
+
+  await Future.wait([
+    ...List.generate(n, (i) {
+      return botCard[i].changeAngle!.call(
+        botCardAngle(i),
+        Duration(milliseconds: 300),
+        Curves.linear,
+      );
+    }),
+    ...List.generate(n, (i) {
+      return botCard[i].changePosition!.call(
+        botCardPosition(i),
+        Duration(milliseconds: 300),
+        Curves.linear,
+      );
+    }),
   ]);
 
   await Future.delayed(Duration(milliseconds: 180));

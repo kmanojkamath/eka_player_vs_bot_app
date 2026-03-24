@@ -15,10 +15,9 @@ Future<void> _postPlayerTurn() async {
   playerPile.remove(selectedCard.value);
   topCard = selectedCard.value;
 
-  if(topCard.isDrawTwo){
+  if (topCard.isDrawTwo) {
     await botDrawTwo();
-  }
-  else if (topCard.isSkip || topCard.isReverse) {
+  } else if (topCard.isSkip || topCard.isReverse) {
     await playerTurn();
   } else if (topCard.isWildCard) {
     await playerWildCard();
@@ -29,7 +28,7 @@ Future<void> _postPlayerTurn() async {
   }
 }
 
-Future<int> waitForPlayer() {
+Future<void> waitForPlayer() {
   final completer = Completer<int>();
 
   late VoidCallback listener;
@@ -46,7 +45,9 @@ Future<void> playerTurn() async {
   playablePlayerCards().forEach((element) {
     card[element].controller.locked = false;
   });
-  
+
+  if (playablePlayerCards().isEmpty) canDraw = true;
+
   await showPlayableCards();
 
   await waitForPlayer();
