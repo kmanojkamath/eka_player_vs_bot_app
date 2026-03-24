@@ -32,14 +32,20 @@ List<int> discardPile =
     []; // List to hold the indices of the cards in the discard pile, top card will be the last card added to this List
 
 SplayTreeSet<int> playerPile =
-    SplayTreeSet<int>(); // List to hold the indices of the cards in the player's pile
+    SplayTreeSet<
+      int
+    >(); // List to hold the indices of the cards in the player's pile
 
 SplayTreeSet<int> botPile =
-    SplayTreeSet<int>(); // List to hold the indices of the cards in the bot's pile
+    SplayTreeSet<
+      int
+    >(); // List to hold the indices of the cards in the bot's pile
 
-EkaCard get topCard => card[discardPile.last]; // Getter to get the the top card of the discard pile
+EkaCard get topCard =>
+    card[discardPile
+        .last]; // Getter to get the the top card of the discard pile
 
-set topCard(int ci){
+set topCard(int ci) {
   discardPile.add(ci);
 } // Setter to set the index of the top card of the discard pile, adds the card index to the discard pile list
 
@@ -47,16 +53,23 @@ BackCardController backOfDrawingCard = BackCardController();
 
 BackCardController stationary = BackCardController();
 
-List<BackCardController> botCard = List.generate(27, (i){return BackCardController();});
+List<BackCardController> botCard = List.generate(27, (i) {
+  return BackCardController();
+});
 
-ValueNotifier<int> selectedCard = ValueNotifier(-1); // Variable to hold the index of the card selected by the player to play
- 
+ValueNotifier<int> selectedCard = ValueNotifier(
+  -1,
+); // Variable to hold the index of the card selected by the player to play
+
 late bool botStarts; // Variable to determine if the bot starts the game
 
-late CardColor selectedColor; // Variable to hold the color selected by player/bot when playing a wild card/ a wild draw four
+ValueNotifier<CardColor>
+selectedColor =ValueNotifier(CardColor.wild); // Variable to hold the color selected by player/bot when playing a wild card/ a wild draw four
 
 late Size screenSize;
 
 late Function updateTopCardWidget;
+
+late Function showColorSelector;
 
 bool canDraw = false;

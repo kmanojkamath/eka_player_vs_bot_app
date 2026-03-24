@@ -1,39 +1,58 @@
+import '../animations/draw_card.dart';
 import '../global.dart';
+import '../logics/medium_bot.dart';
 import 'bot_turn.dart';
 import 'player_turn.dart';
-
-void _postPlayerWildDrawFour() {
-  if (deckPile.length < 4) {
-    deckPile = [...discardPile];
-    deckPile.remove(topCard.ci);
-    discardPile.clear();
-    discardPile.add(topCard.ci);
-  }
-  botPile.add(deckPile.removeLast());
-  botPile.add(deckPile.removeLast());
-  botPile.add(deckPile.removeLast());
-  botPile.add(deckPile.removeLast());
-  playerTurn();
-}
+import 'wild_card.dart';
 
 Future<void> playerWildDrawFour() async {
-  _postPlayerWildDrawFour();
-}
+  showColorSelector.call();
 
-void _postBotWildDrawFour() {
-  if (deckPile.length < 4) {
+  await waitForColor();
+
+  await Future.delayed(Duration(milliseconds: 420));
+
+  if (deckPile.length < 2) {
     deckPile = [...discardPile];
     deckPile.remove(topCard.ci);
+    deckPile.shuffle();
     discardPile.clear();
     discardPile.add(topCard.ci);
   }
-  playerPile.add(deckPile.removeLast());
-  playerPile.add(deckPile.removeLast());
-  playerPile.add(deckPile.removeLast());
-  playerPile.add(deckPile.removeLast());
-  botTurn();
+  botPile.add(deckPile.removeLast());
+  await botDrawCard();
+  botPile.add(deckPile.removeLast());
+  await botDrawCard();
+  botPile.add(deckPile.removeLast());
+  await botDrawCard();
+  botPile.add(deckPile.removeLast());
+  await botDrawCard();
+
+  await playerTurn();
 }
 
 Future<void> botWildDrawFour() async {
-  _postBotWildDrawFour();
+  selectedColor.value = await mediumBotColor();
+
+  if (deckPile.length < 2) {
+    deckPile = [...discardPile];
+    deckPile.remove(topCard.ci);
+    deckPile.shuffle();
+    discardPile.clear();
+    discardPile.add(topCard.ci);
+  }
+  int ci = deckPile.removeLast();
+  playerPile.add(ci);
+  await playerDrawCard(ci);
+  ci = deckPile.removeLast();
+  playerPile.add(ci);
+  await playerDrawCard(ci);
+  ci = deckPile.removeLast();
+  playerPile.add(ci);
+  await playerDrawCard(ci);
+  ci = deckPile.removeLast();
+  playerPile.add(ci);
+  await playerDrawCard(ci);
+
+  await botTurn();
 }
