@@ -72,4 +72,6 @@ late Function updateTopCardWidget;
 
 late Function showColorSelector;
 
+late Function showResultScreen;
+
 bool canDraw = false;

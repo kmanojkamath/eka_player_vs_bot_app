@@ -52,6 +52,8 @@ Future<void> botTurn() async {
 
     await botPlayCard();
 
+    if (botPile.isEmpty) showResultScreen.call(false);
+
     _postBotTurn(ci);
   }
 }
