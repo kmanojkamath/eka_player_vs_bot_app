@@ -178,6 +178,7 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
       child: GestureDetector(
         onTap: () async {
           if (canDraw) {
+            canDraw = false;
             if (deckPile.isEmpty) {
               deckPile = [...discardPile];
               deckPile.remove(topCard.ci);
