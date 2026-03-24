@@ -1,12 +1,16 @@
-import 'package:eka_player_vs_bot/screens/card_animation_test_screen1.dart';
-import 'package:eka_player_vs_bot/screens/card_view_screen.dart';
 import 'package:eka_player_vs_bot/screens/game_initialiser.dart';
-import 'package:eka_player_vs_bot/screens/hand_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'screens/card_animation_test_screen2.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+
   runApp(const MyApp());
 }
 
@@ -23,6 +27,6 @@ class MyApp extends StatelessWidget {
     - HandViewScreen(): A screen to view a hand of cards.
     - GameInitialiser(): A screen which shows the tossing mechanism
     */
-    return MaterialApp(home:GameInitialiser());
+    return MaterialApp(home: GameInitialiser());
   }
 }
