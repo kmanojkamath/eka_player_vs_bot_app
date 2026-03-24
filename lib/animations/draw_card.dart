@@ -59,3 +59,33 @@ Future<void> playerDrawCard(int ci) async {
     }),
   ]);
 }
+
+Future<void> botDrawCard() async {
+  int n = botPile.length;
+
+  await Future.wait([
+    botCard[n - 1].changeWidthScale!.call(1, Duration.zero, Curves.linear),
+    ...List.generate(n, (i) {
+      return botCard[i].changeAngle!.call(
+        botCardAngle(i),
+        Duration(
+          milliseconds: discardPile.isEmpty
+              ? (i == n - 1 ? 200 : 100)
+              : (i == n - 1 ? 600 : 300),
+        ),
+        Curves.linear,
+      );
+    }),
+    ...List.generate(n, (i) {
+      return botCard[i].changePosition!.call(
+        botCardPosition(i),
+        Duration(
+          milliseconds: discardPile.isEmpty
+              ? (i == n - 1 ? 200 : 100)
+              : (i == n - 1 ? 600 : 300),
+        ),
+        Curves.linear,
+      );
+    }),
+  ]);
+}

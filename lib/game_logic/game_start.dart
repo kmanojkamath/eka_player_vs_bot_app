@@ -1,30 +1,29 @@
 import 'package:eka_player_vs_bot/animations/put_top_card.dart';
 import 'package:eka_player_vs_bot/global.dart';
 
-import '../animations/bot_draw_card.dart';
-import '../animations/player_draw_card.dart';
+import '../animations/draw_card.dart';
 import 'bot_turn.dart';
 import 'draw_two.dart';
 import 'player_turn.dart';
 
-void _postGameStart() {
+Future<void> _postGameStart() async {
   if (topCard.isSkip || topCard.isReverse) {
     if (botStarts) {
-      playerTurn();
+      await playerTurn();
     } else {
-      botTurn();
+      await botTurn();
     }
   } else if (topCard.isDrawTwo) {
     if (botStarts) {
-      botDrawTwo();
+      await botDrawTwo();
     } else {
-      playerDrawTwo();
+      await playerDrawTwo();
     }
   } else {
     if (botStarts) {
-      botTurn();
+      await botTurn();
     } else {
-      playerTurn();
+      await playerTurn();
     }
   }
 }
@@ -47,5 +46,5 @@ Future<void> gameStart() async {
 
   await putTopCard();
 
-  _postGameStart();
+  await _postGameStart();
 }
