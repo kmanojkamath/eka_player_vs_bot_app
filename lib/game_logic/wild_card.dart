@@ -1,19 +1,38 @@
+import 'dart:async';
+import 'dart:ui';
+
+import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:eka_player_vs_bot/game_logic/bot_turn.dart';
+import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/logics/medium_bot.dart';
 
 import 'player_turn.dart';
 
-void _postPlayerWildCard() {
-  botTurn();
+Future<void> waitForColor() {
+  final completer = Completer<CardColor>();
+
+  late VoidCallback listener;
+  listener = () {
+    selectedColor.removeListener(listener);
+    completer.complete(selectedColor.value);
+  };
+
+  selectedColor.addListener(listener);
+  return completer.future;
 }
 
 Future<void> playerWildCard() async {
-  _postPlayerWildCard();
-}
+  showColorSelector.call();
 
-void _postBotWildCard() {
-  playerTurn();
+  await waitForColor();
+
+  await Future.delayed(Duration(milliseconds: 420));
+
+  await botTurn();
 }
 
 Future<void> botWildCard() async {
-  _postBotWildCard();
+  selectedColor.value = await mediumBotColor();
+
+  await playerTurn();
 }
