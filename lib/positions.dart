@@ -44,8 +44,8 @@ Offset botCardPosition(int i) {
 
   double widthDifference = 12;
 
-  double lowest = screenSize.height * 0.15;
-  double highest = screenSize.height * 0.1;
+  double lowest = screenSize.height * 0.1;
+  double highest = screenSize.height * 0.05;
 
   double x = i - (n - 1) / 2;
 

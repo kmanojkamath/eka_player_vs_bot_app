@@ -20,14 +20,19 @@ List<int> playablePlayerCards() {
   // Function to determine which cards in the player's pile are playable based on the top card of the discard pile
   List<int> S = [];
   for (int ci in playerPile) {
-    if (topCard.isWild &&
-        (card[ci].color == selectedColor || card[ci].isWild)) {
-      S.add(ci);
-    } else if (card[ci].isWild ||
-        card[ci].color == topCard.color ||
-        card[ci].value == topCard.value) {
-      S.add(ci);
-    }
+    if (isPlayable(ci)) S.add(ci);
   }
   return S;
+}
+
+bool isPlayable(int ci) {
+  if (topCard.isWild && (card[ci].color == selectedColor || card[ci].isWild)) {
+    return true;
+  } else if (card[ci].isWild ||
+      card[ci].color == topCard.color ||
+      card[ci].value == topCard.value) {
+    return true;
+  } else {
+    return false;
+  }
 }
