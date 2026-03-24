@@ -1,34 +1,57 @@
+import 'package:eka_player_vs_bot/game_logic/draw_two.dart';
 import 'package:eka_player_vs_bot/logics/medium_bot.dart';
 import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/logics/playable_cards.dart';
 
-import '../animations/bot_play_card.dart';
+import '../animations/draw_card.dart';
+import '../animations/play_card.dart';
 import 'player_turn.dart';
 import 'wild_card.dart';
 import 'wild_draw_four.dart';
 
-void _postBotTurn(int ci) {
+Future<void> _postBotTurn(int ci) async {
   botPile.remove(ci);
   topCard = ci;
 
-  if (topCard.isSkip || topCard.isReverse) {
-    botTurn();
+  if (topCard.isDrawTwo) {
+    await playerDrawTwo();
+  } else if (topCard.isSkip || topCard.isReverse) {
+    await botTurn();
   } else if (topCard.isWildCard) {
-    botWildCard();
+    await botWildCard();
   } else if (topCard.isWildDrawFour) {
-    botWildDrawFour();
+    await botWildDrawFour();
   } else {
-    playerTurn();
+    await playerTurn();
   }
 }
 
 Future<void> botTurn() async {
   int ci = await mediumBot();
 
-  topCard = ci;
+  if (ci == -1) {
+    if (deckPile.isEmpty) {
+      deckPile = [...discardPile];
+      deckPile.remove(topCard.ci);
+      deckPile.shuffle();
+      discardPile.clear();
+      discardPile.add(topCard.ci);
+    }
+    int i = deckPile.removeLast();
+    botPile.add(i);
+    await botDrawCard();
+    if (isPlayable(i)) {
+      await botTurn();
+    } else {
+      await playerTurn();
+    }
+  } else {
+    topCard = ci;
 
-  botPile.remove(ci);
-  
-  await botPlayCard();
+    botPile.remove(ci);
 
-  _postBotTurn(ci);
+    await botPlayCard();
+
+    _postBotTurn(ci);
+  }
 }

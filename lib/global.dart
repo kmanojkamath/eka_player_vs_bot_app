@@ -1,9 +1,9 @@
 import 'dart:collection';
 
-import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
 import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
 import 'package:flutter/material.dart';
 
+import 'card/animated-cards/animated_back_card.dart';
 import 'card/card_logic.dart';
 
 List<EkaCard> card = List.generate(108, (i) {
@@ -58,3 +58,5 @@ late CardColor selectedColor; // Variable to hold the color selected by player/b
 late Size screenSize;
 
 late Function updateTopCardWidget;
+
+bool canDraw = false;

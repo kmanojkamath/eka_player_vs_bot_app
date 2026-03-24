@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
+import 'package:eka_player_vs_bot/card/animated-cards/animated_bot_card.dart';
 import 'package:eka_player_vs_bot/global.dart';
 
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class _BotCardsHolderState extends State<BotCardsHolder> {
       builder: (context, constraints) {
         return Stack(
           children: List.generate(botCard.length, (i) {
-            return AnimatedBackCard(
+            return AnimatedBotCard(
               botCard[i],
               cardScale: 0.5,
               cardWidthScale: 0,
