@@ -1,22 +1,10 @@
-import 'dart:async';
-
-import 'package:eka_player_vs_bot/animations/draw_card.dart';
 import 'package:eka_player_vs_bot/card/card-ui/back_card_widget.dart';
-import 'package:eka_player_vs_bot/game_logic/bot_turn.dart';
-import 'package:eka_player_vs_bot/game_logic/player_turn.dart';
-import 'package:eka_player_vs_bot/global.dart';
-import 'package:eka_player_vs_bot/logics/playable_cards.dart';
 
 import 'package:flutter/material.dart';
 
-class BackCardController {
-  Future<void> Function(double, Duration, Curve)? changeScale;
-  Future<void> Function(Offset, Duration, Curve)? changePosition;
-  Future<void> Function(double, Duration, Curve)? changeAngle;
-  Future<void> Function(double, Duration, Curve)? changeWidthScale;
-}
+import 'animated_back_card.dart';
 
-class AnimatedBackCard extends StatefulWidget {
+class AnimatedBotCard extends StatefulWidget {
   final BackCardController _backCardController;
 
   final double cardScale;
@@ -24,7 +12,7 @@ class AnimatedBackCard extends StatefulWidget {
   final double cardAngle;
   final double cardWidthScale;
 
-  const AnimatedBackCard(
+  const AnimatedBotCard(
     this._backCardController, {
     super.key,
     this.cardScale = 1,
@@ -34,10 +22,10 @@ class AnimatedBackCard extends StatefulWidget {
   });
 
   @override
-  State<AnimatedBackCard> createState() => _AnimatedBackCardState();
+  State<AnimatedBotCard> createState() => _AnimatedBotCardState();
 }
 
-class _AnimatedBackCardState extends State<AnimatedBackCard>
+class _AnimatedBotCardState extends State<AnimatedBotCard>
     with TickerProviderStateMixin {
   late AnimationController _scaleController;
   late AnimationController _posController;
@@ -175,28 +163,7 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
         );
       },
 
-      child: GestureDetector(
-        onTap: () async {
-          if (canDraw) {
-            if (deckPile.isEmpty) {
-              deckPile = [...discardPile];
-              deckPile.remove(topCard.ci);
-              deckPile.shuffle();
-              discardPile.clear();
-              discardPile.add(topCard.ci);
-            }
-            int ci = deckPile.removeLast();
-            playerPile.add(ci);
-            await playerDrawCard(ci);
-            if (isPlayable(ci)) {
-              await playerTurn();
-            } else {
-              await botTurn();
-            }
-          }
-        },
-        child: BackCardWidget(),
-      ),
+      child: BackCardWidget(),
     );
   }
 }

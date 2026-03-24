@@ -1,27 +1,31 @@
 import 'dart:async';
 
+import 'package:eka_player_vs_bot/game_logic/draw_two.dart';
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:flutter/material.dart';
 
-import '../animations/player_play_card.dart';
+import '../animations/play_card.dart';
 import '../animations/show_playable_cards.dart';
 import '../logics/playable_cards.dart';
 import 'bot_turn.dart';
 import 'wild_card.dart';
 import 'wild_draw_four.dart';
 
-void _postPlayerTurn() {
+Future<void> _postPlayerTurn() async {
   playerPile.remove(selectedCard.value);
   topCard = selectedCard.value;
 
-  if (topCard.isSkip || topCard.isReverse) {
-    playerTurn();
+  if(topCard.isDrawTwo){
+    await botDrawTwo();
+  }
+  else if (topCard.isSkip || topCard.isReverse) {
+    await playerTurn();
   } else if (topCard.isWildCard) {
-    playerWildCard();
+    await playerWildCard();
   } else if (topCard.isWildDrawFour) {
-    playerWildDrawFour();
+    await playerWildDrawFour();
   } else {
-    botTurn();
+    await botTurn();
   }
 }
 
@@ -42,6 +46,7 @@ Future<void> playerTurn() async {
   playablePlayerCards().forEach((element) {
     card[element].controller.locked = false;
   });
+  
   await showPlayableCards();
 
   await waitForPlayer();
@@ -56,5 +61,5 @@ Future<void> playerTurn() async {
 
   await unshowPlayableCards();
 
-  _postPlayerTurn();
+  await _postPlayerTurn();
 }
