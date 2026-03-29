@@ -18,6 +18,13 @@ Future<void> playerPlayCard() async {
       ),
     ),
     ...playablePlayerCards().map(
+      (element) => card[element].controller.changeScale!.call(
+        element == selectedCard.value ? topCardScale : playableCardScale,
+        Duration(milliseconds: element == selectedCard.value ? 300 : 180),
+        Curves.linear,
+      ),
+    ),
+    ...playablePlayerCards().map(
       (element) => card[element].controller.changePosition!.call(
         element == selectedCard.value
             ? topCardPosition

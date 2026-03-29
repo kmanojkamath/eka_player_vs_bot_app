@@ -75,3 +75,7 @@ late Function showColorSelector;
 late Function showResultScreen;
 
 bool canDraw = false;
+
+bool backgroundLock = true;
+
+ValueNotifier<bool> backgroundPressed = ValueNotifier(false);

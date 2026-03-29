@@ -168,8 +168,11 @@ class _AnimatedCardState extends State<AnimatedCard>
       },
       child: GestureDetector(
         onTap: () {
-          if(!widget._card.controller.locked){
+          if (widget._card.controller.locked == false) {
             selectedCard.value = widget._card.ci;
+            for (var element in card) {
+              element.controller.locked = true;
+            }
           }
         },
         child: EkaCardWidget(widget._card),
