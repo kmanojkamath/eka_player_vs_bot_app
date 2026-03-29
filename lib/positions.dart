@@ -7,7 +7,7 @@ Offset playerCardPosition(int ci) {
   int n = playerPile.length;
   int i = playerPile.toList().indexOf(ci);
 
-  double widthDifference = 24;
+  double widthDifference = 32-playerPile.length/2;
 
   double lowest = screenSize.height * 0.8;
   double highest = screenSize.height * 0.7;
@@ -27,11 +27,11 @@ Offset playerCardPosition(int ci) {
 double playerCardAngle(int ci) {
   int n = playerPile.length;
   int i = playerPile.toList().indexOf(ci);
-  double angle = 0.2 * (1 - (n - 1) / 27);
+  double angle = 0.18 * (1 - (n - 1) / 27);
   return (i - (n - 1) / 2) * angle;
 }
 
-double get playerCardScale => 1;
+double get playerCardScale => 1.25 - playerPile.length / 48;
 
 double botCardAngle(int i) {
   int n = botPile.length;
@@ -44,8 +44,8 @@ Offset botCardPosition(int i) {
 
   double widthDifference = 12;
 
-  double lowest = screenSize.height * 0.1;
-  double highest = screenSize.height * 0.05;
+  double lowest = screenSize.height * 0.075;
+  double highest = screenSize.height * 0.025;
 
   double x = i - (n - 1) / 2;
 
@@ -64,7 +64,7 @@ double get botCardScale => 0.5;
 double playableCardAngle(int ci) {
   int n = playerPile.length;
   int i = playerPile.toList().indexOf(ci);
-  double angle = 0.2 * (1 - (n - 1) / 27);
+  double angle = 0.18 * (1 - (n - 1) / 54);
   return (i - (n - 1) / 2) * angle;
 }
 
@@ -72,7 +72,7 @@ Offset playableCardPosition(int ci) {
   int n = playerPile.length;
   int i = playerPile.toList().indexOf(ci);
 
-  double widthDifference = 24;
+  double widthDifference = 32-playerPile.length/2;
 
   double x = i - (n - 1) / 2;
 
@@ -84,7 +84,7 @@ Offset playableCardPosition(int ci) {
   );
 }
 
-double get playableCardScale => 1;
+double get playableCardScale => 1.25 - playerPile.length / 48;
 
 Offset get topCardPosition =>
     Offset(screenSize.width * 0.4, screenSize.height * 0.3);

@@ -22,12 +22,12 @@ Future<void> showPlayableCards() async {
     ),
   ]);
 
-  playableBotCards().forEach(
+  playablePlayerCards().forEach(
     (element) => card[element].controller.locked = false,
   );
 }
 
-Future<void> unshowPlayableCards() async {
+Future<void> unshowPlayableCards({bool didPlay = true}) async {
   await Future.wait([
     ...playerPile.map(
       (element) => card[element].controller.changeAngle!.call(
@@ -45,21 +45,23 @@ Future<void> unshowPlayableCards() async {
     ),
   ]);
 
-  await Future.wait([
-    card[selectedCard.value].controller.changePosition!.call(
-      drawPosition,
-      Duration.zero,
-      Curves.linear,
-    ),
-    card[selectedCard.value].controller.changeScale!.call(
-      drawScale,
-      Duration.zero,
-      Curves.linear,
-    ),
-    card[selectedCard.value].controller.changeWidthScale!.call(
-      0,
-      Duration.zero,
-      Curves.linear,
-    ),
-  ]);
+  if (didPlay) {
+    await Future.wait([
+      card[selectedCard.value].controller.changePosition!.call(
+        drawPosition,
+        Duration.zero,
+        Curves.linear,
+      ),
+      card[selectedCard.value].controller.changeScale!.call(
+        drawScale,
+        Duration.zero,
+        Curves.linear,
+      ),
+      card[selectedCard.value].controller.changeWidthScale!.call(
+        0,
+        Duration.zero,
+        Curves.linear,
+      ),
+    ]);
+  }
 }
