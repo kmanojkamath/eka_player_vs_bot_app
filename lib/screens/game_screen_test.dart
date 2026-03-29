@@ -1,3 +1,4 @@
+import 'package:eka_player_vs_bot/card/animated-cards/background.dart';
 import 'package:eka_player_vs_bot/card/animated-cards/bot_cards_holder.dart';
 import 'package:eka_player_vs_bot/card/animated-cards/top_card.dart';
 import 'package:eka_player_vs_bot/game_logic/game_start.dart';
@@ -36,6 +37,7 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          Background(),
           TopCard(),
           BotCardsHolder(),
           PlayerCardsHolder(),
