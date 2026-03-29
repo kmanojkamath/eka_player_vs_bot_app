@@ -6,12 +6,12 @@ Future<void> playerDrawCard(int ci) async {
   await Future.wait([
     backOfDrawingCard.changeWidthScale!.call(
       0,
-      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 180),
       Curves.linear,
     ),
     backOfDrawingCard.changeScale!.call(
       0.75,
-      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 180),
       Curves.easeInOut,
     ),
   ]);
@@ -19,12 +19,12 @@ Future<void> playerDrawCard(int ci) async {
   await Future.wait([
     card[ci].controller.changeWidthScale!.call(
       1,
-      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 180),
       Curves.linear,
     ),
     card[ci].controller.changeScale!.call(
       playerCardScale,
-      Duration(milliseconds: discardPile.isEmpty ? 100 : 250),
+      Duration(milliseconds: discardPile.isEmpty ? 100 : 180),
       Curves.easeInOut,
     ),
   ]);
@@ -41,7 +41,7 @@ Future<void> playerDrawCard(int ci) async {
         Duration(
           milliseconds: discardPile.isEmpty
               ? (i == ci ? 200 : 100)
-              : (i == ci ? 600 : 300),
+              : (i == ci ? 360 : 180),
         ),
         Curves.linear,
       );
@@ -52,7 +52,18 @@ Future<void> playerDrawCard(int ci) async {
         Duration(
           milliseconds: discardPile.isEmpty
               ? (i == ci ? 200 : 100)
-              : (i == ci ? 600 : 300),
+              : (i == ci ? 360 : 180),
+        ),
+        Curves.linear,
+      );
+    }),
+    ...playerPile.map((i) {
+      return card[i].controller.changeScale!.call(
+        playerCardScale,
+        Duration(
+          milliseconds: discardPile.isEmpty
+              ? (i == ci ? 200 : 100)
+              : (i == ci ? 360 : 180),
         ),
         Curves.linear,
       );
@@ -71,7 +82,7 @@ Future<void> botDrawCard() async {
         Duration(
           milliseconds: discardPile.isEmpty
               ? (i == n - 1 ? 200 : 100)
-              : (i == n - 1 ? 600 : 300),
+              : (i == n - 1 ? 360 : 180),
         ),
         Curves.linear,
       );
@@ -82,7 +93,7 @@ Future<void> botDrawCard() async {
         Duration(
           milliseconds: discardPile.isEmpty
               ? (i == n - 1 ? 200 : 100)
-              : (i == n - 1 ? 600 : 300),
+              : (i == n - 1 ? 360 : 180),
         ),
         Curves.linear,
       );
