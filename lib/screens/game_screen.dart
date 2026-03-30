@@ -34,15 +34,18 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.sizeOf(context);
-    return Scaffold(
-      body: Stack(
-        children: [
-          Background(),
-          TopCard(),
-          BotCardsHolder(),
-          PlayerCardsHolder(),
-          ColorSelector(),
-        ],
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Background(),
+            TopCard(),
+            BotCardsHolder(),
+            PlayerCardsHolder(),
+            ColorSelector(),
+          ],
+        ),
       ),
     );
   }
