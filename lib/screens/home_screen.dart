@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Spacer(flex: 5,),
+              const Spacer(flex: 5),
               const Text(
                 "eka",
                 style: TextStyle(fontSize: 69, fontWeight: FontWeight.w900),
@@ -36,20 +36,39 @@ class HomeScreen extends StatelessWidget {
                 "Player vs. Bot",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const Spacer(flex: 2,),
+              const Spacer(flex: 2),
               ElevatedButton(
+                clipBehavior: Clip.hardEdge,
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => GameInitialiser()),
                   );
                 },
-                child: const Text(
-                  "Play",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                child: FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Transform.scale(
+                        scale: 1.5,
+                        child: const Icon(
+                          Icons.play_arrow_rounded,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const Text(
+                        " PLAY",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const Spacer(flex: 2,),
+              const Spacer(flex: 2),
             ],
           ),
         ),
