@@ -1,6 +1,9 @@
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:flutter/material.dart';
 
+import '../card-ui/card_widget.dart';
+import '../card_logic.dart';
+
 class Background extends StatelessWidget {
   const Background({super.key});
 
@@ -16,9 +19,14 @@ class Background extends StatelessWidget {
           }
         },
         child: Container(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              radius: 1,
+              colors: [Colors.amber, Colors.brown],
+            ),
+          ),
           height: screenSize.height,
           width: screenSize.width,
-          decoration: BoxDecoration(color: Colors.white),
         ),
       ),
     );
