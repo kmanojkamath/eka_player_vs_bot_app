@@ -98,13 +98,12 @@ Future<void> playerTurn() async {
 }
 
 Future<void> afterDrawTurn() async {
-  print("After Draw");
   await showPlayableCards();
 
   await waitAfterDraw();
 
   if (backgroundPressed.value == false) {
-    print("Yes");
+    backgroundLock = true;
     await playerPlayCard();
 
     topCard = selectedCard.value;
@@ -119,8 +118,6 @@ Future<void> afterDrawTurn() async {
 
     await _postPlayerTurn();
   } else {
-    print("No");
-    print("${backgroundPressed.value}");
     backgroundPressed.value = false;
 
     await unshowPlayableCards(didPlay: false);
