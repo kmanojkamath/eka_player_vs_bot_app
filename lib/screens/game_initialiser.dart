@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:eka_player_vs_bot/global.dart';
-import 'package:eka_player_vs_bot/screens/game_screen_test.dart';
 import 'package:eka_player_vs_bot/toss/tosser.dart';
 import 'package:flutter/material.dart';
+
+import 'game_screen.dart';
 
 class GameInitialiser extends StatefulWidget {
   const GameInitialiser({super.key});
