@@ -2,7 +2,7 @@ import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:flutter/material.dart';
 
-import 'animated_card.dart';
+import '../card/animated-cards/animated_card.dart';
 
 class PlayerCardsHolder extends StatefulWidget {
   const PlayerCardsHolder({super.key});

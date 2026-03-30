@@ -5,7 +5,7 @@ import 'package:eka_player_vs_bot/card/card-ui/back_card_widget.dart';
 import 'package:eka_player_vs_bot/game_logic/bot_turn.dart';
 import 'package:eka_player_vs_bot/game_logic/player_turn.dart';
 import 'package:eka_player_vs_bot/global.dart';
-import 'package:eka_player_vs_bot/logics/playable_cards.dart';
+import 'package:eka_player_vs_bot/game_logic/playable_cards.dart';
 
 import 'package:flutter/material.dart';
 
