@@ -10,11 +10,9 @@ class Background extends StatelessWidget {
       alignment: AlignmentGeometry.center,
       child: GestureDetector(
         onTap: () {
-          print("Tapped Background");
           if (backgroundLock == false) {
             backgroundLock = true;
             backgroundPressed.value = true;
-            print("Background Working");
           }
         },
         child: Container(
