@@ -1,9 +1,6 @@
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:flutter/material.dart';
 
-import '../card-ui/card_widget.dart';
-import '../card_logic.dart';
-
 class Background extends StatelessWidget {
   const Background({super.key});
 

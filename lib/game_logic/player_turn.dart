@@ -104,6 +104,7 @@ Future<void> afterDrawTurn() async {
 
   if (backgroundPressed.value == false) {
     backgroundLock = true;
+    
     await playerPlayCard();
 
     topCard = selectedCard.value;

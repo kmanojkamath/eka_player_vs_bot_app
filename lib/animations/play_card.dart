@@ -1,4 +1,4 @@
-import 'package:eka_player_vs_bot/logics/playable_cards.dart';
+import 'package:eka_player_vs_bot/game_logic/playable_cards.dart';
 import 'package:eka_player_vs_bot/positions.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
 import '../animations/draw_card.dart';
 import '../global.dart';
-import '../logics/medium_bot.dart';
+import 'medium_bot.dart';
 import 'bot_turn.dart';
 import 'player_turn.dart';
 import 'wild_card.dart';
