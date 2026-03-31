@@ -11,6 +11,7 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     reset();
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(

@@ -38,6 +38,7 @@ class _GameScreenState extends State<GameScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: Stack(
           children: [
             Background(),

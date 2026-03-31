@@ -44,6 +44,7 @@ class _GameInitialiserState extends State<GameInitialiser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(

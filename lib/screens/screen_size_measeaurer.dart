@@ -14,7 +14,7 @@ class _ScreenSizeMeaseaurerState extends State<ScreenSizeMeaseaurer> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => LaunchScreen()),
       );
@@ -24,6 +24,6 @@ class _ScreenSizeMeaseaurerState extends State<ScreenSizeMeaseaurer> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.sizeOf(context);
-    return const SizedBox.shrink();
+    return Scaffold(backgroundColor: Colors.black, body: SizedBox.shrink());
   }
 }
