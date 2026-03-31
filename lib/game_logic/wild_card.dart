@@ -8,7 +8,7 @@ import 'package:eka_player_vs_bot/game_logic/medium_bot.dart';
 
 import 'player_turn.dart';
 
-Future<void> waitForColor() {
+Future<CardColor> waitForColor() {
   final completer = Completer<CardColor>();
 
   late VoidCallback listener;
@@ -22,6 +22,8 @@ Future<void> waitForColor() {
 }
 
 Future<void> playerWildCard() async {
+  selectedColor.value = CardColor.wild;
+  
   showColorSelector.call();
 
   await waitForColor();

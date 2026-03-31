@@ -18,22 +18,6 @@ class _PlayerCardsHolderState extends State<PlayerCardsHolder> {
       builder: (context, constraints) {
         return Stack(
           children: [
-            AnimatedBackCard(
-              stationary,
-              cardScale: 0.5,
-              cardPosition: Offset(
-                constraints.maxWidth * 0.75,
-                constraints.maxHeight * 0.33,
-              ),
-            ),
-            AnimatedBackCard(
-              backOfDrawingCard,
-              cardScale: 0.5,
-              cardPosition: Offset(
-                constraints.maxWidth * 0.75,
-                constraints.maxHeight * 0.33,
-              ),
-            ),
             ...List.generate(108, (i) {
               return AnimatedCard(
                 card[i],

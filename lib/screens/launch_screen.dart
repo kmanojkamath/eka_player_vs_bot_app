@@ -22,19 +22,19 @@ class _LaunchScreenState extends State<LaunchScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       setState(() => offset1 = const Offset(-1.5, 0));
-      await Future.delayed(const Duration(milliseconds: 240));
+      await Future.delayed(const Duration(milliseconds: 420));
 
       setState(() => offset2 = const Offset(-0.5, 0));
-      await Future.delayed(const Duration(milliseconds: 240));
+      await Future.delayed(const Duration(milliseconds: 420));
 
       setState(() => offset3 = const Offset(0.4, 0));
-      await Future.delayed(const Duration(milliseconds: 240));
+      await Future.delayed(const Duration(milliseconds: 420));
 
       setState(() => offset4 = const Offset(1.7, 0));
-      await Future.delayed(const Duration(milliseconds: 480));
+      await Future.delayed(const Duration(milliseconds: 810));
 
       setState(() => opacity = 1);
-      await Future.delayed(const Duration(milliseconds: 360));
+      await Future.delayed(const Duration(milliseconds: 1008));
 
       if (mounted) {
         Navigator.pushReplacement(
@@ -54,25 +54,25 @@ class _LaunchScreenState extends State<LaunchScreen> {
           children: [
             AnimatedSlide(
               offset: offset1,
-              duration: const Duration(milliseconds: 480),
+              duration: const Duration(milliseconds: 810),
               curve: Curves.easeInOut,
               child: const Text("K", style: _style),
             ),
             AnimatedSlide(
               offset: offset2,
-              duration: const Duration(milliseconds: 480),
+              duration: const Duration(milliseconds: 810),
               curve: Curves.easeInOut,
               child: const Text("K", style: _style),
             ),
             AnimatedSlide(
               offset: offset3,
-              duration: const Duration(milliseconds: 480),
+              duration: const Duration(milliseconds: 810),
               curve: Curves.easeInOut,
               child: const Text("M", style: _style),
             ),
             AnimatedSlide(
               offset: offset4,
-              duration: const Duration(milliseconds: 480),
+              duration: const Duration(milliseconds: 810),
               curve: Curves.easeInOut,
               child: const Text("K", style: _style),
             ),
@@ -88,6 +88,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
               fontSize: 12,
               fontWeight: FontWeight.w900,
               color: Colors.white,
+              decoration: TextDecoration.none,
             ),
           ),
         ),
@@ -100,4 +101,5 @@ const TextStyle _style = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.w900,
   fontFamily: "Montserrat",
+  decoration: TextDecoration.none,
 );

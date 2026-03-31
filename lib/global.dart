@@ -41,9 +41,13 @@ SplayTreeSet<int> botPile =
       int
     >(); // List to hold the indices of the cards in the bot's pile
 
-EkaCard get topCard =>
-    card[discardPile
-        .last]; // Getter to get the the top card of the discard pile
+EkaCard get topCard {
+  if (discardPile.isEmpty) {
+    return EkaCard(0, CardColor.red, 0, CardController());
+  } else {
+    return card[discardPile.last];
+  }
+} // Getter to get the the top card of the discard pile
 
 set topCard(int ci) {
   discardPile.add(ci);
@@ -63,8 +67,9 @@ ValueNotifier<int> selectedCard = ValueNotifier(
 
 late bool botStarts; // Variable to determine if the bot starts the game
 
-ValueNotifier<CardColor>
-selectedColor =ValueNotifier(CardColor.wild); // Variable to hold the color selected by player/bot when playing a wild card/ a wild draw four
+ValueNotifier<CardColor> selectedColor = ValueNotifier(
+  CardColor.wild,
+); // Variable to hold the color selected by player/bot when playing a wild card/ a wild draw four
 
 late Size screenSize;
 
@@ -76,6 +81,11 @@ late Function showResultScreen;
 
 bool canDraw = false;
 
-bool backgroundLock = true;
-
-ValueNotifier<bool> backgroundPressed = ValueNotifier(false);
+void reset() {
+  deckPile = List.generate(108, (i) {
+    return i;
+  })..shuffle();
+  discardPile.clear();
+  playerPile.clear();
+  botPile.clear();
+}

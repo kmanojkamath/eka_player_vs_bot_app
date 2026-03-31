@@ -62,6 +62,7 @@ class RotatingTossCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedRotation(
       turns: numberOfTurns,
+      curve: Curves.easeOutExpo,
       duration: Duration(milliseconds: (numberOfTurns * 300).toInt()),
       child: TossCircleWidget(size: size),
     );

@@ -189,8 +189,8 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
             int ci = deckPile.removeLast();
             playerPile.add(ci);
             await playerDrawCard(ci);
-            if (isPlayable(ci)||playablePlayerCards().isNotEmpty) {
-              await afterDrawTurn();
+            if (isPlayable(ci)) {
+              await playerTurn();
             } else {
               await botTurn();
             }
