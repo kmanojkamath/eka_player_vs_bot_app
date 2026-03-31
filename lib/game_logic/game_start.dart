@@ -30,18 +30,10 @@ Future<void> _postGameStart() async {
 
 Future<void> gameStart() async {
   for (int i = 0; i < 7; i++) {
-    int ci;
-    // int ci = deckPile.removeLast();
-    if (i < 4) {
-      ci = deckPile.firstWhere((ele) {
-        return ele >= 100 ? true : false;
-      });
-      deckPile.remove(ci);
-    } else {
-      ci = deckPile.removeLast();
-    }
+    int ci = deckPile.removeLast();
     playerPile.add(ci);
     await playerDrawCard(ci);
+
     botPile.add(deckPile.removeLast());
     await botDrawCard();
   }

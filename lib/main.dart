@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: ScreenSizeMeaseaurer());
+    return MaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: Colors.black),
+      home: ScreenSizeMeaseaurer(),
+    );
   }
 }
