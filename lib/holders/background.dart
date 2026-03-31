@@ -8,23 +8,15 @@ class Background extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: AlignmentGeometry.center,
-      child: GestureDetector(
-        onTap: () {
-          if (backgroundLock == false) {
-            backgroundLock = true;
-            backgroundPressed.value = true;
-          }
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              radius: 1,
-              colors: [Colors.amber, Colors.brown],
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            radius: 1,
+            colors: [Colors.amber, Colors.brown],
           ),
-          height: screenSize.height,
-          width: screenSize.width,
         ),
+        height: screenSize.height,
+        width: screenSize.width,
       ),
     );
   }

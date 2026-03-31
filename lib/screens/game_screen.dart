@@ -1,5 +1,6 @@
 import 'package:eka_player_vs_bot/holders/background.dart';
 import 'package:eka_player_vs_bot/holders/bot_cards_holder.dart';
+import 'package:eka_player_vs_bot/holders/draw_card_holder.dart';
 import 'package:eka_player_vs_bot/holders/top_card.dart';
 import 'package:eka_player_vs_bot/game_logic/game_start.dart';
 import 'package:eka_player_vs_bot/screens/result_screen.dart';
@@ -42,8 +43,9 @@ class _GameScreenState extends State<GameScreen> {
             Background(),
             TopCard(),
             BotCardsHolder(),
-            PlayerCardsHolder(),
+            DrawCardHolder(),
             ColorSelector(),
+            PlayerCardsHolder(),
           ],
         ),
       ),

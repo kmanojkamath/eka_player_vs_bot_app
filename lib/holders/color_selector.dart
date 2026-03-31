@@ -12,14 +12,17 @@ class ColorSelector extends StatefulWidget {
 
 class _ColorSelectorState extends State<ColorSelector> {
   bool show = false;
+  bool start = false;
   @override
   void initState() {
     super.initState();
-    showColorSelector = () {
+    showColorSelector = () async {
       setState(() {
-        setState(() {
-          show = true;
-        });
+        show = true;
+      });
+      await Future.delayed(Duration(milliseconds: 100));
+      setState(() {
+        start = true;
       });
     };
   }
@@ -27,35 +30,40 @@ class _ColorSelectorState extends State<ColorSelector> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.sizeOf(context);
+    double x = screenSize.width / 17;
     if (show) {
       return Align(
         alignment: AlignmentGeometry.center,
         child: Stack(
           children: [
             AnimatedOpacity(
-              opacity: show ? 0.69 : 0,
+              opacity: start ? 0.69 : 0,
               duration: Duration(milliseconds: 420),
               child: Container(decoration: BoxDecoration(color: Colors.black)),
             ),
             Positioned(
-              right: screenSize.width * 0.5 + screenSize.height * 0.05,
-              top: screenSize.height * 0.1,
+              left: x,
+              top: screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     selectedColor.value = CardColor.red;
+                    setState(() {
+                      start = false;
+                    });
+                    await Future.delayed(Duration(milliseconds: 100));
                     setState(() {
                       show = false;
                     });
                   },
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
-                    scale: show ? 1 : 0,
+                    scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 420),
                     child: Ink(
-                      width: screenSize.height * 0.35,
-                      height: screenSize.height * 0.35,
+                      width: 3 * x,
+                      height: 3 * x,
                       decoration: BoxDecoration(
                         color: color(CardColor.red),
                         borderRadius: BorderRadius.circular(
@@ -68,24 +76,28 @@ class _ColorSelectorState extends State<ColorSelector> {
               ),
             ),
             Positioned(
-              left: screenSize.width * 0.5 + screenSize.height * 0.05,
-              top: screenSize.height * 0.1,
+              left: 5 * x,
+              top: screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     selectedColor.value = CardColor.green;
+                    setState(() {
+                      start = false;
+                    });
+                    await Future.delayed(Duration(milliseconds: 100));
                     setState(() {
                       show = false;
                     });
                   },
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
-                    scale: show ? 1 : 0,
+                    scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 420),
                     child: Ink(
-                      width: screenSize.height * 0.35,
-                      height: screenSize.height * 0.35,
+                      width: 3 * x,
+                      height: 3 * x,
                       decoration: BoxDecoration(
                         color: color(CardColor.green),
                         borderRadius: BorderRadius.circular(
@@ -98,24 +110,28 @@ class _ColorSelectorState extends State<ColorSelector> {
               ),
             ),
             Positioned(
-              right: screenSize.width * 0.5 + screenSize.height * 0.05,
-              bottom: screenSize.height * 0.1,
+              left: 9 * x,
+              top: screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     selectedColor.value = CardColor.blue;
+                    setState(() {
+                      start = false;
+                    });
+                    await Future.delayed(Duration(milliseconds: 100));
                     setState(() {
                       show = false;
                     });
                   },
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
-                    scale: show ? 1 : 0,
+                    scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 420),
                     child: Ink(
-                      width: screenSize.height * 0.35,
-                      height: screenSize.height * 0.35,
+                      width: 3 * x,
+                      height: 3 * x,
                       decoration: BoxDecoration(
                         color: color(CardColor.blue),
                         borderRadius: BorderRadius.circular(
@@ -128,24 +144,28 @@ class _ColorSelectorState extends State<ColorSelector> {
               ),
             ),
             Positioned(
-              left: screenSize.width * 0.5 + screenSize.height * 0.05,
-              bottom: screenSize.height * 0.1,
+              left: 13 * x,
+              top: screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     selectedColor.value = CardColor.yellow;
+                    setState(() {
+                      start = false;
+                    });
+                    await Future.delayed(Duration(milliseconds: 100));
                     setState(() {
                       show = false;
                     });
                   },
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
-                    scale: show ? 1 : 0,
+                    scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 420),
                     child: Ink(
-                      width: screenSize.height * 0.35,
-                      height: screenSize.height * 0.35,
+                      width: 3 * x,
+                      height: 3 * x,
                       decoration: BoxDecoration(
                         color: color(CardColor.yellow),
                         borderRadius: BorderRadius.circular(

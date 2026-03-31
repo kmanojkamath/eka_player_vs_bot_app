@@ -1,3 +1,4 @@
+import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:eka_player_vs_bot/game_logic/draw_two.dart';
 import 'package:eka_player_vs_bot/game_logic/medium_bot.dart';
 import 'package:eka_player_vs_bot/global.dart';
