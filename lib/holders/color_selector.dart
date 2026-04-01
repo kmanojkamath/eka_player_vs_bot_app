@@ -38,7 +38,7 @@ class _ColorSelectorState extends State<ColorSelector> {
           children: [
             AnimatedOpacity(
               opacity: start ? 0.69 : 0,
-              duration: Duration(milliseconds: 420),
+              duration: Duration(milliseconds: 360),
               child: Container(decoration: BoxDecoration(color: Colors.black)),
             ),
             Positioned(
@@ -60,7 +60,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 420),
+                    duration: Duration(milliseconds: 360),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
@@ -94,7 +94,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 420),
+                    duration: Duration(milliseconds: 360),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
@@ -128,7 +128,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 420),
+                    duration: Duration(milliseconds: 360),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
@@ -162,7 +162,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 420),
+                    duration: Duration(milliseconds: 360),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
