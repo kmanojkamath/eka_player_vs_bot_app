@@ -1,3 +1,5 @@
+import 'package:eka_player_vs_bot/card/card_logic.dart';
+
 import '../animations/draw_card.dart';
 import '../global.dart';
 import 'medium_bot.dart';
@@ -6,13 +8,15 @@ import 'player_turn.dart';
 import 'wild_card.dart';
 
 Future<void> playerWildDrawFour() async {
+  selectedColor.value = CardColor.wild;
+  
   showColorSelector.call();
 
   await waitForColor();
 
   await Future.delayed(Duration(milliseconds: 420));
 
-  if (deckPile.length < 2) {
+  if (deckPile.length < 4) {
     deckPile = [...discardPile];
     deckPile.remove(topCard.ci);
     deckPile.shuffle();
