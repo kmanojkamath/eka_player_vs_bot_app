@@ -25,7 +25,7 @@ class _GameInitialiserState extends State<GameInitialiser> {
       setState(() {
         numberOfTurns = 9 + Random().nextDouble() * 6;
       });
-      if ((numberOfTurns - 9) / 6 <= 0.75 && (numberOfTurns - 9) / 6 >= 0.25) {
+      if ((numberOfTurns - 9) / 6 < 0.25 && (numberOfTurns - 9) / 6 >= 0.75) {
         botStarts = false;
       } else {
         botStarts = true;
