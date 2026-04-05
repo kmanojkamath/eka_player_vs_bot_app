@@ -20,7 +20,7 @@ class _ColorSelectorState extends State<ColorSelector> {
       setState(() {
         show = true;
       });
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(Duration(milliseconds: 10));
       setState(() {
         start = true;
       });
@@ -38,7 +38,7 @@ class _ColorSelectorState extends State<ColorSelector> {
           children: [
             AnimatedOpacity(
               opacity: start ? 0.69 : 0,
-              duration: Duration(milliseconds: 360),
+              duration: Duration(milliseconds: 180),
               child: Container(decoration: BoxDecoration(color: Colors.black)),
             ),
             Positioned(
@@ -49,10 +49,11 @@ class _ColorSelectorState extends State<ColorSelector> {
                 child: InkWell(
                   onTap: () async {
                     selectedColor.value = CardColor.red;
+                    await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;
                     });
-                    await Future.delayed(Duration(milliseconds: 100));
+                    await Future.delayed(Duration(milliseconds: 179));
                     setState(() {
                       show = false;
                     });
@@ -60,7 +61,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 360),
+                    duration: Duration(milliseconds: 180),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
@@ -83,10 +84,11 @@ class _ColorSelectorState extends State<ColorSelector> {
                 child: InkWell(
                   onTap: () async {
                     selectedColor.value = CardColor.green;
+                    await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;
                     });
-                    await Future.delayed(Duration(milliseconds: 100));
+                    await Future.delayed(Duration(milliseconds: 179));
                     setState(() {
                       show = false;
                     });
@@ -94,7 +96,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 360),
+                    duration: Duration(milliseconds: 180),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
@@ -117,10 +119,11 @@ class _ColorSelectorState extends State<ColorSelector> {
                 child: InkWell(
                   onTap: () async {
                     selectedColor.value = CardColor.blue;
+                    await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;
                     });
-                    await Future.delayed(Duration(milliseconds: 100));
+                    await Future.delayed(Duration(milliseconds: 179));
                     setState(() {
                       show = false;
                     });
@@ -128,7 +131,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 360),
+                    duration: Duration(milliseconds: 180),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
@@ -151,10 +154,11 @@ class _ColorSelectorState extends State<ColorSelector> {
                 child: InkWell(
                   onTap: () async {
                     selectedColor.value = CardColor.yellow;
+                    await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;
                     });
-                    await Future.delayed(Duration(milliseconds: 100));
+                    await Future.delayed(Duration(milliseconds: 179));
                     setState(() {
                       show = false;
                     });
@@ -162,7 +166,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                   borderRadius: BorderRadius.circular(screenSize.height * 0.05),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
-                    duration: Duration(milliseconds: 360),
+                    duration: Duration(milliseconds: 180),
                     child: Ink(
                       width: 3 * x,
                       height: 3 * x,
