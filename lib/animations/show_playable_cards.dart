@@ -43,6 +43,13 @@ Future<void> unshowPlayableCards({bool didPlay = true}) async {
         Curves.linear,
       ),
     ),
+    ...playerPile.map(
+      (element) => card[element].controller.changeScale!.call(
+        playerCardScale,
+        Duration(milliseconds: 180),
+        Curves.linear,
+      ),
+    ),
   ]);
 
   if (didPlay) {
