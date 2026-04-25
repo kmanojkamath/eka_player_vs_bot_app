@@ -1,4 +1,4 @@
-import 'package:eka_player_vs_bot/screens/screen_size_measeaurer.dart';
+import 'package:eka_player_vs_bot/screens/launch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: Colors.black),
-      home: ScreenSizeMeaseaurer(),
+      home: LaunchScreen(),
     );
   }
 }

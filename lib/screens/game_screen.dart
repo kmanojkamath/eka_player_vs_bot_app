@@ -1,6 +1,8 @@
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/holders/background.dart';
 import 'package:eka_player_vs_bot/holders/bot_cards_holder.dart';
 import 'package:eka_player_vs_bot/holders/draw_card_holder.dart';
+import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:eka_player_vs_bot/holders/top_card.dart';
 import 'package:eka_player_vs_bot/game_logic/game_start.dart';
 import 'package:eka_player_vs_bot/screens/result_screen.dart';
@@ -18,6 +20,8 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  CardStorage cardStorage = CardStorage();
+  Positions positions = Positions(CardStorage(), Size(0, 0));
   @override
   void initState() {
     super.initState();
@@ -28,13 +32,13 @@ class _GameScreenState extends State<GameScreen> {
       );
     };
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await gameStart();
+      positions = Positions(cardStorage, MediaQuery.sizeOf(context));
+      await gameStart(cardStorage, positions);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery.sizeOf(context);
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -42,11 +46,11 @@ class _GameScreenState extends State<GameScreen> {
         body: Stack(
           children: [
             Background(),
-            TopCard(),
-            BotCardsHolder(),
-            DrawCardHolder(),
+            TopCard(this.cardStorage),
+            BotCardsHolder(this.cardStorage),
+            DrawCardHolder(this.cardStorage),
             ColorSelector(),
-            PlayerCardsHolder(),
+            PlayerCardsHolder(this.cardStorage),
           ],
         ),
       ),

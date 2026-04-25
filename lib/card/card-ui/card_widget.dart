@@ -119,7 +119,7 @@ class EkaCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: _card.isWildDrawFour
                         ? Symbol(
-                            EkaCard(100, CardColor.wild, 13, CardController()),
+                            EkaCard(100, CardController()),
                             isMiddleSymbol: true,
                           )
                         : Symbol(_card, isMiddleSymbol: true),

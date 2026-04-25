@@ -3,8 +3,11 @@ import 'dart:ui';
 
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:eka_player_vs_bot/game_logic/bot_turn.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/game_logic/medium_bot.dart';
+import 'package:eka_player_vs_bot/holders/positions.dart';
+import 'package:flutter/material.dart';
 
 import 'player_turn.dart';
 
@@ -21,20 +24,23 @@ Future<CardColor> waitForColor() {
   return completer.future;
 }
 
-Future<void> playerWildCard() async {
+Future<void> playerWildCard(
+  CardStorage cardStorage,
+  Positions positions,
+) async {
   selectedColor.value = CardColor.wild;
-  
+
   showColorSelector.call();
 
   await waitForColor();
 
   await Future.delayed(Duration(milliseconds: 420));
 
-  await botTurn();
+  await botTurn(cardStorage, positions);
 }
 
-Future<void> botWildCard() async {
-  selectedColor.value = await mediumBotColor();
+Future<void> botWildCard(CardStorage cardStorage, Positions positions) async {
+  selectedColor.value = await mediumBotColor(cardStorage);
 
-  await playerTurn();
+  await playerTurn(cardStorage, positions);
 }

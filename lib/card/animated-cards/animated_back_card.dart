@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:eka_player_vs_bot/animations/draw_card.dart';
 import 'package:eka_player_vs_bot/card/card-ui/back_card_widget.dart';
 import 'package:eka_player_vs_bot/game_logic/bot_turn.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/game_logic/player_turn.dart';
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/game_logic/playable_cards.dart';
+import 'package:eka_player_vs_bot/holders/positions.dart';
 
 import 'package:flutter/material.dart';
 
@@ -19,13 +21,18 @@ class BackCardController {
 class AnimatedBackCard extends StatefulWidget {
   final BackCardController _backCardController;
 
+  final CardStorage cardStorage;
+  final Positions positions;
+
   final double cardScale;
   final Offset cardPosition;
   final double cardAngle;
   final double cardWidthScale;
 
   const AnimatedBackCard(
-    this._backCardController, {
+    this._backCardController,
+    this.cardStorage,
+    this.positions, {
     super.key,
     this.cardScale = 1,
     this.cardPosition = Offset.zero,
@@ -177,22 +184,25 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
 
       child: GestureDetector(
         onTap: () async {
+          print("yo");
           if (canDraw) {
             canDraw = false;
-            if (deckPile.isEmpty) {
-              deckPile = [...discardPile];
-              deckPile.remove(topCard.ci);
-              deckPile.shuffle();
-              discardPile.clear();
-              discardPile.add(topCard.ci);
+            print("Player: ${widget.cardStorage.playerPile}");
+            if (widget.cardStorage.deckPile.isEmpty) {
+              widget.cardStorage.deckPile = [...widget.cardStorage.discardPile];
+              widget.cardStorage.deckPile.remove(widget.cardStorage.topCard.ci);
+              widget.cardStorage.deckPile.shuffle();
+              widget.cardStorage.discardPile.clear();
+              widget.cardStorage.discardPile.add(widget.cardStorage.topCard.ci);
             }
-            int ci = deckPile.removeLast();
-            playerPile.add(ci);
-            await playerDrawCard(ci);
-            if (isPlayable(ci)) {
-              await playerTurn();
+            int ci = widget.cardStorage.deckPile.removeLast();
+            widget.cardStorage.playerPile.add(ci);
+            print("Player: ${widget.cardStorage.playerPile}");
+            await playerDrawCard(ci, widget.cardStorage, widget.positions);
+            if (isPlayable(ci, widget.cardStorage)) {
+              await playerTurn(widget.cardStorage, widget.positions);
             } else {
-              await botTurn();
+              await botTurn(widget.cardStorage, widget.positions);
             }
           }
         },

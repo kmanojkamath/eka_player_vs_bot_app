@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +18,16 @@ class CardController {
 class AnimatedCard extends StatefulWidget {
   final EkaCard _card;
 
+  final CardStorage cardStorage;
+
   final double cardScale;
   final Offset cardPosition;
   final double cardAngle;
   final double cardWidthScale;
 
   const AnimatedCard(
-    this._card, {
+    this._card,
+    this.cardStorage, {
     super.key,
     this.cardScale = 1,
     this.cardPosition = Offset.zero,
@@ -170,7 +174,7 @@ class _AnimatedCardState extends State<AnimatedCard>
         onTap: () {
           if (widget._card.controller.locked == false) {
             selectedCard.value = widget._card.ci;
-            for (var element in card) {
+            for (var element in widget.cardStorage.card) {
               element.controller.locked = true;
             }
           }

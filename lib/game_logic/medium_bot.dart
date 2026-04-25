@@ -1,24 +1,25 @@
 import 'dart:math';
 
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
+
 import '../card/card_logic.dart';
-import '../global.dart';
 import 'playable_cards.dart';
 
-Future<int> mediumBot() async {
+Future<int> mediumBot(CardStorage cardStorage) async {
   // Function to determine the Medium bot's move
-  if (playableBotCards().isEmpty) {
+  if (playableBotCards(cardStorage).isEmpty) {
     return -1;
   } else {
-    return playableBotCards().elementAt(
-      Random().nextInt(playableBotCards().length),
-    );
+    return playableBotCards(
+      cardStorage,
+    ).elementAt(Random().nextInt(playableBotCards(cardStorage).length));
   }
 }
 
-Future<CardColor> mediumBotColor() async {
+Future<CardColor> mediumBotColor(CardStorage cardStorage) async {
   Set<CardColor> colors = {};
-  playableBotCards().forEach((ci) {
-    colors.add(card[ci].color);
+  playableBotCards(cardStorage).forEach((ci) {
+    colors.add(cardStorage.card[ci].color);
   });
   colors.remove(CardColor.wild);
   if (colors.isEmpty) {

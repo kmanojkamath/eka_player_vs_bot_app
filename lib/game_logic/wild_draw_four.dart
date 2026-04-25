@@ -1,4 +1,6 @@
 import 'package:eka_player_vs_bot/card/card_logic.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
+import 'package:eka_player_vs_bot/holders/positions.dart';
 
 import '../animations/draw_card.dart';
 import '../global.dart';
@@ -7,56 +9,62 @@ import 'bot_turn.dart';
 import 'player_turn.dart';
 import 'wild_card.dart';
 
-Future<void> playerWildDrawFour() async {
+Future<void> playerWildDrawFour(
+  CardStorage cardStorage,
+  Positions positions,
+) async {
   selectedColor.value = CardColor.wild;
-  
+
   showColorSelector.call();
 
   await waitForColor();
 
   await Future.delayed(Duration(milliseconds: 420));
 
-  if (deckPile.length < 4) {
-    deckPile = [...discardPile];
-    deckPile.remove(topCard.ci);
-    deckPile.shuffle();
-    discardPile.clear();
-    discardPile.add(topCard.ci);
+  if (cardStorage.deckPile.length < 4) {
+    cardStorage.deckPile = [...cardStorage.discardPile];
+    cardStorage.deckPile.remove(cardStorage.topCard.ci);
+    cardStorage.deckPile.shuffle();
+    cardStorage.discardPile.clear();
+    cardStorage.discardPile.add(cardStorage.topCard.ci);
   }
-  botPile.add(deckPile.removeLast());
-  await botDrawCard();
-  botPile.add(deckPile.removeLast());
-  await botDrawCard();
-  botPile.add(deckPile.removeLast());
-  await botDrawCard();
-  botPile.add(deckPile.removeLast());
-  await botDrawCard();
+  cardStorage.botPile.add(cardStorage.deckPile.removeLast());
+  await botDrawCard(cardStorage, positions);
+  cardStorage.botPile.add(cardStorage.deckPile.removeLast());
+  await botDrawCard(cardStorage, positions);
+  cardStorage.botPile.add(cardStorage.deckPile.removeLast());
+  await botDrawCard(cardStorage, positions);
+  cardStorage.botPile.add(cardStorage.deckPile.removeLast());
+  await botDrawCard(cardStorage, positions);
 
-  await playerTurn();
+  await playerTurn(cardStorage, positions);
 }
 
-Future<void> botWildDrawFour() async {
-  selectedColor.value = await mediumBotColor();
+Future<void> botWildDrawFour(
+  CardStorage cardStorage,
+  Positions positions,
+) async {
+  selectedColor.value = await mediumBotColor(cardStorage);
 
-  if (deckPile.length < 2) {
-    deckPile = [...discardPile];
-    deckPile.remove(topCard.ci);
-    deckPile.shuffle();
-    discardPile.clear();
-    discardPile.add(topCard.ci);
+  if (cardStorage.deckPile.length < 2) {
+    cardStorage.deckPile = [...cardStorage.discardPile];
+    cardStorage.deckPile.remove(cardStorage.topCard.ci);
+    cardStorage.deckPile.shuffle();
+    cardStorage.discardPile.clear();
+    cardStorage.discardPile.add(cardStorage.topCard.ci);
   }
-  int ci = deckPile.removeLast();
-  playerPile.add(ci);
-  await playerDrawCard(ci);
-  ci = deckPile.removeLast();
-  playerPile.add(ci);
-  await playerDrawCard(ci);
-  ci = deckPile.removeLast();
-  playerPile.add(ci);
-  await playerDrawCard(ci);
-  ci = deckPile.removeLast();
-  playerPile.add(ci);
-  await playerDrawCard(ci);
+  int ci = cardStorage.deckPile.removeLast();
+  cardStorage.playerPile.add(ci);
+  await playerDrawCard(ci, cardStorage, positions);
+  ci = cardStorage.deckPile.removeLast();
+  cardStorage.playerPile.add(ci);
+  await playerDrawCard(ci, cardStorage, positions);
+  ci = cardStorage.deckPile.removeLast();
+  cardStorage.playerPile.add(ci);
+  await playerDrawCard(ci, cardStorage, positions);
+  ci = cardStorage.deckPile.removeLast();
+  cardStorage.playerPile.add(ci);
+  await playerDrawCard(ci, cardStorage, positions);
 
-  await botTurn();
+  await botTurn(cardStorage, positions);
 }

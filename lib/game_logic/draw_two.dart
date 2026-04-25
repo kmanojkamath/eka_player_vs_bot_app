@@ -1,37 +1,38 @@
 import 'package:eka_player_vs_bot/game_logic/bot_turn.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/game_logic/player_turn.dart';
+import 'package:eka_player_vs_bot/holders/positions.dart';
 
 import '../animations/draw_card.dart';
-import '../global.dart';
 
-Future<void> playerDrawTwo() async {
-  if (deckPile.length < 2) {
-    deckPile = [...discardPile];
-    deckPile.remove(topCard.ci);
-    deckPile.shuffle();
-    discardPile.clear();
-    discardPile.add(topCard.ci);
+Future<void> playerDrawTwo(CardStorage cardStorage, Positions positions) async {
+  if (cardStorage.deckPile.length < 2) {
+    cardStorage.deckPile = [...cardStorage.discardPile];
+    cardStorage.deckPile.remove(cardStorage.topCard.ci);
+    cardStorage.deckPile.shuffle();
+    cardStorage.discardPile.clear();
+    cardStorage.discardPile.add(cardStorage.topCard.ci);
   }
-  int ci = deckPile.removeLast();
-  playerPile.add(ci);
-  await playerDrawCard(ci);
-  ci = deckPile.removeLast();
-  playerPile.add(ci);
-  await playerDrawCard(ci);
-  await botTurn();
+  int ci = cardStorage.deckPile.removeLast();
+  cardStorage.playerPile.add(ci);
+  await playerDrawCard(ci, cardStorage, positions);
+  ci = cardStorage.deckPile.removeLast();
+  cardStorage.playerPile.add(ci);
+  await playerDrawCard(ci, cardStorage, positions);
+  await botTurn(cardStorage, positions);
 }
 
-Future<void> botDrawTwo() async {
-  if (deckPile.length < 2) {
-    deckPile = [...discardPile];
-    deckPile.remove(topCard.ci);
-    deckPile.shuffle();
-    discardPile.clear();
-    discardPile.add(topCard.ci);
+Future<void> botDrawTwo(CardStorage cardStorage, Positions positions) async {
+  if (cardStorage.deckPile.length < 2) {
+    cardStorage.deckPile = [...cardStorage.discardPile];
+    cardStorage.deckPile.remove(cardStorage.topCard.ci);
+    cardStorage.deckPile.shuffle();
+    cardStorage.discardPile.clear();
+    cardStorage.discardPile.add(cardStorage.topCard.ci);
   }
-  botPile.add(deckPile.removeLast());
-  await botDrawCard();
-  botPile.add(deckPile.removeLast());
-  await botDrawCard();
-  await playerTurn();
+  cardStorage.botPile.add(cardStorage.deckPile.removeLast());
+  await botDrawCard(cardStorage, positions);
+  cardStorage.botPile.add(cardStorage.deckPile.removeLast());
+  await botDrawCard(cardStorage, positions);
+  await playerTurn(cardStorage, positions);
 }

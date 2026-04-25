@@ -1,9 +1,11 @@
 import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
-import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
+import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:flutter/material.dart';
 
 class DrawCardHolder extends StatefulWidget {
-  const DrawCardHolder({super.key});
+  final CardStorage cardStorage;
+  const DrawCardHolder(this.cardStorage, {super.key});
 
   @override
   State<DrawCardHolder> createState() => _DrawCardsHolderState();
@@ -12,12 +14,18 @@ class DrawCardHolder extends StatefulWidget {
 class _DrawCardsHolderState extends State<DrawCardHolder> {
   @override
   Widget build(BuildContext context) {
+    Positions positions = Positions(
+      widget.cardStorage,
+      MediaQuery.sizeOf(context),
+    );
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
           children: [
             AnimatedBackCard(
-              stationary,
+              widget.cardStorage.stationary,
+              widget.cardStorage,
+              positions,
               cardScale: 0.5,
               cardPosition: Offset(
                 constraints.maxWidth * 0.75,
@@ -25,7 +33,9 @@ class _DrawCardsHolderState extends State<DrawCardHolder> {
               ),
             ),
             AnimatedBackCard(
-              backOfDrawingCard,
+              widget.cardStorage.backOfDrawingCard,
+              widget.cardStorage,
+              positions,
               cardScale: 0.5,
               cardPosition: Offset(
                 constraints.maxWidth * 0.75,

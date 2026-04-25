@@ -9,15 +9,25 @@ enum CardColor {
 } //Enum to represent card colors, including wild cards
 
 class EkaCard {
-  final int value;
-  //Value of the card, where 0-9 represent number cards, 10 = Skip, 11 = Reverse, 12 = Draw Two, 13 = Wild, 14 = Wild Draw Four
-  final CardColor color; //Color of the card, represented by the CardColor enum
-
   final int ci;
+
+  int get value {
+    if (ci < 100)
+      return (ci % 25 + 1) ~/ 2;
+    else if (ci < 104)
+      return 13;
+    else
+      return 14;
+  }
+
+  CardColor get color => CardColor.values[ci ~/ 25];
 
   final CardController controller;
 
-  EkaCard(this.ci, this.color, this.value, this.controller); //Constructor to create a card from its index
+  EkaCard(
+    this.ci,
+    this.controller,
+  ); //Constructor to create a card from its index
 
   /*Helper getters to identify card types based on value:*/
   bool get isNumber => value < 10;

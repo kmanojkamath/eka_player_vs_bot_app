@@ -1,6 +1,8 @@
 import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:flutter/material.dart';
 
 class ColorSelector extends StatefulWidget {
@@ -29,8 +31,8 @@ class _ColorSelectorState extends State<ColorSelector> {
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery.sizeOf(context);
-    double x = screenSize.width / 17;
+    Positions positions = Positions(CardStorage(), MediaQuery.sizeOf(context));
+    double x = positions.screenSize.width / 17;
     if (show) {
       return Align(
         alignment: AlignmentGeometry.center,
@@ -43,7 +45,7 @@ class _ColorSelectorState extends State<ColorSelector> {
             ),
             Positioned(
               left: x,
-              top: screenSize.height * 0.2,
+              top: positions.screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -58,7 +60,9 @@ class _ColorSelectorState extends State<ColorSelector> {
                       show = false;
                     });
                   },
-                  borderRadius: BorderRadius.circular(screenSize.height * 0.05),
+                  borderRadius: BorderRadius.circular(
+                    positions.screenSize.height * 0.05,
+                  ),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 180),
@@ -68,7 +72,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                       decoration: BoxDecoration(
                         color: color(CardColor.red),
                         borderRadius: BorderRadius.circular(
-                          screenSize.height * 0.05,
+                          positions.screenSize.height * 0.05,
                         ),
                       ),
                     ),
@@ -78,7 +82,7 @@ class _ColorSelectorState extends State<ColorSelector> {
             ),
             Positioned(
               left: 5 * x,
-              top: screenSize.height * 0.2,
+              top: positions.screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -93,7 +97,9 @@ class _ColorSelectorState extends State<ColorSelector> {
                       show = false;
                     });
                   },
-                  borderRadius: BorderRadius.circular(screenSize.height * 0.05),
+                  borderRadius: BorderRadius.circular(
+                    positions.screenSize.height * 0.05,
+                  ),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 180),
@@ -103,7 +109,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                       decoration: BoxDecoration(
                         color: color(CardColor.green),
                         borderRadius: BorderRadius.circular(
-                          screenSize.height * 0.05,
+                          positions.screenSize.height * 0.05,
                         ),
                       ),
                     ),
@@ -113,7 +119,7 @@ class _ColorSelectorState extends State<ColorSelector> {
             ),
             Positioned(
               left: 9 * x,
-              top: screenSize.height * 0.2,
+              top: positions.screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -128,7 +134,9 @@ class _ColorSelectorState extends State<ColorSelector> {
                       show = false;
                     });
                   },
-                  borderRadius: BorderRadius.circular(screenSize.height * 0.05),
+                  borderRadius: BorderRadius.circular(
+                    positions.screenSize.height * 0.05,
+                  ),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 180),
@@ -138,7 +146,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                       decoration: BoxDecoration(
                         color: color(CardColor.blue),
                         borderRadius: BorderRadius.circular(
-                          screenSize.height * 0.05,
+                          positions.screenSize.height * 0.05,
                         ),
                       ),
                     ),
@@ -148,7 +156,7 @@ class _ColorSelectorState extends State<ColorSelector> {
             ),
             Positioned(
               left: 13 * x,
-              top: screenSize.height * 0.2,
+              top: positions.screenSize.height * 0.2,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -163,7 +171,9 @@ class _ColorSelectorState extends State<ColorSelector> {
                       show = false;
                     });
                   },
-                  borderRadius: BorderRadius.circular(screenSize.height * 0.05),
+                  borderRadius: BorderRadius.circular(
+                    positions.screenSize.height * 0.05,
+                  ),
                   child: AnimatedScale(
                     scale: start ? 1 : 0,
                     duration: Duration(milliseconds: 180),
@@ -173,7 +183,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                       decoration: BoxDecoration(
                         color: color(CardColor.yellow),
                         borderRadius: BorderRadius.circular(
-                          screenSize.height * 0.05,
+                          positions.screenSize.height * 0.05,
                         ),
                       ),
                     ),

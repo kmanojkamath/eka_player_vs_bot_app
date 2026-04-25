@@ -1,10 +1,11 @@
-import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../card/animated-cards/animated_card.dart';
 
 class PlayerCardsHolder extends StatefulWidget {
-  const PlayerCardsHolder({super.key});
+  final CardStorage cardStorage;
+  const PlayerCardsHolder(this.cardStorage, {super.key});
 
   @override
   State<PlayerCardsHolder> createState() => _PlayerCardsHolderState();
@@ -19,7 +20,8 @@ class _PlayerCardsHolderState extends State<PlayerCardsHolder> {
           children: [
             ...List.generate(108, (i) {
               return AnimatedCard(
-                card[i],
+                widget.cardStorage.card[i],
+                widget.cardStorage,
                 cardScale: 0.75,
                 cardWidthScale: 0,
                 cardPosition: Offset(

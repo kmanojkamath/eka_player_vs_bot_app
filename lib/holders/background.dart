@@ -1,4 +1,3 @@
-import 'package:eka_player_vs_bot/global.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
@@ -15,8 +14,8 @@ class Background extends StatelessWidget {
             colors: [Colors.amber, Colors.brown],
           ),
         ),
-        height: screenSize.height,
-        width: screenSize.width,
+        height: MediaQuery.sizeOf(context).height,
+        width: MediaQuery.sizeOf(context).width,
       ),
     );
   }
