@@ -1,21 +1,21 @@
-import 'package:eka_player_vs_bot/animations/put_top_card.dart';
+import 'package:eka_player_vs_bot/animations/card_animations.dart';
 import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/global.dart';
-import 'package:eka_player_vs_bot/holders/positions.dart';
 
-import '../animations/draw_card.dart';
 import 'bot_turn.dart';
 import 'draw_two.dart';
 import 'player_turn.dart';
 
-Future<void> gameStart(CardStorage cardStorage, Positions positions) async {
+Future<void> gameStart(CardAnimations cardAnimations) async {
+  CardStorage cardStorage = cardAnimations.cardStorage;
+
   for (int i = 0; i < 7; i++) {
     int ci = cardStorage.deckPile.removeLast();
     cardStorage.playerPile.add(ci);
-    await playerDrawCard(ci, cardStorage, positions);
+    await cardAnimations.playerDrawCard(ci);
 
     cardStorage.botPile.add(cardStorage.deckPile.removeLast());
-    await botDrawCard(cardStorage, positions);
+    await cardAnimations.botDrawCard();
   }
 
   while (cardStorage.card[cardStorage.deckPile.last].isWild) {
@@ -24,25 +24,25 @@ Future<void> gameStart(CardStorage cardStorage, Positions positions) async {
 
   cardStorage.topCard = cardStorage.deckPile.removeLast();
 
-  await putTopCard(cardStorage, positions);
+  await cardAnimations.putTopCard();
 
   if (cardStorage.topCard.isSkip || cardStorage.topCard.isReverse) {
     if (botStarts) {
-      await playerTurn(cardStorage, positions);
+      await playerTurn(cardAnimations);
     } else {
-      await botTurn(cardStorage, positions);
+      await botTurn(cardAnimations);
     }
   } else if (cardStorage.topCard.isDrawTwo) {
     if (botStarts) {
-      await botDrawTwo(cardStorage, positions);
+      await botDrawTwo(cardAnimations);
     } else {
-      await playerDrawTwo(cardStorage, positions);
+      await playerDrawTwo(cardAnimations);
     }
   } else {
     if (botStarts) {
-      await botTurn(cardStorage, positions);
+      await botTurn(cardAnimations);
     } else {
-      await playerTurn(cardStorage, positions);
+      await playerTurn(cardAnimations);
     }
   }
 }

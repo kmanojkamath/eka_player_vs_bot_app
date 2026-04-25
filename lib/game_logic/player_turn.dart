@@ -1,13 +1,11 @@
 import 'dart:async';
 
+import 'package:eka_player_vs_bot/animations/card_animations.dart';
 import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/game_logic/draw_two.dart';
 import 'package:eka_player_vs_bot/global.dart';
-import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:flutter/material.dart';
 
-import '../animations/play_card.dart';
-import '../animations/show_playable_cards.dart';
 import 'bot_turn.dart';
 import 'playable_cards.dart';
 import 'wild_card.dart';
@@ -28,12 +26,14 @@ Future<void> waitForPlayer(CardStorage cardStorage) {
   return completer.future;
 }
 
-Future<void> playerTurn(CardStorage cardStorage, Positions positions) async {
-  await showPlayableCards(cardStorage, positions);
+Future<void> playerTurn(CardAnimations cardAnimations) async {
+  CardStorage cardStorage = cardAnimations.cardStorage;
+
+  await cardAnimations.showPlayableCards();
 
   await waitForPlayer(cardStorage);
 
-  await playerPlayCard(cardStorage, positions);
+  await cardAnimations.playerPlayCard();
 
   cardStorage.topCard = selectedCard.value;
 
@@ -43,20 +43,20 @@ Future<void> playerTurn(CardStorage cardStorage, Positions positions) async {
 
   if (cardStorage.playerPile.isEmpty) showResultScreen.call(true);
 
-  await unshowPlayableCards(cardStorage, positions);
+  await cardAnimations.unshowPlayableCards();
 
   cardStorage.playerPile.remove(selectedCard.value);
   cardStorage.topCard = selectedCard.value;
 
   if (cardStorage.topCard.isDrawTwo) {
-    await botDrawTwo(cardStorage, positions);
+    await botDrawTwo(cardAnimations);
   } else if (cardStorage.topCard.isSkip || cardStorage.topCard.isReverse) {
-    await playerTurn(cardStorage, positions);
+    await playerTurn(cardAnimations);
   } else if (cardStorage.topCard.isWildCard) {
-    await playerWildCard(cardStorage, positions);
+    await playerWildCard(cardAnimations);
   } else if (cardStorage.topCard.isWildDrawFour) {
-    await playerWildDrawFour(cardStorage, positions);
+    await playerWildDrawFour(cardAnimations);
   } else {
-    await botTurn(cardStorage, positions);
+    await botTurn(cardAnimations);
   }
 }

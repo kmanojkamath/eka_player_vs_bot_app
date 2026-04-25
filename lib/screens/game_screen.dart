@@ -1,3 +1,4 @@
+import 'package:eka_player_vs_bot/animations/card_animations.dart';
 import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/holders/background.dart';
 import 'package:eka_player_vs_bot/holders/bot_cards_holder.dart';
@@ -21,7 +22,10 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   CardStorage cardStorage = CardStorage();
-  Positions positions = Positions(CardStorage(), Size(0, 0));
+  CardAnimations cardAnimations = CardAnimations(
+    CardStorage(),
+    Positions(CardStorage(), Size(0, 0)),
+  );
   @override
   void initState() {
     super.initState();
@@ -32,8 +36,11 @@ class _GameScreenState extends State<GameScreen> {
       );
     };
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      positions = Positions(cardStorage, MediaQuery.sizeOf(context));
-      await gameStart(cardStorage, positions);
+      cardAnimations = CardAnimations(
+        cardStorage,
+        Positions(cardStorage, MediaQuery.sizeOf(context)),
+      );
+      await gameStart(cardAnimations);
     });
   }
 

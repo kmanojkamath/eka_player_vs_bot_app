@@ -18,10 +18,13 @@ Future<int> mediumBot(CardStorage cardStorage) async {
 
 Future<CardColor> mediumBotColor(CardStorage cardStorage) async {
   Set<CardColor> colors = {};
+
   playableBotCards(cardStorage).forEach((ci) {
     colors.add(cardStorage.card[ci].color);
   });
+
   colors.remove(CardColor.wild);
+
   if (colors.isEmpty) {
     return CardColor.values[Random().nextInt(4)];
   } else {
