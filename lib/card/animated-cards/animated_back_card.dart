@@ -1,12 +1,7 @@
 import 'dart:async';
 
-import 'package:eka_player_vs_bot/animations/card_animations.dart';
 import 'package:eka_player_vs_bot/card/card-ui/back_card_widget.dart';
-import 'package:eka_player_vs_bot/game_logic/bot_turn.dart';
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
-import 'package:eka_player_vs_bot/game_logic/player_turn.dart';
 import 'package:eka_player_vs_bot/global.dart';
-import 'package:eka_player_vs_bot/game_logic/playable_cards.dart';
 
 import 'package:flutter/material.dart';
 
@@ -20,16 +15,13 @@ class BackCardController {
 class AnimatedBackCard extends StatefulWidget {
   final BackCardController _backCardController;
 
-  final CardAnimations cardAnimations;
-
   final double cardScale;
   final Offset cardPosition;
   final double cardAngle;
   final double cardWidthScale;
 
   const AnimatedBackCard(
-    this._backCardController,
-    this.cardAnimations, {
+    this._backCardController,{
     super.key,
     this.cardScale = 1,
     this.cardPosition = Offset.zero,
@@ -181,24 +173,10 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
 
       child: GestureDetector(
         onTap: () async {
-          CardStorage cardStorage = widget.cardAnimations.cardStorage;
           if (canDraw) {
             canDraw = false;
-            if (cardStorage.deckPile.isEmpty) {
-              cardStorage.deckPile = [...cardStorage.discardPile];
-              cardStorage.deckPile.remove(cardStorage.topCard.ci);
-              cardStorage.deckPile.shuffle();
-              cardStorage.discardPile.clear();
-              cardStorage.discardPile.add(cardStorage.topCard.ci);
-            }
-            int ci = cardStorage.deckPile.removeLast();
-            cardStorage.playerPile.add(ci);
-            await widget.cardAnimations.playerDrawCard(ci);
-            if (isPlayable(ci, cardStorage)) {
-              await playerTurn(widget.cardAnimations);
-            } else {
-              await botTurn(widget.cardAnimations);
-            }
+            if(selectedCard.value != -1) selectedCard.value = -1;
+            else selectedCard.value = -2;
           }
         },
         child: BackCardWidget(),

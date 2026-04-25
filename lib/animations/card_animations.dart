@@ -3,7 +3,6 @@ import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:flutter/material.dart';
 
-import '../game_logic/playable_cards.dart';
 import '../global.dart';
 import 'card_animator.dart';
 
@@ -65,7 +64,7 @@ class CardAnimations {
         cardStorage.botCard[n - 1],
         position: positions.drawPosition,
         angle: 0,
-        widthScale: 0
+        widthScale: 0,
       ),
     );
 
@@ -91,9 +90,9 @@ class CardAnimations {
   }
 
   Future<void> playerPlayCard() async {
-    playablePlayerCards(
-      cardStorage,
-    ).forEach((element) => cardStorage.card[element].controller.locked = true);
+    playablePlayerCards().forEach(
+      (element) => cardStorage.card[element].controller.locked = true,
+    );
 
     await Future.wait([
       ...cardAnimator.moveCard(
@@ -103,7 +102,7 @@ class CardAnimations {
         scale: positions.topCardScale,
         duration: 300,
       ),
-      ...playablePlayerCards(cardStorage)
+      ...playablePlayerCards()
           .where((i) => i != selectedCard.value)
           .expand(
             (ci) => cardAnimator.moveCard(
@@ -209,9 +208,25 @@ class CardAnimations {
     );
   }
 
+  bool isPlayable(int ci) {
+    final top = cardStorage.topCard;
+    final card = cardStorage.card[ci];
+
+    return (top.isWild && (card.color == selectedColor.value || card.isWild)) ||
+        card.isWild ||
+        card.color == top.color ||
+        card.value == top.value;
+  }
+
+  List<int> playableBotCards() =>
+      cardStorage.botPile.where((ci) => isPlayable(ci)).toList();
+
+  List<int> playablePlayerCards() =>
+      cardStorage.playerPile.where((ci) => isPlayable(ci)).toList();
+
   Future<void> showPlayableCards() async {
     await Future.wait(
-      playablePlayerCards(cardStorage).expand(
+      playablePlayerCards().expand(
         (ci) => cardAnimator.moveCard(
           ci,
           angle: 0,
@@ -221,9 +236,9 @@ class CardAnimations {
       ),
     );
 
-    playablePlayerCards(
-      cardStorage,
-    ).forEach((element) => cardStorage.card[element].controller.locked = false);
+    playablePlayerCards().forEach(
+      (element) => cardStorage.card[element].controller.locked = false,
+    );
   }
 
   Future<void> unshowPlayableCards({bool didPlay = true}) async {

@@ -1,11 +1,11 @@
 import 'package:eka_player_vs_bot/animations/card_animations.dart';
 import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
+import 'package:eka_player_vs_bot/game_logic/game_play.dart';
 import 'package:eka_player_vs_bot/holders/background.dart';
 import 'package:eka_player_vs_bot/holders/bot_cards_holder.dart';
 import 'package:eka_player_vs_bot/holders/draw_card_holder.dart';
 import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:eka_player_vs_bot/holders/top_card.dart';
-import 'package:eka_player_vs_bot/game_logic/game_start.dart';
 import 'package:eka_player_vs_bot/screens/result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eka_player_vs_bot/global.dart';
@@ -40,7 +40,21 @@ class _GameScreenState extends State<GameScreen> {
         cardStorage,
         Positions(cardStorage, MediaQuery.sizeOf(context)),
       );
-      await gameStart(cardAnimations);
+      move nextMove = move.gameStart;
+      GamePlay gamePlay = GamePlay(cardAnimations);
+      while(true){
+        switch(nextMove){
+          case move.botDrawTwo: nextMove = await gamePlay.botDrawTwo(); break;
+          case move.botTurn: nextMove = await gamePlay.botTurn(); break;
+          case move.playerDrawTwo: nextMove = await gamePlay.playerDrawTwo(); break;
+          case move.playerTurn: nextMove = await gamePlay.playerTurn(); break;
+          case move.playerWildCard: nextMove = await gamePlay.playerWildCard(); break;
+          case move.botWildCard: nextMove = await gamePlay.botWildCard(); break;
+          case move.playerWildDrawFour: nextMove = await gamePlay.playerWildDrawFour(); break;
+          case move.botWildDrawFour: nextMove = await gamePlay.botWildDrawFour(); break;
+          case move.gameStart: nextMove = await gamePlay.gameStart(); break;
+        }
+      }
     });
   }
 
