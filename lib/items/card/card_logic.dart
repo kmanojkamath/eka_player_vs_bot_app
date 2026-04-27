@@ -1,4 +1,4 @@
-import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
+import 'animated-cards/animated_card.dart';
 
 enum CardColor {
   red,
@@ -6,7 +6,7 @@ enum CardColor {
   blue,
   yellow,
   wild,
-} //Enum to represent card colors, including wild cards
+}
 
 class EkaCard {
   final int ci;
@@ -27,9 +27,8 @@ class EkaCard {
   EkaCard(
     this.ci,
     this.controller,
-  ); //Constructor to create a card from its index
+  );
 
-  /*Helper getters to identify card types based on value:*/
   bool get isNumber => value < 10;
   bool get isSkip => value == 10;
   bool get isReverse => value == 11;

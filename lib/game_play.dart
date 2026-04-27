@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:eka_player_vs_bot/animations/card_animations.dart';
-import 'package:eka_player_vs_bot/card/card_logic.dart';
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
+import 'items/card/card_animations/card_animations.dart';
+import 'items/card/card_logic.dart';
+import 'items/card/card_storage.dart';
 
 enum move {
   gameStart,

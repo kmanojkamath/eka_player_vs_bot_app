@@ -1,7 +1,7 @@
-import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
-import 'package:eka_player_vs_bot/card/card_logic.dart';
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
-import 'package:eka_player_vs_bot/holders/positions.dart';
+import 'package:eka_player_vs_bot/items/card/card-ui/card_widget.dart';
+import 'package:eka_player_vs_bot/items/card/card_logic.dart';
+import 'package:eka_player_vs_bot/items/card/card_storage.dart';
+import 'package:eka_player_vs_bot/layers/positions.dart';
 import 'package:flutter/material.dart';
 
 class ColorSelector extends StatefulWidget {

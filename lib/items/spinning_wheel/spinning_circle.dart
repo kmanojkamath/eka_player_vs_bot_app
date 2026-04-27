@@ -1,7 +1,7 @@
-import 'package:eka_player_vs_bot/toss/toss_circle.dart';
+import 'package:eka_player_vs_bot/items/spinning_wheel/spinning_wheel.dart';
 import 'package:flutter/material.dart';
 
-class TossPointerCircle extends CustomPainter {
+class PointerCircle extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawCircle(
@@ -29,9 +29,9 @@ class TossPointerCircle extends CustomPainter {
   }
 }
 
-class Tosser extends StatelessWidget {
+class SpinningCircle extends StatelessWidget {
   final double numberOfTurns;
-  const Tosser({super.key, required this.numberOfTurns});
+  const SpinningCircle({super.key, required this.numberOfTurns});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class Tosser extends StatelessWidget {
         SizedBox(
           width: size,
           height: size,
-          child: CustomPaint(painter: TossPointerCircle()),
+          child: CustomPaint(painter: PointerCircle()),
         ),
       ],
     );

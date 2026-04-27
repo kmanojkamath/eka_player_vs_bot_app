@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
-import 'package:eka_player_vs_bot/card/card_logic.dart';
-import 'package:eka_player_vs_bot/toss/tosser.dart';
+import '/items/card/card-ui/card_widget.dart';
+import '/items/card/card_logic.dart';
+import '/items/spinning_wheel/spinning_circle.dart';
+
 import 'package:flutter/material.dart';
 
 import 'game_screen.dart';
@@ -54,7 +55,7 @@ class _GameInitialiserState extends State<GameInitialiser> {
             ],
           ),
         ),
-        child: Center(child: Tosser(numberOfTurns: numberOfTurns)),
+        child: Center(child: SpinningCircle(numberOfTurns: numberOfTurns)),
       ),
     );
   }

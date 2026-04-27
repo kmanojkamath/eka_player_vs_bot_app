@@ -1,30 +1,19 @@
-import 'dart:async';
-
-import 'package:eka_player_vs_bot/card/card-ui/back_card_widget.dart';
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
+import '../card-ui/back_card_widget.dart';
 
 import 'package:flutter/material.dart';
 
-class BackCardController {
-  Future<void> Function(double, Duration, Curve)? changeScale;
-  Future<void> Function(Offset, Duration, Curve)? changePosition;
-  Future<void> Function(double, Duration, Curve)? changeAngle;
-  Future<void> Function(double, Duration, Curve)? changeWidthScale;
-}
+import 'animated_back_card.dart';
 
-class AnimatedBackCard extends StatefulWidget {
+class AnimatedBotCard extends StatefulWidget {
   final BackCardController _backCardController;
-
-  final CardStorage cardStorage;
 
   final double cardScale;
   final Offset cardPosition;
   final double cardAngle;
   final double cardWidthScale;
 
-  const AnimatedBackCard(
-    this._backCardController,
-    this.cardStorage, {
+  const AnimatedBotCard(
+    this._backCardController, {
     super.key,
     this.cardScale = 1,
     this.cardPosition = Offset.zero,
@@ -33,10 +22,10 @@ class AnimatedBackCard extends StatefulWidget {
   });
 
   @override
-  State<AnimatedBackCard> createState() => _AnimatedBackCardState();
+  State<AnimatedBotCard> createState() => _AnimatedBotCardState();
 }
 
-class _AnimatedBackCardState extends State<AnimatedBackCard>
+class _AnimatedBotCardState extends State<AnimatedBotCard>
     with TickerProviderStateMixin {
   late AnimationController _scaleController;
   late AnimationController _posController;
@@ -174,18 +163,7 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
         );
       },
 
-      child: GestureDetector(
-        onTap: () async {
-          if (widget.cardStorage.canDraw) {
-            widget.cardStorage.canDraw = false;
-            if (widget.cardStorage.selectedCard.value != -1)
-              widget.cardStorage.selectedCard.value = -1;
-            else
-              widget.cardStorage.selectedCard.value = -2;
-          }
-        },
-        child: BackCardWidget(),
-      ),
+      child: BackCardWidget(),
     );
   }
 }

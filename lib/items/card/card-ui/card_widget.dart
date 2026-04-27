@@ -1,14 +1,13 @@
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
-
+import '../animated-cards/animated_card.dart';
 import '../card_logic.dart';
+
 import 'card_symbols.dart';
 
 import 'package:flutter/material.dart';
 
 Color color(CardColor cardcolor) {
-  //Function to get the color of a card based on its color enum
   switch (cardcolor) {
     case CardColor.red:
       return Colors.red;
@@ -24,7 +23,6 @@ Color color(CardColor cardcolor) {
 }
 
 class EkaCardWidget extends StatelessWidget {
-  //Widget to display a card based on its index and height
   final EkaCard _card;
   const EkaCardWidget(this._card, {super.key}); //Default card height is 281
 

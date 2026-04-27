@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
+import 'package:eka_player_vs_bot/items/card/card_storage.dart';
 
 class Positions {
   final CardStorage cardStorage;

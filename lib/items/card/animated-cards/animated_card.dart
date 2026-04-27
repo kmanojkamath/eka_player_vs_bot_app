@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
-import 'package:eka_player_vs_bot/card/card_logic.dart';
+import '../card_storage.dart';
+import '../card_logic.dart';
+
 import 'package:flutter/material.dart';
 
 import '../card-ui/card_widget.dart';

@@ -5,13 +5,11 @@ import '../card_logic.dart';
 import 'package:flutter/material.dart';
 
 class BackCardWidget extends StatelessWidget {
-  //Widget to display a back of a card
   const BackCardWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      //Stack to layer the card background and symbols
       alignment: AlignmentGeometry.center,
       children: [
         Container(

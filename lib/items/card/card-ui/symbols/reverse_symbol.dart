@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ReverseSymbol extends CustomPainter {
-  //CustomPainter to draw the reverse symbol on reverse cards
   @override
   void paint(Canvas canvas, Size size) {
     double x = size.width / 4.2; //Base unit for symbol dimensions

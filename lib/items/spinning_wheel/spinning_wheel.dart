@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class TossCircle extends CustomPainter {
+class SpinningWheel extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawArc(
@@ -27,9 +27,9 @@ class TossCircle extends CustomPainter {
   }
 }
 
-class TossCircleWidget extends StatelessWidget {
+class SpinningWheelWidget extends StatelessWidget {
   final double size;
-  const TossCircleWidget({super.key, required this.size});
+  const SpinningWheelWidget({super.key, required this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +39,24 @@ class TossCircleWidget extends StatelessWidget {
         SizedBox(
           width: size,
           height: size,
-          child: CustomPaint(painter: TossCircle()),
+          child: CustomPaint(painter: SpinningWheel()),
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("Bot"),
-            Transform.rotate(angle: pi, child: Text("You")),
+            const Spacer(flex: 2),
+            const Text(
+              "Bot",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const Spacer(),
+            Transform.rotate(
+              angle: pi,
+              child: Text(
+                "You",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const Spacer(flex: 2),
           ],
         ),
       ],
@@ -64,7 +75,7 @@ class RotatingTossCircle extends StatelessWidget {
       turns: numberOfTurns,
       curve: Curves.easeOutExpo,
       duration: Duration(milliseconds: (numberOfTurns * 300).toInt()),
-      child: TossCircleWidget(size: size),
+      child: SpinningWheelWidget(size: size),
     );
   }
 }

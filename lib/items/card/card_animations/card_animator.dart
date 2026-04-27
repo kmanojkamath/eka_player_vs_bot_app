@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../card/animated-cards/animated_back_card.dart';
-import '../game_logic/card_storage.dart';
+import '../animated-cards/animated_back_card.dart';
+import '../card_storage.dart';
 
 class CardAnimator {
   final CardStorage cardStorage;

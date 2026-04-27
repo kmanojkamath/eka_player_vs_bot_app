@@ -1,6 +1,7 @@
-import 'package:eka_player_vs_bot/screens/launch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'screens/launch_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

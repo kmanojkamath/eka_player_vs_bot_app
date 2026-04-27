@@ -1,6 +1,8 @@
-import 'package:eka_player_vs_bot/card/animated-cards/animated_back_card.dart';
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
-import 'package:eka_player_vs_bot/holders/positions.dart';
+import '../animated-cards/animated_back_card.dart';
+import '../card_storage.dart';
+
+import '/layers/positions.dart';
+
 import 'package:flutter/material.dart';
 
 import 'card_animator.dart';

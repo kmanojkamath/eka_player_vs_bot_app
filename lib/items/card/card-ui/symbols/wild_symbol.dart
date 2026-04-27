@@ -1,12 +1,12 @@
-import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
+import '../card_widget.dart';
+
 import 'package:flutter/material.dart';
 
 import 'dart:math';
 
-import 'package:eka_player_vs_bot/card/card_logic.dart';
+import '/items/card/card_logic.dart';
 
 class WildSymbol extends CustomPainter {
-  //CustomPainter to draw the wild symbol on wild cards
   @override
   void paint(Canvas canvas, Size size) {
     //Rotate the canvas to draw the wild symbol at an angle

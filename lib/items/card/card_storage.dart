@@ -2,9 +2,10 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 
-import '../card/animated-cards/animated_back_card.dart';
-import '../card/animated-cards/animated_card.dart';
-import '../card/card_logic.dart';
+import 'animated-cards/animated_back_card.dart';
+import 'animated-cards/animated_card.dart';
+
+import 'card_logic.dart';
 
 class CardStorage {
   List<EkaCard> _card = List.generate(108, (i) => EkaCard(i, CardController()));

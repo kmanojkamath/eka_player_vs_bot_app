@@ -1,17 +1,17 @@
-import 'package:eka_player_vs_bot/card/animated-cards/animated_bot_card.dart';
-import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
-import 'package:eka_player_vs_bot/holders/positions.dart';
+import 'package:eka_player_vs_bot/items/card/animated-cards/animated_bot_card.dart';
+import 'package:eka_player_vs_bot/items/card/card_storage.dart';
+import 'package:eka_player_vs_bot/layers/positions.dart';
 
 import 'package:flutter/material.dart';
 
-class BotCardsHolder extends StatefulWidget {
+class BotCardsLayer extends StatefulWidget {
   final CardStorage cardStorage;
-  const BotCardsHolder(this.cardStorage, {super.key});
+  const BotCardsLayer(this.cardStorage, {super.key});
   @override
-  State<BotCardsHolder> createState() => _BotCardsHolderState();
+  State<BotCardsLayer> createState() => _BotCardsLayerState();
 }
 
-class _BotCardsHolderState extends State<BotCardsHolder> {
+class _BotCardsLayerState extends State<BotCardsLayer> {
   @override
   Widget build(BuildContext context) {
     Positions positions = Positions(
