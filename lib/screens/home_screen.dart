@@ -1,8 +1,8 @@
 import 'package:eka_player_vs_bot/screens/game_initialiser.dart';
 import 'package:flutter/material.dart';
 
-import '../card/card-ui/card_widget.dart';
-import '../card/card_logic.dart';
+import '../items/card/card-ui/card_widget.dart';
+import '../items/card/card_logic.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

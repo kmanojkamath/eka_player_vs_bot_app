@@ -1,4 +1,3 @@
-import 'package:eka_player_vs_bot/global.dart';
 import 'package:flutter/material.dart';
 
 import 'game_initialiser.dart';
@@ -9,7 +8,6 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    reset();
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
