@@ -1,12 +1,12 @@
 import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
-import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:flutter/material.dart';
 
 class ColorSelector extends StatefulWidget {
-  const ColorSelector({super.key});
+  final CardStorage cardStorage;
+  const ColorSelector(this.cardStorage,{super.key});
 
   @override
   State<ColorSelector> createState() => _ColorSelectorState();
@@ -18,7 +18,7 @@ class _ColorSelectorState extends State<ColorSelector> {
   @override
   void initState() {
     super.initState();
-    showColorSelector = () async {
+    widget.cardStorage.showColorSelector = () async {
       setState(() {
         show = true;
       });
@@ -50,7 +50,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () async {
-                    selectedColor.value = CardColor.red;
+                    widget.cardStorage.selectedColor.value = CardColor.red;
                     await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;
@@ -87,7 +87,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () async {
-                    selectedColor.value = CardColor.green;
+                    widget.cardStorage.selectedColor.value = CardColor.green;
                     await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;
@@ -124,7 +124,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () async {
-                    selectedColor.value = CardColor.blue;
+                    widget.cardStorage.selectedColor.value = CardColor.blue;
                     await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;
@@ -161,7 +161,7 @@ class _ColorSelectorState extends State<ColorSelector> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () async {
-                    selectedColor.value = CardColor.yellow;
+                    widget.cardStorage.selectedColor.value = CardColor.yellow;
                     await Future.delayed(Duration(milliseconds: 101));
                     setState(() {
                       start = false;

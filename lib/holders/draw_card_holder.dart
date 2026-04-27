@@ -19,6 +19,7 @@ class _DrawCardsHolderState extends State<DrawCardHolder> {
           children: [
             AnimatedBackCard(
               widget.cardStorage.stationary,
+              widget.cardStorage,
               cardScale: 0.5,
               cardPosition: Offset(
                 constraints.maxWidth * 0.75,
@@ -27,6 +28,7 @@ class _DrawCardsHolderState extends State<DrawCardHolder> {
             ),
             AnimatedBackCard(
               widget.cardStorage.backOfDrawingCard,
+              widget.cardStorage,
               cardScale: 0.5,
               cardPosition: Offset(
                 constraints.maxWidth * 0.75,

@@ -6,8 +6,6 @@ import 'package:eka_player_vs_bot/animations/card_animations.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 
-import '../global.dart';
-
 enum move {
   gameStart,
   playerTurn,
@@ -18,6 +16,8 @@ enum move {
   botWildCard,
   playerWildDrawFour,
   botWildDrawFour,
+  gameWin,
+  gameLose
 }
 
 class GamePlay {
@@ -64,7 +64,7 @@ class GamePlay {
     final top = cardStorage.topCard;
     final card = cardStorage.card[ci];
 
-    return (top.isWild && (card.color == selectedColor.value || card.isWild)) ||
+    return (top.isWild && (card.color == cardStorage.selectedColor.value || card.isWild)) ||
         card.isWild ||
         card.color == top.color ||
         card.value == top.value;
@@ -76,7 +76,7 @@ class GamePlay {
   List<int> playablePlayerCards() =>
       cardStorage.playerPile.where((ci) => isPlayable(ci)).toList();
 
-  Future<move> gameStart() async {
+  Future<move> gameStart(bool botStarts) async {
     for (int i = 0; i < 7; i++) {
       int ci = cardStorage.deckPile.removeLast();
       cardStorage.playerPile.add(ci);
@@ -116,18 +116,18 @@ class GamePlay {
   }
 
   Future<void> waitForPlayer() {
-    if (playablePlayerCards().isEmpty) canDraw = true;
+    if (playablePlayerCards().isEmpty) cardStorage.canDraw = true;
 
     final completer = Completer<int>();
 
     late VoidCallback listener;
 
     listener = () {
-      selectedCard.removeListener(listener);
-      completer.complete(selectedCard.value);
+      cardStorage.selectedCard.removeListener(listener);
+      completer.complete(cardStorage.selectedCard.value);
     };
 
-    selectedCard.addListener(listener);
+    cardStorage.selectedCard.addListener(listener);
     return completer.future;
   }
 
@@ -136,7 +136,7 @@ class GamePlay {
 
     await waitForPlayer();
 
-    if (selectedCard.value < 0) {
+    if (cardStorage.selectedCard.value < 0) {
       if (cardStorage.deckPile.isEmpty) reshuffle();
 
       int ci = cardStorage.deckPile.removeLast();
@@ -152,18 +152,18 @@ class GamePlay {
     } else {
       await cardAnimations.playerPlayCard();
 
-      cardStorage.topCard = selectedCard.value;
+      cardStorage.topCard = cardStorage.selectedCard.value;
 
-      cardStorage.playerPile.remove(selectedCard.value);
+      cardStorage.playerPile.remove(cardStorage.selectedCard.value);
 
-      updateTopCardWidget.call(cardStorage.topCard.ci);
+      cardStorage.changeDisplayedTopCard();
 
-      if (cardStorage.playerPile.isEmpty) showResultScreen.call(true);
+      if (cardStorage.playerPile.isEmpty) return move.gameWin;
 
       await cardAnimations.unshowPlayableCards();
 
-      cardStorage.playerPile.remove(selectedCard.value);
-      cardStorage.topCard = selectedCard.value;
+      cardStorage.playerPile.remove(cardStorage.selectedCard.value);
+      cardStorage.topCard = cardStorage.selectedCard.value;
 
       if (cardStorage.topCard.isDrawTwo) {
         return move.botDrawTwo;
@@ -202,7 +202,7 @@ class GamePlay {
 
       await cardAnimations.botPlayCard();
 
-      if (cardStorage.botPile.isEmpty) showResultScreen.call(false);
+      if (cardStorage.botPile.isEmpty) return move.gameLose;
 
       cardStorage.botPile.remove(ci);
       cardStorage.topCard = ci;
@@ -256,18 +256,18 @@ class GamePlay {
 
     late VoidCallback listener;
     listener = () {
-      selectedColor.removeListener(listener);
-      completer.complete(selectedColor.value);
+      cardStorage.selectedColor.removeListener(listener);
+      completer.complete(cardStorage.selectedColor.value);
     };
 
-    selectedColor.addListener(listener);
+    cardStorage.selectedColor.addListener(listener);
     return completer.future;
   }
 
   Future<move> playerWildCard() async {
-    selectedColor.value = CardColor.wild;
+    cardStorage.selectedColor.value = CardColor.wild;
 
-    showColorSelector.call();
+    cardStorage.showColorSelector.call();
 
     await waitForColor();
 
@@ -277,15 +277,15 @@ class GamePlay {
   }
 
   Future<move> botWildCard() async {
-    selectedColor.value = await mediumBotColor(cardStorage);
+    cardStorage.selectedColor.value = await mediumBotColor(cardStorage);
 
     return move.playerTurn;
   }
 
   Future<move> playerWildDrawFour() async {
-    selectedColor.value = CardColor.wild;
+    cardStorage.selectedColor.value = CardColor.wild;
 
-    showColorSelector.call();
+    cardStorage.showColorSelector.call();
 
     await waitForColor();
 
@@ -306,7 +306,7 @@ class GamePlay {
   }
 
   Future<move> botWildDrawFour() async {
-    selectedColor.value = await mediumBotColor(cardStorage);
+    cardStorage.selectedColor.value = await mediumBotColor(cardStorage);
 
     if (cardStorage.deckPile.length < 4) reshuffle();
 

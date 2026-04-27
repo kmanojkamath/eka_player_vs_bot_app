@@ -1,8 +1,6 @@
-import 'package:eka_player_vs_bot/card/animated-cards/animated_card.dart';
 import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
 import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
-import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:flutter/material.dart';
 
@@ -16,15 +14,9 @@ class TopCard extends StatefulWidget {
 }
 
 class _TopCardState extends State<TopCard> {
-  late int ci;
   @override
   void initState() {
     super.initState();
-    updateTopCardWidget = (int i) {
-      setState(() {
-        ci = i;
-      });
-    };
   }
 
   @override
@@ -38,11 +30,12 @@ class _TopCardState extends State<TopCard> {
         Positioned(
           left: positions.topCardPosition.dx,
           top: positions.topCardPosition.dy,
-          child: widget.cardStorage.discardPile.isEmpty
-              ? SizedBox.shrink()
-              : Transform.scale(
+          child: Transform.scale(
                   scale: positions.topCardScale,
-                  child: EkaCardWidget(EkaCard(ci, CardController())),
+                  child: ValueListenableBuilder<EkaCard>(
+                    valueListenable: widget.cardStorage.displayedTopCard,
+                    builder: (context, value, child) => value.ci>=0? EkaCardWidget(value):SizedBox.shrink()
+                  ),
                 ),
         ),
       ],

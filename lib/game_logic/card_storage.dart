@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'package:flutter/material.dart';
+
 import '../card/animated-cards/animated_back_card.dart';
 import '../card/animated-cards/animated_card.dart';
 import '../card/card_logic.dart';
@@ -30,4 +32,20 @@ class CardStorage {
   List<BackCardController> botCard = List.generate(27, (i) {
     return BackCardController();
   });
+
+  ValueNotifier<EkaCard> displayedTopCard = ValueNotifier(
+    EkaCard(-1, CardController()),
+  );
+
+  void changeDisplayedTopCard() {
+    displayedTopCard.value = topCard;
+  }
+
+  bool canDraw = false;
+
+  ValueNotifier<int> selectedCard = ValueNotifier(-1);
+
+  ValueNotifier<CardColor> selectedColor = ValueNotifier(CardColor.wild);
+
+  late Function showColorSelector;
 }

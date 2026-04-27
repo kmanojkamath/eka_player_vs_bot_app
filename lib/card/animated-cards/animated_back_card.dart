@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:eka_player_vs_bot/card/card-ui/back_card_widget.dart';
-import 'package:eka_player_vs_bot/global.dart';
+import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 
 import 'package:flutter/material.dart';
 
@@ -15,13 +15,16 @@ class BackCardController {
 class AnimatedBackCard extends StatefulWidget {
   final BackCardController _backCardController;
 
+  final CardStorage cardStorage;
+
   final double cardScale;
   final Offset cardPosition;
   final double cardAngle;
   final double cardWidthScale;
 
   const AnimatedBackCard(
-    this._backCardController,{
+    this._backCardController,
+    this.cardStorage, {
     super.key,
     this.cardScale = 1,
     this.cardPosition = Offset.zero,
@@ -173,10 +176,12 @@ class _AnimatedBackCardState extends State<AnimatedBackCard>
 
       child: GestureDetector(
         onTap: () async {
-          if (canDraw) {
-            canDraw = false;
-            if(selectedCard.value != -1) selectedCard.value = -1;
-            else selectedCard.value = -2;
+          if (widget.cardStorage.canDraw) {
+            widget.cardStorage.canDraw = false;
+            if (widget.cardStorage.selectedCard.value != -1)
+              widget.cardStorage.selectedCard.value = -1;
+            else
+              widget.cardStorage.selectedCard.value = -2;
           }
         },
         child: BackCardWidget(),

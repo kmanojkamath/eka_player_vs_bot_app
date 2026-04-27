@@ -3,7 +3,6 @@ import 'package:eka_player_vs_bot/game_logic/card_storage.dart';
 import 'package:eka_player_vs_bot/holders/positions.dart';
 import 'package:flutter/material.dart';
 
-import '../global.dart';
 import 'card_animator.dart';
 
 class CardAnimations {
@@ -96,14 +95,14 @@ class CardAnimations {
 
     await Future.wait([
       ...cardAnimator.moveCard(
-        selectedCard.value,
+        cardStorage.selectedCard.value,
         position: positions.topCardPosition,
         angle: 0,
         scale: positions.topCardScale,
         duration: 300,
       ),
       ...playablePlayerCards()
-          .where((i) => i != selectedCard.value)
+          .where((i) => i != cardStorage.selectedCard.value)
           .expand(
             (ci) => cardAnimator.moveCard(
               ci,
@@ -151,7 +150,7 @@ class CardAnimations {
       Curves.linear,
     );
 
-    updateTopCardWidget.call(cardStorage.topCard.ci);
+    cardStorage.changeDisplayedTopCard();
 
     await Future.wait(
       cardAnimator.moveTopCard(
@@ -197,7 +196,7 @@ class CardAnimations {
       ),
     );
 
-    updateTopCardWidget.call(cardStorage.topCard.ci);
+    cardStorage.changeDisplayedTopCard();
 
     await Future.wait(
       cardAnimator.moveTopCard(
@@ -212,7 +211,7 @@ class CardAnimations {
     final top = cardStorage.topCard;
     final card = cardStorage.card[ci];
 
-    return (top.isWild && (card.color == selectedColor.value || card.isWild)) ||
+    return (top.isWild && (card.color == cardStorage.selectedColor.value || card.isWild)) ||
         card.isWild ||
         card.color == top.color ||
         card.value == top.value;
@@ -257,7 +256,7 @@ class CardAnimations {
     if (didPlay) {
       await Future.wait(
         cardAnimator.moveCard(
-          selectedCard.value,
+          cardStorage.selectedCard.value,
           position: positions.drawPosition,
           scale: positions.drawScale,
           widthScale: 0,

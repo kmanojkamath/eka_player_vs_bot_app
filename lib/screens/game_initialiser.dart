@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:eka_player_vs_bot/card/card-ui/card_widget.dart';
 import 'package:eka_player_vs_bot/card/card_logic.dart';
-import 'package:eka_player_vs_bot/global.dart';
 import 'package:eka_player_vs_bot/toss/tosser.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +16,7 @@ class GameInitialiser extends StatefulWidget {
 }
 
 class _GameInitialiserState extends State<GameInitialiser> {
+  bool botStarts = false;
   double numberOfTurns = 0;
   @override
   void initState() {
@@ -25,17 +25,14 @@ class _GameInitialiserState extends State<GameInitialiser> {
       setState(() {
         numberOfTurns = 9 + Random().nextDouble() * 6;
       });
-      if ((numberOfTurns - 9) / 6 < 0.25 && (numberOfTurns - 9) / 6 >= 0.75) {
-        botStarts = false;
-      } else {
+      if (numberOfTurns - numberOfTurns.floor() < 0.25 && numberOfTurns - numberOfTurns.floor() > 0.75)
         botStarts = true;
-      }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Timer(Duration(milliseconds: (numberOfTurns * 325).toInt()), () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => GameScreen()),
+          MaterialPageRoute(builder: (context) => GameScreen(botStarts)),
         );
       });
     });
